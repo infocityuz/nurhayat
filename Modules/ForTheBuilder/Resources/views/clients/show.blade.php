@@ -222,7 +222,7 @@
                                     <div class="d-flex">
                                         <div class="lidiMarginRight2">
                                             @if ($val->type == 1)
-                                                <div class="informatsiyaKlienta" style="height: 224px">
+                                                <div class="informatsiyaKlienta">
                                                     <div class="d-flex justify-content-between informatsiyaKlientaBorderBottom">
                                                         <div class="klientNameInformatsia">{{ translate('Responsible') }}</div>
                                                         <div class="klientNameInformatsia">
@@ -242,7 +242,7 @@
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Email') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ $val->email }}</div>
+                                                        <div class="klientNameInformatsia2">{{ (($val->email) ? $val->email : translate('Not specified')) }}</div>
                                                     </div>
 
                                                     <div class="d-flex justify-content-between">
@@ -298,7 +298,7 @@
                                                     </div>
                                                 </div>
                                             @elseif ($val->type == 2)
-                                                <div class="informatsiyaKlienta" style="height: 420px">
+                                                <div class="informatsiyaKlienta">
                                                     <div class="d-flex justify-content-between informatsiyaKlientaBorderBottom">
                                                         <div class="klientNameInformatsia">{{ translate('Responsible') }}</div>
                                                         <div class="klientNameInformatsia">
@@ -318,7 +318,7 @@
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Email') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ $val->email }}</div>
+                                                        <div class="klientNameInformatsia2">{{ (($val->email) ? $val->email : translate('Not specified')) }}</div>
                                                     </div>
 
                                                     <div class="d-flex justify-content-between">
@@ -338,15 +338,15 @@
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Series number') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ $val->series_number ?? '' }}</div>
+                                                        <div class="klientNameInformatsia2">{{ (($val->series_number) ? $val->series_number : translate('Not specified')) }}</div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Issued by') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ $val->issued_by ?? '' }}</div>
+                                                        <div class="klientNameInformatsia2">{{ (($val->issued_by) ? $val->issued_by : translate('Not specified'))  }}</div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('INN') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ $val->inn ?? '' }}</div>
+                                                        <div class="klientNameInformatsia2">{{ (($val->inn) ? $val->inn : translate('Not specified')) }}</div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Budget') }}</div>
@@ -396,7 +396,7 @@
                                                     </div>
                                                 </div>
                                             @elseif($val->type == 3)
-                                                <div class="informatsiyaKlienta" style="height: 470px">
+                                                <div class="informatsiyaKlienta">
                                                     <div class="d-flex justify-content-between informatsiyaKlientaBorderBottom">
                                                         <div class="klientNameInformatsia">{{ translate('Responsible') }}</div>
                                                         <div class="klientNameInformatsia">
@@ -416,7 +416,9 @@
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Email') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ $val->email }}</div>
+                                                        <div class="klientNameInformatsia2">
+                                                            {{ (($val->email) ? $val->email : translate('Not specified')) }}
+                                                        </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Contract') }}</div>
@@ -441,15 +443,15 @@
 
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Series number') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ $val->series_number ?? '' }}</div>
+                                                        <div class="klientNameInformatsia2">{{ (($val->series_number) ? $val->series_number : translate('Not specified')) }}</div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Issued by') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ $val->issued_by ?? '' }}</div>
+                                                        <div class="klientNameInformatsia2">{{ (($val->issued_by) ? $val->issued_by : translate('Not specified'))  }}</div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('INN') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ $val->inn ?? '' }}</div>
+                                                        <div class="klientNameInformatsia2">{{ (($val->inn) ? $val->inn : translate('Not specified')) }}</div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Budget') }}</div>
@@ -499,7 +501,7 @@
                                                             @endif
                                                         @endif
                                                     </div>
-                                                    <div>
+                                                    <div class="pl-2">
                                                         <form action="{{route('forthebuilder.clients.storePhoto')}}" method="POST" class="d-flex justify-content-around" style="padding: 4px 20px 0px 0px" enctype="multipart/form-data">
                                                             @csrf
                                                             @method('POST')
@@ -528,8 +530,8 @@
                                                                     </a>
                                                                 @endif
                                                             @endif
-                                                            <input name="store_file" type="file" style="padding-top: 10px" required>
-                                                            <button class="inforMatsiyaClienti2MiniPlusButton" type="submit">
+                                                            <input name="store_file" type="file" style="padding-top: 10px" required class="form-control">
+                                                            <button class="inforMatsiyaClienti2MiniPlusButton ml-2" type="submit">
                                                                 {{translate('Attach')}}</button>
                                                         </form>
                                                     </div>

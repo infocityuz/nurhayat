@@ -78,8 +78,13 @@ class CurrencyController extends Controller
             $model->USD = $request->USD;
             $model->SUM = $request->sum_uzb;
         }
-        $model->save();
-        return redirect()->route('forthebuilder.currency.index');
+        if($model->save()){
+            return true;
+        }
+        else{
+            return false;
+        }
+        // return redirect()->route('forthebuilder.currency.index');
     }
 
 

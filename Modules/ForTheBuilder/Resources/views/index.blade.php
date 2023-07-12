@@ -122,7 +122,14 @@
                         <h3>{{translate('Successful transactions')}}</h3>
                         <h2>{{$data['house_flat_status_sold']}}</h2>
                         <hr>
-                        <p>{{ number_format($data['price'],0,'.',' ')}}</p>
+                        <p>
+                            {{ number_format($data['price'],0,'.',' ')}}
+                            @php 
+                                if (isset($currency)) {
+                                    echo (($currency->SUM) ? translate(' sum') : translate(' usd'));
+                                }
+                            @endphp 
+                        </p>
                     </div>
                 </div>
 

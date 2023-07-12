@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\ForTheBuilder\Entities\House;
 use Modules\ForTheBuilder\Entities\HouseFlat;
 use Modules\ForTheBuilder\Entities\Leads;
+use Modules\ForTheBuilder\Entities\Currency;
 use Modules\ForTheBuilder\Entities\LeadStatus;
 use Illuminate\Support\Facades\DB;
 use Modules\ForTheBuilder\Entities\Constants;
@@ -411,26 +412,17 @@ class ForTheBuilderController extends Controller
             translate('November'), 
             translate('December')
         ];
-        // dd($data);
-        // dd($core_chart);
-
-
-        // $boughFlatsCount = HouseFlat::where('status',2)->count();
-        // $newFlatsCount = HouseFlat::where('status',0)->count();
-        // $busyFlatsCount = HouseFlat::where('status',1)->count();
-
-        // $newLeadsCount = LeadStatus::where('name','Новый')->first();
-
-        // if(!empty($newLeadsCount)){
-        //     $newLeadsCount = $newLeadsCount->leads->count();
-        // }
         
+        $currency = Currency::first();
+        
+
         return view('forthebuilder::index',[
             // 'newLeadsCount' => $newLeadsCount,
             // 'boughFlatsCount' => $boughFlatsCount,
             // 'newFlatsCount' => $newFlatsCount,
             // 'busyFlatsCount' => $busyFlatsCount,
             'data'=>$data,
+            'currency'=>$currency,
             'months'=> json_encode($months),
              'all_notifications' => $this->getNotification()
         ]);

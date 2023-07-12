@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="sozdatBronyaData">
+            <div class="sozdatBronyaData" style="width: 1050px;">
                 <div style="width: 100%;" class="d-flex">
                     <div>
                         @php
@@ -38,7 +38,7 @@
                         {{-- @dd($priceForM2) --}}
                         <div class="sozdatImyaSpsok">
                             <h3 class="sozdatImyaSpisokH3">{{ translate('Client Full Name') }}</h3>
-                            <div class="sozdatImyaSpisokInput1272">
+                            <div class="sozdatImyaSpisokInput1272" style="width: 517px;">
                                 @php
                                     echo ($model->client_first_name ?? '') . ' ' . ($model->client_last_name ?? '') . ' ' . ($model->client_middle_name ?? '');
                                 @endphp
@@ -49,15 +49,15 @@
                             <div class="lidiMarginRight1272">
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Phone') }}</h3>
-                                    <div class="sozdatImyaSpisokInputTel1272">{{ $model->phone ?? '' }}</div>
+                                    <div class="sozdatImyaSpisokInputTel1272">{{ (($model->phone) ? $model->phone : translate('Not specified')) }}</div>
                                 </div>
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3"> {{ translate('Passport data ') }}</h3>
-                                    <div class="sozdatImyaSpisokInputPasport1272">{{ $model->series_number ?? '' }}</div>
+                                    <div class="sozdatImyaSpisokInputTel1272">{{ (($model->series_number) ? $model->series_number : translate('Not specified')) }}</div>
                                 </div>
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Booking period') }}</h3>
-                                    <div class="sozdatImyaSpisokInputPasport1272">
+                                    <div class="sozdatImyaSpisokInputTel1272">
 
                                         @php
                                             if ($model->expire_dates) {
@@ -128,7 +128,7 @@
                         {{-- <img class="homeSozdatImage1272" {{$model->guid}} ? src="{{ asset('/uploads/house-flat/' . $model->house_id . '/' . $model->guid) }}" :  alt="House"> --}}
                         <div class="d-flex dropdownsBron">
                             <div class="dropdown">
-                                <button class="btn modalYearSelect2 dropdown-toggle" type="button" id="dropdownMenuButton"
+                                <button style="width: 190px;" class="btn modalYearSelect2 dropdown-toggle" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ translate('Booking status') }}</button>
                                 <div class="dropdown-menu dropdownBodyKalendar" aria-labelledby="dropdownMenuButton"
                                     x-placement="bottom-start"

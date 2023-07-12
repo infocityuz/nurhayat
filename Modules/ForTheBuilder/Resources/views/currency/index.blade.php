@@ -45,6 +45,11 @@
                             {{ translate('Date') }}
                         </div>
                     </div>
+                    <div>
+                        <div class="kursValyutaUsd">
+                            {{ translate('Action') }}
+                        </div>
+                    </div>
                 </div>
 
                 <div class="kursValyutaData">
@@ -68,6 +73,25 @@
                                 <div class="kursValyutaWhite">{{ date('d.m.Y H:i', strtotime($model->created_at)) }}</div>
                             </div>
                         </div>
+
+                        <div>
+                            <div class="kursValyutaUsd">
+                                <a href="#" class="seaDiv mr-3" id="currencyUpdateButton" title="update" style="text-align: center">
+                        
+                                <img class="mt-1" width="20" height="20"
+                                    src="{{ asset('/backend-assets/forthebuilders/images/edit.png') }}" alt="Edit">
+                            </a>
+                            <form style="display: inline-block;" action="{{ route('forthebuilder.currency.destroy') }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="seaDiv btn p-0 border-0 delete_currency" title="delete">
+                                    <img class="mt-1" width="20" height="20"
+                                        src="{{ asset('/backend-assets/forthebuilders/images/trash.png') }}" alt="Trash">
+                                </button>
+                            </form>
+                            </div>
+                        </div>
                     @endif
                 </div>
 
@@ -81,6 +105,11 @@
                         <div class="kursValyutaUsd">
                             <input type="text" value="" class="kursValyutaWhite currencyUzs" data-status="SUM">
                             {{-- <div class="kursValyutaWhite">{{$model->SUM}}</div> --}}
+                        </div>
+                        <div>
+                            <div class="kursValyutaUsd">
+                                <div class="kursValyutaWhite">{{ date('d.m.Y H:i') }}</div>
+                            </div>
                         </div>
                     </div>
 
@@ -103,21 +132,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <a href="#" class="seaDiv" id="currencyUpdateButton" title="update"
-                        style="margin-right: 10px; text-align: center">
-                        {{-- {{ route('forthebuilder.currency.create') }} --}}
-                        <img class="mt-1" width="20" height="20"
-                            src="{{ asset('/backend-assets/forthebuilders/images/edit.png') }}" alt="Edit">
-                    </a>
-                    <form style="display: inline-block;" action="{{ route('forthebuilder.currency.destroy') }}"
-                        method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <div style="margin-right: 10px; text-align: center" type="submit" class="seaDiv" title="delete">
-                            <img class="mt-1" width="20" height="20"
-                                src="{{ asset('/backend-assets/forthebuilders/images/trash.png') }}" alt="Trash">
-                        </div>
-                    </form>
+                    
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 @extends('forthebuilder::layouts.forthebuilder')
 <div style="margin: 50px 100px; padding: 0 100px;" id="DivIdToPrint">
+  <div style="margin: 50px;">
   <center>
     <h2 style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
       SHARTNOMA
@@ -401,7 +402,7 @@
   </div>
  
 </div>    
-
+</div>
 
 <div class="url_div" data-url="{{ $url }}"></div>
 <!-- </html> -->

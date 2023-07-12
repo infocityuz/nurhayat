@@ -1411,7 +1411,10 @@
                     type: 'POST',
                     success: function(data) {
                         if (data == true) {
-                            location.reload()
+                            window.location.reload()
+                        }
+                        else{
+                            alert({{ translate('Error') }})
                         }
                     },
                 });

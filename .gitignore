@@ -22,5 +22,6 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 composer.lock
-/config/database.php
+config/database.php
 storage/framework/
+

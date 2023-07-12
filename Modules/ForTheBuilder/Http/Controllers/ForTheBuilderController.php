@@ -833,6 +833,20 @@ class ForTheBuilderController extends Controller
                 }
                 
             }
+            $months = [
+                translate('January'), 
+                translate('February'), 
+                translate('March'), 
+                translate('April'), 
+                translate('May'), 
+                translate('June'), 
+                translate('July'), 
+                translate('August'), 
+                translate('September'), 
+                translate('October'), 
+                translate('November'), 
+                translate('December')
+            ];
 
 
             $data = [
@@ -862,6 +876,7 @@ class ForTheBuilderController extends Controller
 
          return view('forthebuilder::filtr',[
             'data' => $data,
+            'months' => json_encode($months),
             'all_notifications' => $this->getNotification()
         ]);
     }

@@ -491,10 +491,12 @@ class HouseFlatController extends Controller
         // dd($date_picker);
 
         $user= Auth::user();
-        $user_name=$user->first_name;
-        // dd($user_name); 
-        // echo "<pre>";
-        return view('forthebuilder::house-flat.print', [
+        $user_name = $user->first_name;
+        $phone_number = $user->phone_number;
+        
+
+
+        return view('forthebuilder::house-flat.new-print', [
             'model' => $model,
             // 'currency' => $currency,
             'date' => $date_picker,
@@ -502,6 +504,7 @@ class HouseFlatController extends Controller
             'house'=>$house,
             'guid'=>$guid,
             'user_name'=>$user_name,
+            'phone_number'=>$phone_number,
             'coupon' => $request->coupon,
             'coupon_percent' => $request->coupon_percent,
             'all_notifications' => $this->getNotification()

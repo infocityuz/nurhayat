@@ -34,6 +34,12 @@
 
 <div id="DivIdToPrint" style="width: 100%;">
     <img style="position: absolute; top: 0; left: 0; width: 100%; z-index: -1" src="{{'/backend-assets/img/word/nurhayat.png'}}" alt="">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div style="width: 85%; margin: 200px auto;">
         <table style="border-collapse: collapse;width: 100%;">
             <tr>

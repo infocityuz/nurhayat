@@ -177,8 +177,6 @@
         <div style="width: 100%;font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: right;">
             Телефон: {{ (($phone_number) ? $phone_number : '+998781475050') }}
         </div>
-        <br>
-        <br>
         
         <table style="width: 100%;">
             <tr>

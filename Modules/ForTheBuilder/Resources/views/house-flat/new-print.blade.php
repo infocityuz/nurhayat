@@ -47,46 +47,46 @@
         <br>
         <table border="1" style="border-collapse: collapse; width: 100%;">
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: right; border: 0;padding-right: 10px;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: right; border: 0;padding-right: 10px;">
                     Блок: {{ $house->corpus ?? '' }}
                 </td>
                 
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: left; border: 0;padding-left: 10px;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: left; border: 0;padding-left: 10px;">
                     Этаж: {{ $model->floor }}
                 </td>
             </tr>
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: right; border: 0;padding-right: 10px;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: right; border: 0;padding-right: 10px;">
                     Площадь квартиры: {{ $areas->total }} 
                 </td>
                 
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: left; border: 0;padding-left: 10px;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: left; border: 0;padding-left: 10px;">
                     Количество комнат: {{ $model->room_count }}
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center; border: 0;">
+                <td colspan="2" style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center; border: 0;">
                     Цена за 1 м2: {{ number_format($price_100,0,'',' ') }}
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center;">
+                <td colspan="2" style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center;">
                     100% Оплата <span style="color: #CEA87E;">(cкидка 15%)</span>
                 </td>
             </tr>
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     Цена за 1м2: 
                 </td>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     {{ number_format($price_100,0,'',' ') }}
                 </td>
             </tr>
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     Общая стоимость: 
                 </td>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     @php 
                         $full_price_100 = $full_price_100 - (($full_price_100/100)*15);
                     @endphp
@@ -95,23 +95,23 @@
             </tr>
 
             <tr>
-                <td colspan="2" style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center;">
+                <td colspan="2" style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center;">
                     70% Оплата <span style="color: #CEA87E;">(cкидка 10%)</span>
                 </td>
             </tr>
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     Цена за 1м2: 
                 </td>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     {{ number_format($price_70,0,'',' ') }}
                 </td>
             </tr>
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     Общая стоимость: 
                 </td>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     @php 
                         // $full_price_70 = $full_price_70 - (($full_price_70/100)*10);
                     @endphp
@@ -120,23 +120,23 @@
             </tr>
 
             <tr>
-                <td colspan="2" style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center;">
+                <td colspan="2" style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center;">
                     50% Оплата <span style="color: #CEA87E;">(cкидка 5%)</span>
                 </td>
             </tr>
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     Цена за 1м2: 
                 </td>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     {{ number_format($price_50,0,'',' ') }}
                 </td>
             </tr>
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     Общая стоимость: 
                 </td>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     @php 
                         // $full_price_70 = $full_price_70 - (($full_price_70/100)*10);
                     @endphp
@@ -145,23 +145,23 @@
             </tr>
 
             <tr>
-                <td colspan="2" style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center;">
+                <td colspan="2" style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold;text-align: center;">
                     30% Оплата
                 </td>
             </tr>
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     Цена за 1м2: 
                 </td>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     {{ number_format($price_30,0,'',' ') }}
                 </td>
             </tr>
             <tr>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     Общая стоимость: 
                 </td>
-                <td style="padding: 10px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
+                <td style="padding: 5px 5px; font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: center;">
                     @php 
                         // $full_price_70 = $full_price_70 - (($full_price_70/100)*10);
                     @endphp

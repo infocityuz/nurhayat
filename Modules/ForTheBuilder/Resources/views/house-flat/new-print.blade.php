@@ -38,8 +38,6 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
     <div style="width: 85%; margin: 200px auto;">
         <table style="border-collapse: collapse;width: 100%;">
             <tr>

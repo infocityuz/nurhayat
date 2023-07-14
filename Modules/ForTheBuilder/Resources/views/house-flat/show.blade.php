@@ -8,17 +8,11 @@
     {{ translate('JK') }}
 @endsection
 <style>
-    .jkDataEdit1 {
-        height: 100% !important;
-    }
-
+    
     .trashFlex {
         margin-top: -90px !important;
     }
 
-    .jkEditData {
-        min-height: 0% !important;
-    }
 
     .select-items {
         background-color: transparent !important;

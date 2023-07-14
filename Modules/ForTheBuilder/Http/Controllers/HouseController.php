@@ -347,6 +347,8 @@ class HouseController extends Controller
             }
         }
 
+
+
         // for ($i = 1; $i <= $model->entrance_count; $i++)
         //     for ($j = $model->floor_count; $j >= 1; $j--)
         //         $arr['list'][$i]['list'][$j] = [];
@@ -355,6 +357,8 @@ class HouseController extends Controller
         $count_bookings = 0;
         $count_free = 0;
         $count_solds = 0;
+        $count_commercial = 0;
+        $count_park = 0;
 
         $entrance_all = 0;
         $entrance_bookings = 0;
@@ -370,6 +374,7 @@ class HouseController extends Controller
         // $entrance_count = 0;
         // $floor_count = 0;
         // pre($flats);
+
         foreach ($flats as $val) {
             $count_all++;
             if ($val->status == HouseFlat::STATUS_BOOKING)
@@ -378,6 +383,13 @@ class HouseController extends Controller
                 $count_free++;
             else if ($val->status == HouseFlat::STATUS_SOLD)
                 $count_solds++;
+            if ($val->room_count == 'c')
+                $count_commercial++;
+            if ($val->room_count == 'p'){                
+                $count_park++;
+            }
+
+            
 
             if (!in_array($val->entrance, $entranceArr)) {
                 $entranceArr[] = $val->entrance;
@@ -407,6 +419,15 @@ class HouseController extends Controller
             if ($val->floor == 0)
                 $f_j = translate('basement');
 
+            if ($val->room_count == 'c') {
+                $f_j = translate('Commercial');                
+            }
+
+            if ($val->room_count == 'p') {
+                $f_j = translate('Park');                
+            }
+
+
             $arr['list'][$val->entrance]['entrance_all'] = $entrance_all;
             $arr['list'][$val->entrance]['entrance_bookings'] = $entrance_bookings;
             $arr['list'][$val->entrance]['entrance_free'] = $entrance_free;
@@ -414,11 +435,19 @@ class HouseController extends Controller
             $arr['list'][$val->entrance]['entrance'] = $val->entrance;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['id'] = $val->id;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['color_status'] = $val->status;
+            if ($val->room_count == 'c') {
+                $arr['list'][$val->entrance]['list'][$f_j][$n]['color_status'] = 3;
+            }
+            if ($val->room_count == 'p') {
+                $arr['list'][$val->entrance]['list'][$f_j][$n]['color_status'] = 4;
+            }
             $arr['list'][$val->entrance]['list'][$f_j][$n]['number_of_flat'] = $val->number_of_flat;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['areas'] = $val->areas;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['price'] = $val->price;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['contract_number'] = $val->contract_number;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['room_count'] = $val->room_count;
+
+            
 
             $n++;
         }
@@ -427,7 +456,10 @@ class HouseController extends Controller
         $arr['count_bookings'] = $count_bookings;
         $arr['count_free'] = $count_free;
         $arr['count_solds'] = $count_solds;
-        // pre($flats);
+        $arr['count_commercial'] = $count_commercial;
+        $arr['count_park'] = $count_park;
+        
+        // pre($arr);
 
         $colors = ['', '', ''];
         if (!empty($statusColors)) {
@@ -435,7 +467,8 @@ class HouseController extends Controller
                 $colors[$value->status] = $value->color;
             }
         }
-        // pre($colors);
+
+
         // return view('forthebuilder::house.show-more-second', [
         return view('forthebuilder::house.show-more', [
             'model' => $model,
@@ -461,6 +494,8 @@ class HouseController extends Controller
         $count_bookings = 0;
         $count_free = 0;
         $count_solds = 0;
+        $count_commercial = 0;
+        $count_park = 0;
 
         $entrance_all = 0;
         $entrance_bookings = 0;
@@ -485,6 +520,12 @@ class HouseController extends Controller
             else if ($val->status == HouseFlat::STATUS_SOLD)
                 $count_solds++;
 
+            if ($val->room_count == 'c')
+                $count_commercial++;
+            if ($val->room_count == 'p'){                
+                $count_park++;
+            }
+
             if (!in_array($val->entrance, $entranceArr)) {
                 $entranceArr[] = $val->entrance;
                 $entrance_all = 0;
@@ -508,10 +549,18 @@ class HouseController extends Controller
 
             $f_j = $val->floor;
             if ($val->floor > $model->floor_count)
-                $f_j = translate('attic');
+                $f_j = translate('attic'); //Мансарда
 
             if ($val->floor == 0)
-                $f_j = translate('basement');
+                $f_j = translate('basement'); //подвал
+
+            if ($val->room_count == 'c') {
+                $f_j = translate('Commercial');                
+            }
+
+            if ($val->room_count == 'p') {
+                $f_j = translate('Park');                
+            }
 
             $areas = json_decode($val->areas);
             // pre($val->ares_price);
@@ -525,6 +574,14 @@ class HouseController extends Controller
             $arr['list'][$f_j][$n]['house_house_name'] = $model->name;
             $arr['list'][$f_j][$n]['doc_number'] = $val->doc_number;
             $arr['list'][$f_j][$n]['color_status'] = $val->status;
+
+            if ($val->room_count == 'c') {
+                $arr['list'][$f_j][$n]['color_status'] = 3;
+            }
+            if ($val->room_count == 'p') {
+                $arr['list'][$f_j][$n]['color_status'] = 4;
+            }
+
             $arr['list'][$f_j][$n]['number_of_flat'] = $val->number_of_flat;
             $arr['list'][$f_j][$n]['areas'] = $areas->total;
             $arr['list'][$f_j][$n]['price'] = $val->price;
@@ -549,17 +606,21 @@ class HouseController extends Controller
         $arr['count_bookings'] = $count_bookings;
         $arr['count_free'] = $count_free;
         $arr['count_solds'] = $count_solds;
+        $arr['count_commercial'] = $count_commercial;
+        $arr['count_park'] = $count_park;
+
         $colors = [];
         if (!empty($statusColors))
             foreach ($statusColors as $value)
                 $colors[$value->status] = $value->color;
 
-        // pre($arr);
+        
         return view('forthebuilder::house.show-details', [
             'model' => $model,
             'flats' => $flats,
             'arr' => $arr,
             'colors' => $colors,
+            'house_id' => $house_id,
             'status' => '',
             'all_notifications' => $this->getNotification()
         ]);

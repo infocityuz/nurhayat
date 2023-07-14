@@ -7,26 +7,26 @@
 <style>
 #chat_area
 {
-	min-height: 300px;
-	/*overflow-y: scroll*/;
+    min-height: 300px;
+    /*overflow-y: scroll*/;
 }
 
 #chat_history
 {
     width: 100%;
-	min-height: 200px; 
-	max-height: 230px; 
-	overflow-y: scroll; 
-	margin-bottom:16px; 
-	background-color: #ffffff;
-	padding: 16px;
+    min-height: 200px; 
+    max-height: 230px; 
+    overflow-y: scroll; 
+    margin-bottom:16px; 
+    background-color: #ffffff;
+    padding: 16px;
 }
 
 #user_list
 {
-	min-height: 500px; 
-	max-height: 750px; 
-	overflow-y: scroll;
+    min-height: 500px; 
+    max-height: 750px; 
+    overflow-y: scroll;
 }
 .sender_chat
 {
@@ -58,7 +58,7 @@
             @include('forthebuilder::layouts.content.header')
             
 
-            <div class="container-fluid">
+            <div class="container-fluid mb-3">
                 <div class="row m-0 align-items-center">
                     
                     <div class="col-8 py-4">
@@ -67,32 +67,38 @@
                     <div class="col-4">
                         <div class="ml-auto" id="CurrentDayToday">
                             {{translate('Date')}}: 
-                            <input type="text" class="ml-2 form-control daterange" value="{{ date('d.m.Y',strtotime($data['start'])).' - '.date('d.m.Y',strtotime($data['end'])) }}">
+                            <input type="text" class="ml-2 form-control daterange" value="{{ date('d.m.Y', strtotime($data['start'])).' - '.date('d.m.Y',strtotime($data['end'])) }}">
                         </div>
                     </div>
                     
                 </div>
-                <div class="row m-0">
-                    <div class="col-12">
-                        <div class="profileData">
-                            <div>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="profileData p-2">
+                            <div class="h-100 d-flex flex-column justify-content-center">
                                 @if(isset($model->id))
                                     @php
                                         $sms_avatar = public_path('uploads/user/'.$model->id.'/s_'.$model->avatar);
                                     @endphp
                                     @if(file_exists($sms_avatar))
-                                        <img class="profileImageData"
+                                        <img class="profileImageData mr-3"
                                              src="{{ asset('uploads/user/'.$model->id.'/s_'.$model->avatar) }}"
                                              alt="">
                                     @else
-                                        <img class="profileImageData" src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" alt="">
+                                        @php
+                                            $gender_img = 'men.png';
+                                            if ($model->gender == 2) {
+                                                $gender_img = 'women.png';
+                                            }
+                                        @endphp
+                                        <img class="profileImageData mr-3" src="{{ asset('/backend-assets/img/'.$gender_img) }}" alt="">
                                     @endif
                                 @else
-                                    <img class="profileImageData" src="{{asset('/backend-assets/forthebuilders/images/X.png')}}" alt="">
+                                    <img class="profileImageData mr-3" src="{{asset('/backend-assets/img/men.png')}}" alt="">
                                 @endif
                             </div>
 
-                            <div>
+                            <div class="h-100 d-flex flex-column justify-content-center">
                                 <h3 class="profileNameData">{{$model->first_name.' '}} {{$model->last_name.' '}} {{$model->middle_name}}</h3>
                                 <p class="profileOtherData">{{$model->role->name}}</p>
                                 @php
@@ -122,32 +128,59 @@
                                 @if(isset($year_old))
                                     <p class="profileOtherData">{{$year_old.' '.translate('years old')}}</p>
                                 @else
-                                    <p class="profileOtherData"></p>
+                                    <p class="profileOtherData">23123131312</p>
                                 @endif
                             </div>
 
-                            <div style=" margin-top: -40px;">
+                            <div class="ml-auto h-100 d-flex flex-column justify-content-end align-items-end">
                                 @if(isset($model->phone_number))
-                                    <p class="profileOtherData">{{'+998 '.$model->phone_number}}</p>
+                                    <p class="profileOtherData mt-0 mb-2">{{'+998 '.$model->phone_number}}</p>
                                 @else
-                                    <p class="profileOtherData"></p>
+                                    <p class="profileOtherData mt-0 mb-2">4234234234244</p>
                                 @endif
-                                <p class="profileOtherData">{{$model->email}}</p>
+                                <p class="profileOtherData mt-0 mb-2">{{$model->email}}</p>
                                 <div class="buttonProfileEditBlue">
                                     <a href="{{route('forthebuilder.user.edit',$model->id)}}">
                                         <img src="{{asset('/backend-assets/forthebuilders/images/edit.png')}}" alt="Edit">
                                     </a>
                                 </div>
                             </div>
+                        </div>    
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="chartGreenMoyiZadachi">
+                            <h5 class="MoyiZadachiTextCartGreenH5">{{translate('Tasks')}}</h5>
+                            <div class="d-flex">
+                                <div class="d-flex justify-content-center">
+                                    <canvas class="chartGreenImageOne" id="circleCharts">
+                                    </canvas>
+                                </div>
+                                <div>
+                                    <div style="width: 200px; margin-top: 60px;" class="d-flex mobileWidthLg justify-content-between ovalNameRadius">
+                                        <p class="greenChartZadachiName">{{translate('Completed tasks')}}</p>
+                                        <div class="greenChartGreenRadius"></div>
+                                    </div>
+                                    <div style="width: 200px; margin-top: -15px;" class="d-flex mobileWidthLg justify-content-between">
+                                        <p class="greenChartZadachiName">{{translate('Tasks not completed')}}</p>
+                                        <div class="greenChartRedRadius"></div>
+                                    </div>      
+                                </div>
+                                
+                            </div>
+                            
+                              
                         </div>
+                    </div>
+                    <div class="col-sm-12">
                         <div class="d-flex">
                             @if($user->id == $model->id)
-                                <h2 class="panelUprText mx-0">{{translate('My stats')}}</h2>
+                                <h2 class="panelUprText m-0 mb-2">{{translate('My stats')}}</h2>
                             @else
-                                <h2 class="panelUprText mx-0">{{translate('Stats')}}</h2>
+                                <h2 class="panelUprText m-0 mb-2">{{translate('Stats')}}</h2>
                             @endif
-                        </div>        
+                        </div>            
                     </div>
+                    
                 </div>
 
                 <div class="row mb-5">
@@ -208,40 +241,16 @@
                         </div>
                     </div>
                 </div>
-                
-                <br>
-                <div class="row w-100 m-0">
-                    <div class="col-4 pl-0">
-                        <div class="chartGreenMoyiZadachi">
-                            <h5 class="MoyiZadachiTextCartGreenH5">{{translate('Tasks')}}</h5>
-                            <div class="d-flex justify-content-center">
-                                <canvas class="chartGreenImageOne" id="circleCharts">
-                                </canvas>
-                            </div>
-                            <div style="width: 200px; margin-top: 60px;" class="d-flex mobileWidthLg justify-content-between ovalNameRadius">
-                                <p class="greenChartZadachiName">{{translate('Completed tasks')}}</p>
-                                <div class="greenChartGreenRadius"></div>
-                            </div>
-                            <div style="width: 200px; margin-top: -15px;" class="d-flex mobileWidthLg justify-content-between">
-                                <p class="greenChartZadachiName">{{translate('Tasks not completed')}}</p>
-                                <div class="greenChartRedRadius"></div>
-                            </div>    
-                        </div>
-                    </div>
-
-                    <div class="col-8 pr-0">
-                        <div class="greenChartMoyiProdaj">
-                            <h5 class="MoyiZadachiTextCartGreenH5">{{translate('Tasks')}}</h5>
-                            <canvas class="greenImageChartTwo" id="graphicCharts">
-                            </canvas>    
-                        </div>
-                        
-                    </div>
-                </div>
             </div>
         </div>
     </div>
     <div id="div_id" data-id="@php echo $id; @endphp"></div>
+    <div id="lang_app" lang="{{ translate('Apply') }}"></div>
+    <div id="lang_cancel" lang="{{ translate('Cancel') }}"></div>
+    <div id="lang_months" lang="{{ $months }}"></div>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -309,9 +318,10 @@
             ]);
 
             var options = {
-                title: 'Chess opening moves',
+                title: '',
               width: 400,
               height: 400,
+              slices: {0: {color: '#FF9D9D'}, 1:{color: '#F7FF9D'}, 2:{color: '#B1FF9D'}},
               legend: { position: 'bottom'},
 
               bars: 'vertical', // Required for Material Bar Charts.
@@ -383,14 +393,14 @@
                         console.log(data.data[count].user_image);
                         if(data.data[count].user_image == null)
                         {
-                            user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`;
+                            user_image = `<img src="{{ asset('/backend-assets/img/not_user.png') }}" width="35" class="rounded-circle mr-3" />`;
                             // {{asset('uploads/user/'.$model->id.'/s_'.$model->avatar)}}
                            
                         }
                         else
                         {
-                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.data[count].id+`/s_`+data.data[count].user_image+`" width="35" class="rounded-circle" />`;
-                            // user_image = `<img src="{{ asset('images/no-image.jpg') }}" width="35" class="rounded-circle" />`;
+                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.data[count].id+`/s_`+data.data[count].user_image+`" width="35" class="rounded-circle mr-3" />`;
+                            // user_image = `<img src="{{ asset('images/no-image.jpg') }}" width="35" class="rounded-circle mr-3" />`;
                         }
 
 
@@ -464,10 +474,10 @@
                                 
                     if(data.sender_connection[0].avatar== null)
                     {
-                        user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                        user_image = `<img src="{{ asset('/backend-assets/img/not_user.png') }}" width="35" class="rounded-circle mr-3" />`
                     }
                     else{
-                        user_image = `<img src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection[0].avatar+`" width="35" class="rounded-circle" />`
+                        user_image = `<img src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection[0].avatar+`" width="35" class="rounded-circle mr-3" />`
                     }
 
                     html += `
@@ -497,10 +507,10 @@
                                     `
                     if(data.sender_connection[0].avatar== null)
                     {
-                        user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                        user_image = `<img src="{{ asset('/backend-assets/img/not_user.png') }}" width="35" class="rounded-circle mr-3" />`
                     }
                     else{
-                        user_image = `<img src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection[0].avatar+`" width="35" class="rounded-circle" />`
+                        user_image = `<img src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection[0].avatar+`" width="35" class="rounded-circle mr-3" />`
                     }
                         html += `
                         &nbsp; `+user_image+`
@@ -581,10 +591,10 @@
                                     
                         if(data.sender_connection.avatar== null)
                         {
-                            user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('/backend-assets/img/not_user.png') }}" width="35" class="rounded-circle mr-3" />`
                         }
                         else{
-                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.chat_history[count].user_from_id+`/s_`+data.sender_connection.avatar+`" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.chat_history[count].user_from_id+`/s_`+data.sender_connection.avatar+`" width="35" class="rounded-circle mr-3" />`
                         }
 
                         html += `
@@ -609,10 +619,10 @@
                                     `
                         if(data.receiver_connection.avatar== null)
                         {
-                            user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('/backend-assets/img/not_user.png') }}" width="35" class="rounded-circle mr-3" />`
                         }
                         else{
-                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.chat_history[count].user_from_id+`/s_`+data.receiver_connection.avatar+`" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.chat_history[count].user_from_id+`/s_`+data.receiver_connection.avatar+`" width="35" class="rounded-circle mr-3" />`
                         }
                         html += `
                         &nbsp; `+user_image+`
@@ -681,10 +691,10 @@
                                 
                     if(data.sender_connection.avatar== null)
                     {
-                        user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                        user_image = `<img src="{{ asset('/backend-assets/img/not_user.png') }}" width="35" class="rounded-circle mr-3" />`
                     }
                     else{
-                        user_image = `<img src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection.avatar+`" width="35" class="rounded-circle" />`
+                        user_image = `<img src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection.avatar+`" width="35" class="rounded-circle mr-3" />`
                     }
 
                     html += `
@@ -714,10 +724,10 @@
                                     `
                         if(data.sender_connection.avatar== null)
                         {
-                            user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('/backend-assets/img/not_user.png') }}" width="35" class="rounded-circle mr-3" />`
                         }
                         else{
-                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection.avatar+`" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection.avatar+`" width="35" class="rounded-circle mr-3" />`
                         }
 
 
@@ -804,10 +814,10 @@
                                     
                         if(data.group_chat_history[count].avatar== null)
                         {
-                            user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('/backend-assets/img/not_user.png') }}" width="35" class="rounded-circle mr-3" />`
                         }
                         else{
-                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.group_chat_history[count].user_from_id+`/s_`+data.group_chat_history[count].avatar+`" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.group_chat_history[count].user_from_id+`/s_`+data.group_chat_history[count].avatar+`" width="35" class="rounded-circle mr-3" />`
                         }
 
                         html += `
@@ -834,10 +844,10 @@
                                     `
                         if(data.group_chat_history[count].avatar== null)
                         {
-                            user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('/backend-assets/img/not_user.png') }}" width="35" class="rounded-circle mr-3" />`
                         }
                         else{
-                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.group_chat_history[count].user_from_id+`/s_`+data.group_chat_history[count].avatar+`" width="35" class="rounded-circle" />`
+                            user_image = `<img src="{{ asset('uploads/user/') }}/`+data.group_chat_history[count].user_from_id+`/s_`+data.group_chat_history[count].avatar+`" width="35" class="rounded-circle mr-3" />`
                         }
                         html += `
                         &nbsp; `+user_image+`
@@ -1027,7 +1037,7 @@
         let page_name = 'user';
         const ctx = document.getElementById('circleCharts');
             let circleCharts = document.getElementById("circleCharts").getContext('2d');
-            let graphicCharts = document.getElementById("graphicCharts").getContext('2d');
+            // let graphicCharts = document.getElementById("graphicCharts").getContext('2d');
             let tasks = '{{$tasks}}';
             let taskdate = [];
             let taskcount = [];
@@ -1052,26 +1062,26 @@
             @endif
             circleCharts.canvas.parentNode.style.height = '144px';
             circleCharts.canvas.parentNode.style.width = '244px';
-            let one = new Chart(graphicCharts, {
-                type: 'line',
-                data: {
-                    labels: [1,2,3,4,5,6,7,8,9,10,11,12],
-                    datasets:[{
-                        label: 'Tasks',
-                        data: [m['01'], m['02'], m['03'], m['04'], m['05'], m['06'], m['07'], m['08'], m['09'], m['10'],  m['11'],  m['12']],
-                        backgroundColor: [
-                            'green'
-                        ],
-                        borderColor: [
-                            'green',
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: true,
-                }
-            })
+            // let one = new Chart(graphicCharts, {
+            //     type: 'line',
+            //     data: {
+            //         labels: [1,2,3,4,5,6,7,8,9,10,11,12],
+            //         datasets:[{
+            //             label: 'Tasks',
+            //             data: [m['01'], m['02'], m['03'], m['04'], m['05'], m['06'], m['07'], m['08'], m['09'], m['10'],  m['11'],  m['12']],
+            //             backgroundColor: [
+            //                 'green'
+            //             ],
+            //             borderColor: [
+            //                 'green',
+            //             ],
+            //             borderWidth: 1
+            //         }]
+            //     },
+            //     options: {
+            //         maintainAspectRatio: true,
+            //     }
+            // })
             let two = new Chart(circleCharts, {
                 type: 'doughnut',
                 data: {
@@ -1096,11 +1106,17 @@
             })
 
     </script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
     <script>
         $(document).ready(function(){
+            
             $('.daterange').daterangepicker({
                 locale: {
-                  format: 'DD.MM.YYYY'
+                    format: 'DD.MM.YYYY',
+                     // "customRangeLabel": "Custom",
+                    "applyLabel": $('#lang_app').attr('lang'),
+                    "cancelLabel": $('#lang_cancel').attr('lang'),
+                    "monthNames": $('#lang_months').attr('lang')
                 }
             });
 
@@ -1118,6 +1134,8 @@
         //     type: 'GET'
         // });
       })
+
+      console.log($('#lang_months').attr('lang'))
     </script>
    
 @endsection

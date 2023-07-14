@@ -58,17 +58,19 @@ class DealController extends Controller
 
         $user=Auth::user();
         // $user->role_id==Constants::MANAGER
+        
         if ($user->role_id==Constants::MANAGER) {
-            // dd($user);
+            
             $models = Deal::with('house_flat', 'user')
             ->where('status', Constants::ACTIVE)
             ->where('user_id',$user->id)
             // ->select('id', 'user_id', 'house_flat_id', 'price_sell', 'date_deal', 'description')
             ->orderBy('type', 'asc')->get(); //->paginate(config('params.pagination'));
         }else {
-            $models = Deal::with('house_flat', 'user')->where('status', Constants::ACTIVE)
-            // ->select('id', 'user_id', 'house_flat_id', 'price_sell', 'date_deal', 'description')
+            $models = Deal::with('house_flat', 'user')
+            // ->where('status', Constants::ACTIVE)
             ->orderBy('type', 'asc')->get(); //->paginate(config('params.pagination'));
+            
            
         }
 
@@ -79,7 +81,9 @@ class DealController extends Controller
         ];
         if (!empty($models)) {
             $i = 0;
+            $arr_p = [];
             foreach ($models as $key => $value) {
+                $arr_p[] = $value->id;
                 $keyArr = '';
                 $class = '';
                 switch ($value->type) {
@@ -113,6 +117,7 @@ class DealController extends Controller
                 }
             }
         }
+
 
         return view('forthebuilder::deal.index', [
             'arr' => $arr,
@@ -388,7 +393,7 @@ class DealController extends Controller
             $model->price_sell = $data['price_sell'];
             $model->price_sell_m2 = $data['price_sell_m2'];
             $model->agreement_number = $data['house_flat_number'];
-            $model->date_deal = $data['date_deal'];
+            $model->date_deal = date('Y-m-d H:i:00',strtotime($data['date_deal']));
             $model->description = $data['description'];
             $model->type = Constants::MAKE_DEAL;
             $model->status = Constants::COMPLETE;
@@ -666,7 +671,7 @@ class DealController extends Controller
             $model->client_id = $client_id;
             $model->price_sell = $data['price_sell'];
             $model->agreement_number = $data['agreement_number'];
-            $model->date_deal = $data['date_deal'];
+            $model->date_deal = date('Y-m-d H:i:00', strtotime($data['date_deal']));
             $model->description = $data['description'];
             // $model->type = Constants::MAKE_DEAL;
             $model->status = Constants::COMPLETE;

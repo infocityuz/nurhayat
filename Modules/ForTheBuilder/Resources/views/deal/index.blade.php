@@ -50,7 +50,7 @@
                                                             <b>{{ $val['responsible'] }}</b>
                                                         </p>
                                                         <h3 class="lidiClientov">{{ $val['client'] }}</h3>
-                                                        <p class="zadachiBlueTime">{{ translate('day') }}: {{ $val['day'] }}
+                                                        <p class="zadachiBlueTime mb-0">{{ translate('day') }}: {{ $val['day'] }}
                                                             <br>
                                                             {{ translate('time') }}: {{ $val['time'] }}
                                                         </p>

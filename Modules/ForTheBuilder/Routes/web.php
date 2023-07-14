@@ -69,6 +69,7 @@ Route::group(['prefix' => 'forthebuilder', 'middleware' => ['auth', 'forthebuild
     Route::get('/paystatus-api', [InstallmentPlanController::class, 'paystatusApi'])->name('forthebuilder.installment-plan.paystatusApi');
     // filtr-date-dashboard
     Route::get('/filtr/{date}', [ForTheBuilderController::class, 'filtr'])->name('forthebuilder.filtr');
+    Route::get('/clear-notification', [ForTheBuilderController::class, 'clearNotification'])->name('forthebuilder.clearNotification');
 
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', [UserController::class, 'index'])->name('forthebuilder.user.index');
@@ -206,6 +207,7 @@ Route::group(['prefix' => 'forthebuilder', 'middleware' => ['auth', 'forthebuild
         Route::get('/create', [HouseFlatController::class, 'create'])->name('forthebuilder.house-flat.create');
         Route::post('/store', [HouseFlatController::class, 'store'])->name('forthebuilder.house-flat.store');
         Route::get('/edit/{id}', [HouseFlatController::class, 'edit'])->name('forthebuilder.house-flat.edit');
+        Route::get('/add/{id}', [HouseFlatController::class, 'add'])->name('forthebuilder.house-flat.add');
         Route::put('/update/{id}', [HouseFlatController::class, 'update'])->name('forthebuilder.house-flat.update');
         Route::put('/update-status/{id}', [HouseFlatController::class, 'updateStatus'])->name('forthebuilder.house-flat.update-status');
         Route::get('/show/{id}', [HouseFlatController::class, 'show'])->name('forthebuilder.house-flat.show');
@@ -217,6 +219,7 @@ Route::group(['prefix' => 'forthebuilder', 'middleware' => ['auth', 'forthebuild
         Route::post('/file-delete/{key}', [HouseFlatController::class, 'fileDelete'])->name('forthebuilder.house-flat.file-delete');
         Route::post('/printPdf/{key}', [HouseFlatController::class, 'printPdf'])->name('forthebuilder.house-flat.printPdf');
         Route::post('/print/{key}', [HouseFlatController::class, 'print'])->name('forthebuilder.house-flat.print');
+        Route::post('/saved', [HouseFlatController::class, 'saved'])->name('forthebuilder.house-flat.saved');
     });
 
     Route::group(['prefix' => 'lead-status'], function () {

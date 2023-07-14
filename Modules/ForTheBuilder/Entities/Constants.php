@@ -55,10 +55,10 @@ class Constants extends Model
     const PAYMENT_100 = 100;
 
     // connection DB
-    const NEW_1='nurh_icstroyc_newhouse_test';
-    const FOR_1='nurh_icstroyc_forthebuilder_test';
-    const NEW_2='nurh_icstroyc_newhouse_test';
-    const FOR_2='nurh_icstroyc_forthebuilder_test';
+    const NEW_1='icstroyc_newhouse_test';
+    const FOR_1='icstroyc_forthebuilder_test';
+    const NEW_2='icstroyc_newhouse_test';
+    const FOR_2='icstroyc_forthebuilder_test';
     
     // user role
     const ADMIN=1;

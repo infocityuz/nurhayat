@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center" style="margin-bottom: 15px; margin-left: 130px;">
+            <div class="d-flex mb-3 pl-5" >
                 <button class="vseButton btn-filter btn" data-filter="all">
                     {{ translate('All') }} ( {{ $arr['count_all'] }} )
                 </button>
@@ -35,10 +35,16 @@
                 <button class="prodnoButton btn-filter btn" style="background: {{ $colors[2] ?? '' }};" data-filter="2">
                     {{ translate('Sold') }} ( {{ $arr['count_solds'] }} )
                 </button>
-                {{-- (20 кв.) --}}
+                
+                <button class="prodnoButton btn-filter btn" style="background: {{ $colors[3] ?? '' }};" data-filter="3">
+                    {{ translate('Commercial') }} ( {{ $arr['count_commercial'] }} )
+                </button>
+                <button class="prodnoButton btn-filter btn" style="background: {{ $colors[4] ?? '' }};" data-filter="4">
+                    {{ translate('Park') }} ( {{ $arr['count_park'] }} )
+                </button>
             </div>
 
-            <div class="sozdatJkDaleData">
+            <div class="sozdatJkDaleData" style="height: auto;">
                 <div class="d-flex">
                     <div class="dalePodyedzEtaj" style="margin: 55px 20px 0 0;">
                         @empty(!$arr['entrance_count'])
@@ -73,9 +79,10 @@
                                         
                                         @empty(!$arr['list'])
                                             @foreach ($val['list'] as $key2 => $val2)
+                                            @if(!empty($val2))
                                                 <div class="d-flex">
                                                     @if ($first)
-                                                        <h2 class="etajNameNomerDale" style="width: 120px; margin-top: 10px;">{{ $key2 }}</h2>
+                                                        <h2 class="etajNameNomerDale" style="width: 150px; margin-top: 10px;">{{ $key2 }}</h2>
                                                     @endif
                                                     @foreach ($val2 as $val3)
                                                         <div style="min-width: 60px; height: 60px;">
@@ -87,6 +94,7 @@
                                                         </div>
                                                     @endforeach
                                                 </div>
+                                                @endif
                                             @endforeach
                                         @endempty
                                     </div>

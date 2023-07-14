@@ -19,6 +19,7 @@ class Task extends Model
         'title',
         'type',
         'task_date',
+        'task_date_2',
         'status',
     ];
 

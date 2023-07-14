@@ -7,6 +7,9 @@
     use Modules\ForTheBuilder\Entities\Constants;
 @endphp
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/select/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/fullcalendar/main.css')}}">
     <style>
         .deal_status {
             display: flex;
@@ -125,6 +128,18 @@
             width: 600px;
         }
 
+        .select2-container--default{
+            width: 100% !important;
+        }
+        .bootstrap-datetimepicker-widget{
+            position: absolute !important;
+            top: 100% !important;
+            z-index: 9999 !important;
+            background: #fff !important;
+        }
+        .bootstrap-datetimepicker-widget *{
+            background: #fff !important;
+        }
 
 
     </style>
@@ -843,65 +858,49 @@
                                                            value="{{ $client->id }}">
                                                     <div class="add-task">
                                                         <div>
-                                                            <input name="task_date" id="task_date" type="date"
-                                                                   class="choise-date @error('task_date') error-data-input is-invalid @enderror"
-                                                                   value="{{ old('task_date') }}">&nbsp;
-                                                            <span id="show_task_date"></span>
-                                                            {{ translate('for') }} &nbsp;
-                                                            <a href="#" class="choise-manager"> .......... </a>
-                                                            <img src="{{ asset('/backend-assets/forthebuilders/images/Call.png') }}"
-                                                                 alt="Phone Calling" id="calling_or_meeting"
-                                                                 width="18px">
-                                                            <a href="#" class="choise-phone">&nbsp;
-                                                                {{ translate('Call') }} </a>
+                                                            <div class="row">
+                                                                <div class="col-4">
+                                                                    <label>{{ translate('Task on')}}</label>
+                                                                    <input name="task_date_2" id="task_date" type="text"
+                                                                           class="choise-date form-control w-100 @error('task_date') error-data-input is-invalid @enderror" value="{{ date('d.m.Y H:i') }}">
+                                                                    <span id="show_task_date"></span>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <label for="">{{ translate('for') }}</label>
+                                                                    <select name="performer_id" id="performer_id"
+                                                                        data-placeholder="" class="form-control select2 @error('performer_id') is-invalid error-data-input @enderror">
+                                                                    @empty(!$users)
+                                                                        @foreach ($users as $user)
+                                                                            <option value="{{ $user->id }}"
+                                                                                    {{ Auth::user()->id == $user->id ? 'selected' : '' }}>
+                                                                                {{ $user->first_name }}</option>
+                                                                        @endforeach
+                                                                    @endempty
+                                                                    </select>        
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <label for="">{{translate('Call')}}</label>
+                                                                    <select name="type" id="type" class="form-control select2">
+                                                                        <option value="Связаться">{{ translate('Call') }}
+                                                                        </option>
+                                                                        <option value="Встреча">{{ translate('Meeting') }}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                             
+                                                            
                                                         </div>
                                                     </div>
-                                                    <select name="performer_id" id="performer_id"
-                                                            data-placeholder="{{ __('locale.select') }}"
-                                                            class="form-control select2 d-none @error('performer_id') is-invalid error-data-input @enderror">
-                                                        <option value="">------------</option>
-                                                        @empty(!$users)
-                                                            @foreach ($users as $user)
-                                                                <option value="{{ $user->id }}"
-                                                                        {{ Auth::user()->id == $user->id ? 'selected' : '' }}>
-                                                                    {{ $user->first_name }}</option>
-                                                            @endforeach
-                                                        @endempty
-                                                    </select>
-                                                    <select name="type" id="type" data-placeholder="{{ __('locale.select') }}"
-                                                            class="form-control select2 d-none @error('type') is-invalid error-data-input @enderror">
-                                                        <option value="Связаться">{{ translate('Call') }}
-                                                        </option>
-                                                        <option value="Встреча">{{ translate('Meeting') }}
-                                                        </option>
-                                                    </select>
-                                                    <textarea cols="4" class="form-control task_title" name="task_title" rows="1"></textarea>
+                                                    
+                                                    <label class="mt-2">{{ translate('Title') }}</label>
+                                                    <textarea cols="4" class="form-control task_title m-0" name="task_title" rows="1"></textarea>
                                                     <div class="d-flex justify-content-end mt-2">
                                                         <button class="smsZadacha task_put_button">{{ translate('Put') }}</button>
                                                     </div>
                                                 </div>
-                                                {{-- <div class="smsBigBlue">
-
-                                                    <div class="textare" contenteditable="true" id="textarea">
-                                                        <div class="btn-group dropup">
-                                                            <div class="chatButton" id="chatButton">
-                                                                <a class="d-flex chatDropDown dropdown-toggle"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <div class="smsDlya">
-                                                                        <span class="smsInputText">{{ translate('Chat') }}</span>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div contenteditable="false" class="d-flex textareaButttonSend">
-                                                            <a class="smsZadacha smsTask">{{ translate('Task') }}</a>
-                                                            <a class="smsZadacha d-none smsChat">{{ translate('Chat') }}</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="profileChartChat pt-0 mt-0" id="chat_area" >
-                                                </div> --}}
+                                                
                                             </form>
                                             <div class="smsBigBlue" style="width: 650px; height: 120px; display:block">
 
@@ -1058,8 +1057,25 @@
         </div>
     </div>
     <div class="backdrop d-none" id="backdrop"></div>
-    <script src="{{ asset('/backend-assets/forthebuilders/javascript/jquery-3.6.1.js') }}"></script>
+    <script src="{{ asset('/backend-assets/forthebuilders/javascript/jquery-3.6.1.js')}}" type="text/javascript"></script>
+<script src="{{asset('/backend-assets/forthebuilders/select/js/select2.min.js')}}"></script>
+<script src="{{asset('/backend-assets/forthebuilders/toastr/js/toastr.min.js')}}"></script>
+<script src="{{asset('/backend-assets/forthebuilders/moment/js/moment.min.js')}}"></script>
+<script defer src="{{asset('/backend-assets/forthebuilders/fullcalendar/main.js')}}"></script>
+<script src='{{asset('/backend-assets/plugins/fullcalendar/locales/ru.js')}}'></script>
+    
     <script>
+        $(function(){
+             $('#task_date').datetimepicker({
+                "allowInputToggle": true,
+                "showClose": false,
+                "showClear": true,
+                "showTodayButton": true,
+                "format": "DD.MM.YYYY HH:mm",
+            });
+            $('.select2').select2()
+        })
+
         let budget_checkbox = document.getElementById('budget_checkbox')
         let budget_input = document.getElementById('budget_input')
         let budget_input_hidden = document.getElementById('budget_input_hidden')
@@ -1092,8 +1108,8 @@
         let performer_id = document.getElementById('performer_id')
         let type = document.getElementById('type')
         let calling_or_meeting = document.getElementById('calling_or_meeting')
-        let choise_manager = document.getElementsByClassName('choise-manager')
-        let choise_phone = document.getElementsByClassName('choise-phone')
+        // let choise_manager = document.getElementsByClassName('choise-manager')
+        // let choise_phone = document.getElementsByClassName('choise-phone')
         let client_info_click = document.getElementsByClassName('clientInfoClick')
         let open_answer = document.getElementsByClassName('openAnswer')
         let answer_input = document.getElementsByClassName('answer_input')
@@ -1206,30 +1222,30 @@
                 }
             })
         }
-        choise_manager[0].addEventListener('click', function(e) {
-            e.preventDefault();
-            performer_id.classList.remove('d-none');
-            performer_id.size = 10;
-        })
-        performer_id.addEventListener("click", function() {
-            this.classList.add('d-none');
-            choise_manager[0].innerHTML = this.options[this.selectedIndex].textContent
-        });
-        choise_phone[0].addEventListener('click', function(e) {
-            e.preventDefault();
-            type.classList.remove('d-none');
-            type.size = 2;
-        })
-        type.addEventListener("change", function() {
-            this.classList.add('d-none');
-            if (this.options[this.selectedIndex].textContent == 'Meeting') {
-                calling_or_meeting.setAttribute('src', meeting_png)
-            }
-            if (this.options[this.selectedIndex].textContent == 'Call') {
-                calling_or_meeting.setAttribute('src', call_png)
-            }
-            choise_phone[0].innerHTML = this.options[this.selectedIndex].textContent
-        });
+        // choise_manager[0].addEventListener('click', function(e) {
+        //     e.preventDefault();
+        //     performer_id.classList.remove('d-none');
+        //     performer_id.size = 10;
+        // })
+        // performer_id.addEventListener("click", function() {
+        //     this.classList.add('d-none');
+        //     choise_manager[0].innerHTML = this.options[this.selectedIndex].textContent
+        // });
+        // choise_phone[0].addEventListener('click', function(e) {
+        //     e.preventDefault();
+        //     type.classList.remove('d-none');
+        //     type.size = 2;
+        // })
+        // type.addEventListener("change", function() {
+        //     this.classList.add('d-none');
+        //     if (this.options[this.selectedIndex].textContent == 'Meeting') {
+        //         calling_or_meeting.setAttribute('src', meeting_png)
+        //     }
+        //     if (this.options[this.selectedIndex].textContent == 'Call') {
+        //         calling_or_meeting.setAttribute('src', call_png)
+        //     }
+        //     choise_phone[0].innerHTML = this.options[this.selectedIndex].textContent
+        // });
 
         if (looking_for_checkbox.checked != true) {
             looking_for_input.setAttribute('disabled', true)

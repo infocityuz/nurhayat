@@ -218,10 +218,10 @@ for (q = 0; q < hrefDrop.length; q++) {
 
 // const dateInput = document.querySelector('#dateInput').valueAsDate = new Date();
 
-let data_input = document.querySelector('#dateInput')
-if(data_input){
-  const dateInput = data_input.valueAsDate = new Date();
-}
+// let data_input = document.querySelector('#dateInput')
+// if(data_input){
+//   const dateInput = data_input.valueAsDate = new Date();
+// }
 
 
 // const custom = document.querySelector('.rassrochkaProdnoCheckBox7')

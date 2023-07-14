@@ -114,7 +114,7 @@
                                 </span>
                             </div>
 
-                            @if (is_int($model->room_count))
+                            @if ($model->room_count != null)
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Hotel area m2') }}</h3>
                                     <input
@@ -128,7 +128,7 @@
                                 </div>
                             @endif
 
-                            @if (is_int($model->room_count))
+                            @if ($model->room_count != null)
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Bedroom area m2') }}</h3>
                                     <input
@@ -275,6 +275,18 @@
                                 </span>
                             </div>
 
+                            <div class="sozdatImyaSpsok">
+                                <h3 class="sozdatImyaSpisokH3">{{ translate('Price for 1m2 (70%)') }}</h3>
+                                <input
+                                    class="sozdatImyaSpisokInput1272 @error('price_70') error-data-input is-invalid @enderror"
+                                    type="text" value="{{ $ares_price->seventy->total ?? 0.0 }}" name="price_70">
+                                <span class="error-data">
+                                    @error('price_70')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+
                             @if ($areas->basement > 0)
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Price for 1m2 (Ground)') }}</h3>
@@ -402,13 +414,14 @@
 
                     {{-- <button type="submit"
                         class="">{{ translate('Attach file') }}</button> --}}
-                    @if (is_int($model->room_count))
+                    @if ($model->room_count != null)
                         <input type="file" class="sozdatImyaSpisokSozdatButton1272" id="" name="files">
                         {{-- @dd($model->files); --}}
                         @if (!empty($model->files))
                             @foreach ($model->files as $img)
                                 {{-- @dd($model); --}}
-                                <img width="30" height="30" class="madlImageJkEdit"
+                                <br>
+                                <img style="max-width: 200px;" 
                                     src="{{ asset('/uploads/house-flat/' . $model->house_id . '/m_' . $img->guid) }}"
                                     alt="Home">
                             @endforeach
@@ -424,7 +437,7 @@
                             alt="House">
                     </div> --}}
                     <button type="submit" class="sozdatImyaSpisokSozdatButton1272sozdat"
-                        style="cursor: pointer;">{{ translate('Create') }}</button>
+                        style="cursor: pointer;">{{ translate('Save') }}</button>
                 </form>
             </div>
 

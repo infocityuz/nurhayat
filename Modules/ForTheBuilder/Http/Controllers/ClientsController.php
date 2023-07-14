@@ -147,7 +147,13 @@ class ClientsController extends Controller
         $user = Auth::user();
         $models = Task::where('deleted_at', NULL)->get();
         $my_models = Task::where('performer_id', $user->id)->where('deleted_at', NULL)->get();
-        $users = User::all();
+        
+        if ($user->role_id == Constants::MANAGER) {
+            $users = User::where('id',$user->id)->get();
+        }
+        else{
+            $users = User::all();
+        }
 
         // foreach($models as $model_){
         //     pre($model_);
@@ -416,6 +422,8 @@ class ClientsController extends Controller
         $count_bookings = 0;
         $count_free = 0;
         $count_solds = 0;
+        $count_commercial = 0;
+        $count_park = 0;
 
         $entrance_all = 0;
         $entrance_bookings = 0;
@@ -456,6 +464,12 @@ class ClientsController extends Controller
             else if ($val->status == HouseFlat::STATUS_SOLD)
                 $entrance_solds++;
 
+            if ($val->room_count == 'c')
+                $count_commercial++;
+            if ($val->room_count == 'p'){                
+                $count_park++;
+            }
+
             if (!in_array($val->floor, $floorArr)) {
                 $floorArr[] = $val->floor;
                 $n = 0;
@@ -468,6 +482,14 @@ class ClientsController extends Controller
             if ($val->floor == 0)
                 $f_j = translate('basement');
 
+            if ($val->room_count == 'c') {
+                $f_j = translate('Commercial');                
+            }
+
+            if ($val->room_count == 'p') {
+                $f_j = translate('Park');                
+            }
+
             $arr['list'][$val->entrance]['entrance_all'] = $entrance_all;
             $arr['list'][$val->entrance]['entrance_bookings'] = $entrance_bookings;
             $arr['list'][$val->entrance]['entrance_free'] = $entrance_free;
@@ -475,6 +497,14 @@ class ClientsController extends Controller
             $arr['list'][$val->entrance]['entrance'] = $val->entrance;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['id'] = $val->id;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['color_status'] = $val->status;
+
+            if ($val->room_count == 'c') {
+                $arr['list'][$val->entrance]['list'][$f_j][$n]['color_status'] = 3;
+            }
+            if ($val->room_count == 'p') {
+                $arr['list'][$val->entrance]['list'][$f_j][$n]['color_status'] = 4;
+            }
+
             $arr['list'][$val->entrance]['list'][$f_j][$n]['number_of_flat'] = $val->number_of_flat;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['areas'] = $val->areas;
             $arr['list'][$val->entrance]['list'][$f_j][$n]['price'] = $val->price;
@@ -488,6 +518,8 @@ class ClientsController extends Controller
         $arr['count_bookings'] = $count_bookings;
         $arr['count_free'] = $count_free;
         $arr['count_solds'] = $count_solds;
+        $arr['count_commercial'] = $count_commercial;
+        $arr['count_park'] = $count_park;
         // pre($flats);
 
         $colors = [];
@@ -522,6 +554,8 @@ class ClientsController extends Controller
         $count_bookings = 0;
         $count_free = 0;
         $count_solds = 0;
+        $count_commercial = 0;
+        $count_park = 0;
 
         $entrance_all = 0;
         $entrance_bookings = 0;
@@ -545,6 +579,12 @@ class ClientsController extends Controller
                 $count_free++;
             else if ($val->status == HouseFlat::STATUS_SOLD)
                 $count_solds++;
+
+            if ($val->room_count == 'c')
+                $count_commercial++;
+            if ($val->room_count == 'p'){                
+                $count_park++;
+            }
 
             if (!in_array($val->entrance, $entranceArr)) {
                 $entranceArr[] = $val->entrance;
@@ -574,6 +614,14 @@ class ClientsController extends Controller
             if ($val->floor == 0)
                 $f_j = translate('basement');
 
+            if ($val->room_count == 'c') {
+                $f_j = translate('Commercial');                
+            }
+
+            if ($val->room_count == 'p') {
+                $f_j = translate('Park');                
+            }
+
             $areas = json_decode($val->areas);
             // pre($areas->total);
             $arr['entrance_all'] = $entrance_all;
@@ -586,6 +634,14 @@ class ClientsController extends Controller
             $arr['list'][$f_j][$n]['house_house_name'] = $model->name;
             $arr['list'][$f_j][$n]['doc_number'] = $val->doc_number;
             $arr['list'][$f_j][$n]['color_status'] = $val->status;
+
+            if ($val->room_count == 'c') {
+                $arr['list'][$f_j][$n]['color_status'] = 3;
+            }
+            if ($val->room_count == 'p') {
+                $arr['list'][$f_j][$n]['color_status'] = 4;
+            }
+
             $arr['list'][$f_j][$n]['number_of_flat'] = $val->number_of_flat;
             $arr['list'][$f_j][$n]['areas'] = $areas->total;
             $arr['list'][$f_j][$n]['price'] = $val->price;
@@ -611,6 +667,8 @@ class ClientsController extends Controller
         $arr['count_bookings'] = $count_bookings;
         $arr['count_free'] = $count_free;
         $arr['count_solds'] = $count_solds;
+        $arr['count_commercial'] = $count_commercial;
+        $arr['count_park'] = $count_park;
 
         $colors = [];
         if (!empty($statusColors))
@@ -716,19 +774,7 @@ class ClientsController extends Controller
     public function show($id, $house_flat_id = 0, $task_id = 0)
     {
 
-//        $model = Deal::where('client_id', $id)->first();
-//        $histories = json_decode($model->history);
-//        if(is_array($histories) && count($histories)>0){
-//            foreach ($histories as $history){
-//                $history_array[] = $history;
-//            }
-//            $history_array[0] = ['date' => date('Y-m-d H:i:s'), 'user' => $model->user->first_name, 'user_id' => $model->user->id, 'user_photo' => $model->user->avatar, 'new_type' => 'First contact', 'old_type' => NULL];
-//            $model->history = $history_array;
-//            $model->save();
-//        }
-
-        // $model = Clients::findOrFail($id);
-        // $modelDeals = Deal::where('client_id', $model->id)->get();
+        $user = Auth::user();
         $connect_for=Constants::FOR_1;
         $connect_new=Constants::NEW_1;
         $data = DB::table($connect_for.'.clients as c')
@@ -737,7 +783,7 @@ class ClientsController extends Controller
             ->leftJoin($connect_for.'.house as h', 'd.house_id', '=', 'h.id')
             ->leftJoin($connect_for.'.house_flat as h_f', 'd.house_flat_id', '=', 'h_f.id')
             ->leftJoin($connect_for.'.personal_informations as pi', 'c.id', '=', 'pi.client_id')
-            ->leftJoin('nurh_icstroyc_newhouse_test.users as nu', 'nu.id', '=', 'd.user_id')
+            ->leftJoin('icstroyc_newhouse_test.users as nu', 'nu.id', '=', 'd.user_id')
             ->leftJoin($connect_for.'.deals_files as df', 'df.deal_id', '=', 'd.id')
             ->where('c.id', $id)
             ->select(
@@ -794,7 +840,12 @@ class ClientsController extends Controller
             $task->read_at = $time;
             $task->save();
         }
+
         $users = User::all();
+        if ($user->role_id == Constants::MANAGER) {
+            $users = User::where('id',$user->id)->get();
+        }
+
         $client = Clients::find($id);
         // $comments = LeadComment::where('lead_id', $id)->get();
         // $leadStatuses = LeadStatus::all();

@@ -19,6 +19,7 @@ use Modules\ForTheBuilder\Entities\Notification_;
 use Modules\ForTheBuilder\Events\RealTimeMessage;
 use Modules\ForTheBuilder\Http\Requests\TaskRequest;
 use Modules\ForTheBuilder\Notifications\TaskNotification;
+use Modules\ForTheBuilder\Entities\Deal;
 
 class TaskController extends Controller
 {
@@ -61,16 +62,21 @@ class TaskController extends Controller
         $i = 0;
         if (!empty($models)) {
             foreach ($models as $val) {
-                // pre($val->deal->client);
+                
+                
                 $keyArr = '';
-                if (strtotime($val->task_date) < strtotime(date('Y-m-d 00:00:00')))
+                if (strtotime($val->task_date_2) < strtotime(date('Y-m-d 00:00:00')))
                     $keyArr = translate('Overdue');
-                else if (strtotime($val->task_date) == strtotime(date('Y-m-d 00:00:00')))
+                else if (strtotime($val->task_date_2) > strtotime(date('Y-m-d 00:00:00')) && strtotime($val->task_date_2) < strtotime(date('Y-m-d 23:59:59')))
                     $keyArr = translate('Tasks for today');
-                else if (strtotime($val->task_date) == strtotime(date('Y-m-d 00:00:00', strtotime('tomorrow'))))
+                
+                else if (strtotime($val->task_date_2) > strtotime(date('Y-m-d 23:59:59')) && strtotime($val->task_date_2) < strtotime(date('Y-m-d 23:59:59', strtotime('tomorrow'))))
                     $keyArr = translate('Tasks for tomorrow');
-                else if (strtotime($val->task_date) > strtotime(date('Y-m-d 00:00:00', strtotime('tomorrow'))) && strtotime($val->task_date) <= strtotime(date('Y-m-d 00:00:00', strtotime('+8 days'))))
+                
+
+                else if (strtotime($val->task_date_2) > strtotime(date('Y-m-d 23:59:59', strtotime('tomorrow'))) && strtotime($val->task_date_2) <= strtotime(date('Y-m-d 00:00:00', strtotime('+8 days'))))
                     $keyArr = translate('Tasks for next week');
+
 
                 if ($val->deal && $val->deal->client) {
                     $arr[$keyArr][$i]['id'] = $val->id;
@@ -78,18 +84,25 @@ class TaskController extends Controller
                     $arr[$keyArr][$i]['client'] = (isset($val->deal->client)) ? $val->deal->client->last_name . ' ' . $val->deal->client->first_name : '';
                     $arr[$keyArr][$i]['client_middle_name'] = (isset($val->deal->client)) ? $val->deal->client->middle_name : '';
                     $arr[$keyArr][$i]['client_id'] = $val->deal->client->id ?? 0;
-                    $arr[$keyArr][$i]['day'] = date('d.m.Y', strtotime($val->task_date));
-                    $arr[$keyArr][$i]['time'] = date('H:i:s', strtotime($val->task_date));
+                    $arr[$keyArr][$i]['day'] = date('d.m.Y', strtotime($val->task_date_2));
+                    $arr[$keyArr][$i]['time'] = date('H:i:s', strtotime($val->task_date_2));
                     $i++;
                 }
             }
         }
+
+        $users_2 = User::all();
+        $deals = Deal::where('status', 1)->get();
+        $my_models = Task::where('performer_id', $user->id)->where('deleted_at', NULL)->get();
         // pre($arr);
 
         return view('forthebuilder::task.index', [
             'arr' => $arr,
             'models' => $models,
             'users' => $users,
+            'users_2' => $users_2,
+            'deals' => $deals,
+            'my_models' => $my_models,
             'listLeads' => $listLeads,
             'all_notifications' => $this->getNotification()
         ]);
@@ -101,7 +114,14 @@ class TaskController extends Controller
      */
     public function filterIndex()
     {
-        $users = User::all();
+        $user=Auth::user();
+        
+        if ($user->role_id == Constants::MANAGER) {
+            $users = User::where('id',$user->id)->get();
+        }
+        else{
+            $users = User::all();
+        }
         $listLeads = Clients::select('id', 'last_name', 'first_name', 'middle_name')->get();
         // $models = Task::where('task_date', '<', date('Y-m-d 00:00:00', strtotime('+8 days')))->orderBy('task_date', 'asc')->paginate(config('params.pagination'));
         $models = Task::where('task_date', '<', date('Y-m-d 00:00:00', strtotime('+8 days')))->orderBy('task_date', 'asc')->where('performer_id', Auth::user()->id)->get();
@@ -117,13 +137,16 @@ class TaskController extends Controller
             foreach ($models as $val) {
                 // pre($val->deal->client);
                 $keyArr = '';
-                if (strtotime($val->task_date) < strtotime(date('Y-m-d 00:00:00')))
+                if (strtotime($val->task_date_2) < strtotime(date('Y-m-d 00:00:00')))
                     $keyArr = translate('Overdue');
-                else if (strtotime($val->task_date) == strtotime(date('Y-m-d 00:00:00')))
+                else if (strtotime($val->task_date_2) > strtotime(date('Y-m-d 00:00:00')) && strtotime($val->task_date_2) < strtotime(date('Y-m-d 23:59:59')))
                     $keyArr = translate('Tasks for today');
-                else if (strtotime($val->task_date) == strtotime(date('Y-m-d 00:00:00', strtotime('tomorrow'))))
+                
+                else if (strtotime($val->task_date_2) > strtotime(date('Y-m-d 23:59:59')) && strtotime($val->task_date_2) < strtotime(date('Y-m-d 23:59:59', strtotime('tomorrow'))))
                     $keyArr = translate('Tasks for tomorrow');
-                else if (strtotime($val->task_date) > strtotime(date('Y-m-d 00:00:00', strtotime('tomorrow'))) && strtotime($val->task_date) <= strtotime(date('Y-m-d 00:00:00', strtotime('+8 days'))))
+                
+
+                else if (strtotime($val->task_date_2) > strtotime(date('Y-m-d 23:59:59', strtotime('tomorrow'))) && strtotime($val->task_date_2) <= strtotime(date('Y-m-d 00:00:00', strtotime('+8 days'))))
                     $keyArr = translate('Tasks for next week');
 
                 $arr[$keyArr][$i]['id'] = $val->id;
@@ -131,16 +154,24 @@ class TaskController extends Controller
                 $arr[$keyArr][$i]['client'] = (isset($val->deal->client)) ? $val->deal->client->last_name . ' ' . $val->deal->client->first_name : '';
                 $arr[$keyArr][$i]['client_middle_name'] = (isset($val->deal->client)) ? $val->deal->client->middle_name : '';
                 $arr[$keyArr][$i]['client_id'] = $val->deal->client->id ?? 0;
-                $arr[$keyArr][$i]['day'] = date('d.m.Y', strtotime($val->task_date));
-                $arr[$keyArr][$i]['time'] = date('H:i:s', strtotime($val->task_date));
+                $arr[$keyArr][$i]['day'] = date('d.m.Y', strtotime($val->task_date_2));
+                $arr[$keyArr][$i]['time'] = date('H:i:s', strtotime($val->task_date_2));
                 $i++;
             }
         }
+
+        $users_2 = User::all();
+        $deals = Deal::where('status', 1)->get();
+        $my_models = Task::where('performer_id', $user->id)->where('deleted_at', NULL)->get();
 
         return view('forthebuilder::task.index', [
             'arr' => $arr,
             'users' => $users,
             'listLeads' => $listLeads,
+            'users_2' => $users_2,
+            'deals' => $deals,
+            'my_models' => $my_models,
+            'models' => $models,
             'all_notifications' => $this->getNotification()
         ]);
     }
@@ -172,6 +203,7 @@ class TaskController extends Controller
         $model->user_id = Auth::user()->id;
         $model->performer_id = $request->performer_id;
         $model->status = Constants::DID_NOT_DO_IT;
+
         if (isset($request->is_task)) {
             $model->deal_id = $request->deal_id;
             $model->title = $request->task_title ?? '';
@@ -179,11 +211,15 @@ class TaskController extends Controller
         } else {
             $array_deal_id = explode(" ", $request->deal_id);
             $model->deal_id = (int)end($array_deal_id);
-            $title = 'Task added by ';
+            $title = ((isset($_POST['title'])) ? htmlspecialchars($_POST['title']) : '');
             $model->title = $title;
         }
-        $model->task_date = $request->task_date;
+
+
+        $model->task_date_2 = date('Y-m-d H:i:00',strtotime($request->task_date_2));
+        $model->task_date = date('Y-m-d',strtotime($request->task_date_2));
         $model->type = $request->type;
+
         $model->save();
         Log::channel('action_logs2')->info("пользователь создал новую Task : " . $model->title . "", ['info-data' => $model]);
 

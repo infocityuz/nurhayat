@@ -13,6 +13,12 @@
         <span style="background-color: #FB3030; width: 10px; height: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
         {{ translate('The red ones are given a price even if it`s a piece') }}
     </div>
+    <div class="col-md-12">
+        <hr class="my-2">
+        <button class="btn btn-primary" id="all_select">{{ translate('All select') }}</button>
+        <button class="btn btn-secondary" id="all_cancel">{{ translate('All cancel') }}</button>
+        <hr class="my-2">
+    </div>
 </div>
 <div class="d-flex">
     <div class="dalePodyedzEtaj" style="margin: 50px 20px 0 0;">
@@ -44,7 +50,7 @@
                         </h2>
                         @empty(!$arr['list'])
                             @foreach ($val['list'] as $key2 => $val2)
-                                <div class="d-flex">
+                                <div class="d-flex align-items-start">
                                     @foreach ($val2 as $val3)
                                         <div style="min-width: 60px; height: 60px;">
                                             @php
@@ -97,6 +103,9 @@
                                             {{-- #FB3030 --}}
                                         </div>
                                     @endforeach
+                                    <button class="btn btn-sm btn-primary mr-2" style="height: 40px; width: 40px;" id="row_select">
+                                        <i class="fa fa-check"></i>
+                                    </button>
                                 </div>
                             @endforeach
                         @endempty

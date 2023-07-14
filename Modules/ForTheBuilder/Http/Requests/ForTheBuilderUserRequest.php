@@ -34,6 +34,8 @@ class ForTheBuilderUserRequest extends BaseFormRequest
             'status' =>'nullable|integer',
             'birth_date' =>'nullable|string',
             'phone_number' =>'nullable|string',
+            'gender' =>'nullable|integer',
+            'gender_2' =>'nullable|string',
         ];
     }
     public function update()
@@ -51,6 +53,8 @@ class ForTheBuilderUserRequest extends BaseFormRequest
             'status' =>'nullable|integer',
             'birth_date' =>'nullable|string',
             'phone_number' =>'nullable|string',
+            'gender' =>'nullable|integer',
+            'gender_2' =>'nullable|string',
         ];
     }
 }

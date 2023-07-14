@@ -6,10 +6,19 @@
 @section('title')
     {{ translate('JK') }}
 @endsection
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
     .sozdatJkData {
         height: auto !important;
     }
+    .bootstrap-datetimepicker-widget{
+        position: absolute !important;
+        top: 0 !important;
+        left:0 !important;
+        z-index: 9999 !important;
+    }
+    
 </style>
 @section('content')
     <div class="d-flex aad">
@@ -118,7 +127,7 @@
 
                                 <div class="form-group" style="margin-left: 10px;">
                                     <h3 class="sozdatImyaSpisokH3Prodno">{{ translate('date') }}</h3>
-                                    <input id="dateInput" placeholder="{{ date('d.m.Y') }}" type="date" name="date_deal"
+                                    <input id="dateInput" value="{{ date('d.m.Y H:i') }}" type="text" name="date_deal"
                                         class="form-control sozdatImyaSpisokSelectOptionJkProdnoDate @error('date_deal') error-data-input is-invalid @enderror"
                                         value="{{ old('date_deal') }}">
                                     <span class="error-data">
@@ -564,6 +573,15 @@
         </div>
     </div>
     <script>
+         $(function(){
+             $('#dateInput').datetimepicker({
+                "allowInputToggle": true,
+                "showClose": false,
+                "showClear": true,
+                "showTodayButton": true,
+                "format": "DD.MM.YYYY HH:mm",
+            });
+        })  
         let page_name = 'deal';
         let budget_input = document.getElementById('budget_input')
         let looking_for_input = document.getElementById('looking_for_input')

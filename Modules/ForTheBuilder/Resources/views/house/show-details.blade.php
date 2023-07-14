@@ -20,6 +20,13 @@
         .select-items>div:nth-child(3) {
             background-color: #FF9D9D !important;
         }
+        .add_flat{
+            transition: .5s ease-in-out;
+            opacity: 0;
+        }
+        .jkAllHouse:hover .add_flat{
+            opacity: 1;
+        }
     </style>
     <div class="d-flex aad">
         @include('forthebuilder::layouts.content.navigation')
@@ -51,7 +58,13 @@
                 <button class="prodnoButton btn-filter btn" style="background: {{ $colors[2] }};" data-filter="2">
                     {{ translate('Sales') }} ( {{ $arr['count_solds'] }} )
                 </button>
-                {{-- (20 кв.) --}}
+                
+                <button class="prodnoButton btn-filter btn" style="background: {{ $colors[3] ?? '' }};" data-filter="3">
+                    {{ translate('Commercial') }} ( {{ $arr['count_commercial'] }} )
+                </button>
+                <button class="prodnoButton btn-filter btn" style="background: {{ $colors[4] ?? '' }};" data-filter="4">
+                    {{ translate('Park') }} ( {{ $arr['count_park'] }} )
+                </button>
             </div>
 
             <div class="card card-body accordionData">
@@ -65,8 +78,28 @@
                 @empty(!$arr['list'])
                     @php
                         $i = 0;
+                        $add_type = 0;
                     @endphp
                     @foreach ($arr['list'] as $key => $value)
+                        @php
+                           
+                            if(is_numeric($key)){
+                                $add_type = 1;
+                            }
+                            elseif($key == translate('basement')){
+                                $add_type = 2;   
+                            }
+                            elseif($key == translate('attic')){
+                                $add_type = 3;   
+                            }
+                            elseif($key == translate('Commercial')){
+                                $add_type = 4;   
+                            }
+                            elseif($key == translate('Park')){
+                                $add_type = 5;   
+                            } 
+                           
+                        @endphp
                         <div class="d-flex" style="margin-top: 10px;">
                             <div class="jkDomNumber">
                                 {{ $key }}
@@ -161,7 +194,10 @@
                                         @endphp
                                     @endforeach
                                 @endempty
-
+                                <span class="px-3"></span>
+                                <a href="{{ route('forthebuilder.house-flat.add', $house_id.'_'.$add_type) }}" class="btn btn-primary ml-auto add_flat">
+                                    <i class="fa fa-plus"></i>
+                                </a>
                             </div>
                         </div>
                     @endforeach

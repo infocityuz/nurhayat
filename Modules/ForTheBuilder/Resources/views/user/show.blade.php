@@ -85,10 +85,16 @@
                                              src="{{ asset('uploads/user/'.$model->id.'/s_'.$model->avatar) }}"
                                              alt="">
                                     @else
-                                        <img class="profileImageData mr-3" src="{{ asset('/backend-assets/img/not_user.png') }}" alt="">
+                                        @php
+                                            $gender_img = 'men.png';
+                                            if ($model->gender == 2) {
+                                                $gender_img = 'women.png';
+                                            }
+                                        @endphp
+                                        <img class="profileImageData mr-3" src="{{ asset('/backend-assets/img/'.$gender_img) }}" alt="">
                                     @endif
                                 @else
-                                    <img class="profileImageData mr-3" src="{{asset('/backend-assets/img/not_user.png')}}" alt="">
+                                    <img class="profileImageData mr-3" src="{{asset('/backend-assets/img/men.png')}}" alt="">
                                 @endif
                             </div>
 
@@ -312,9 +318,10 @@
             ]);
 
             var options = {
-                title: 'Chess opening moves',
+                title: '',
               width: 400,
               height: 400,
+              slices: {0: {color: '#FF9D9D'}, 1:{color: '#F7FF9D'}, 2:{color: '#B1FF9D'}},
               legend: { position: 'bottom'},
 
               bars: 'vertical', // Required for Material Bar Charts.

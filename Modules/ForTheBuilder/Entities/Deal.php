@@ -84,7 +84,7 @@ class Deal extends Model
 
     public function client(): BelongsTo
     {
-        return $this->belongsTo(Clients::class)->whereNull('deleted_at')->where('status', Constants::CLIENT_ACTIVE);
+        return $this->belongsTo(Clients::class)->whereNull('deleted_at')->where('status','!=', Constants::CLIENT_DELETED);
     }
 
     public function tasks(): HasOne

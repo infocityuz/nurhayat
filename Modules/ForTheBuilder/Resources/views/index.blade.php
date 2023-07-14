@@ -258,7 +258,7 @@
         ]);
 
         var options = {
-            title: 'Chess opening moves',
+            title: '',
           width: 400,
           height: 400,
           legend: { position: 'bottom'},

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
         crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('/backend-assets/forthebuilders/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/backend-assets/css/datetimepicker.min.css') }}">
     
     <title>{{ translate('ICStroy') }}</title>
 </head>
@@ -159,7 +160,9 @@
      <script src="{{ asset('/backend-assets/forthebuilders/javascript/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('/backend-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('/backend-assets/plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('/backend-assets/plugins/bootstrap-datetimepicker.js') }}"></script>
+    {{-- <script src="{{ asset('/backend-assets/plugins/bootstrap-datetimepicker.js') }}"></script> --}}
+    <script src='{{asset('/backend-assets/js/datetimepicker.min.js')}}'></script>
+
     <script src="{{ asset('/backend-assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('/backend-assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
@@ -273,7 +276,17 @@
             } else if (filter == 2) {
                 $('.btn-filter-flat[data-category=2]').attr('disabled', false);
                 $('.btn-filter-flat[data-category=2]').css('opacity', 1);
-            } else {
+            }
+
+            else if (filter == 3) {
+                $('.btn-filter-flat[data-category=3]').attr('disabled', false);
+                $('.btn-filter-flat[data-category=3]').css('opacity', 1);
+            }
+            else if (filter == 4) {
+                $('.btn-filter-flat[data-category=4]').attr('disabled', false);
+                $('.btn-filter-flat[data-category=4]').css('opacity', 1);
+            }
+            else {
                 $('.btn-filter-flat').attr('disabled', false);
                 $('.btn-filter-flat').css('opacity', 1)
             }
@@ -1637,13 +1650,35 @@
             }, 2000);
         })
 
-        // $(document).on('mouseover', '.btnFilterFlat', function(e) {
-        //     $(this).parent().parent().find('p').removeClass('d-none')
-        // })
+        $(document).on('click','#all_select',function(){
+            // $('.podyedzNameDaleNol').attr('data-default',1);
+            // $('.podyedzNameDaleNol').css('background-color','lightgrey');
+            $('.btnFilterFlat').trigger('click')
+        })
+        $(document).on('click','#all_cancel',function(){
+            $('.podyedzNameDaleNol').attr('data-default',0);
+            $('.podyedzNameDaleNol').css('background-color','rgb(251, 48, 48)');
+            // $('.btnFilterFlat').trigger('click')
+            // $('.dalePodyedzBig2 .podyedzNameDaleNol').each(function(i, obj) {
 
-        // $(document).on('mouseout', '.btnFilterFlat', function(e) {
-        //     $(this).parent().parent().find('p').addClass('d-none')
-        // })
+            //     $(this).trigger('click')
+            //     // $(this).css('background-color', $(this).attr('datd-color'))
+            // });
+        })
+
+        $(document).on('click','#row_select',function(){
+            $(this).parent().find('.btnFilterFlat').trigger('click')
+            $(this).attr('id','row_cancel')
+            $(this).html('<i class="fa fa-times"></i>')
+            
+        })
+        $(document).on('click','#row_cancel',function(){
+            $(this).parent().find('.btnFilterFlat').trigger('click')
+            $(this).parent().find('.btnFilterFlat').css('background-color','rgb(251, 48, 48)')
+            $(this).attr('id','row_select')
+            $(this).html('<i class="fa fa-check"></i>')
+            
+        })
     </script>
 </body>
 

@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/toastr/css/toastr.min.css')}}">
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/select/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/fullcalendar/main.css')}}">
-<link rel="stylesheet" href="{{ asset('/backend-assets/forthebuilders/bootstrap-datetimepicker.min.css') }}">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
     .fc-toolbar-chunk{
         display: flex;
@@ -158,6 +159,14 @@
     .opacity_button{
         opacity: 0.6;
     }
+    .select2-container--default{
+        width: 100% !important;
+    }
+    .bootstrap-datetimepicker-widget{
+        position: absolute !important;
+        top: 0 !important;
+        z-index: 9999 !important;
+    }
 </style>
 @section('content')
     <div class="modal fade" id="day_calendar" tabindex="-1" role="dialog" aria-labelledby="day_calendar" aria-hidden="true">
@@ -182,7 +191,7 @@
                 <div class="d-flex">
                     <a href="{{route('forthebuilder.clients.index')}}" class="plus2 profileMaxNazadInformatsiyaKlient"><img src="{{asset('backend-assets/forthebuilders/images/icons/arrow-left.png')}}" alt=""></a>
                     <h2 class="panelUprText">{{translate('Task calendar')}}</h2>
-                    <button class="plus2" data-toggle="modal" data-target="#exampleModal5">+</button>
+                    <button class="plus2" data-toggle="modal" data-target="#exampleModal">+</button>
                 </div>
             </div>
 
@@ -266,67 +275,76 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel5" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content ZadachiModalBody">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="modal-body">
-                    <form action="{{ route('forthebuilder.task.calendar_store') }}" method="POST"
-                          enctype="multipart/form-data" id="chees-modal">
-                        @csrf
-                        @method('POST')
-                        <div class="inputCustomDiv" style="width: 100%; margin-top: -16px;">
-                            <input type="hidden" name="deal_id" id="selected_deal_id">
-                            <input class="select_deal form-control" type="text" >
-                        </div>
-                        <div style="background-color: white; border-radius: 20px; position: absolute; z-index: 9999; width: 93%"
-                             class="selectMainDeal d-none">
-                            <ul style="list-style: none" >
+                    <form action="{{ route('forthebuilder.task.calendar_store') }}" method="POST" enctype="multipart/form-data" id="chees-modal"> @csrf @method('POST')
+                        <div class="mb-2">
+                            <label for="">{{ translate('Clients') }}</label>
+                            <select name="deal_id" class="form-control select2" id="deal_select" data-placeholder="{{ translate('Choose client') }}">
+                                <option value=""></option>
                                 @empty(!$deals)
                                     @foreach ($deals as $deal)
                                         @if(isset($deal->client))
-                                            <li class="search_deal d-none" value="{{$deal->id}}">{{$deal->client->first_name.' '.$deal->client->last_name.' '.$deal->client->middle_name}}</li>
+                                            <option value="{{$deal->id}}">
+                                                {{$deal->client->first_name.' '.$deal->client->last_name.' '.$deal->client->middle_name}}
+                                            </option>
                                         @endif
                                     @endforeach
                                 @endempty
-                            </ul>
+                            </select>
                         </div>
-                        <div class="zadachiBigClientInformation">
-                            <div class="row">
-                                <div class="add-task">
-                                    {{ translate('Task on')}}&nbsp;
-                                    <input name="task_date" id="task_date" type="date"
-                                           class="choise-date @error('task_date') error-data-input is-invalid @enderror"
-                                           value="{{ old('task_date')}}">&nbsp; {{translate('for')}} &nbsp;
-                                    <a href="#" class="choise-manager"> .......... </a>
-                                    <img src="{{asset('/backend-assets/forthebuilders/images/Call.png')}}" alt="Phone Calling"  id="calling_or_meeting" width="18px">
-                                    <span>&nbsp; </span><a href="#" class="choise-phone">{{translate('Call')}} </a>
-                                </div>
-                                <select name="performer_id" id="performer_id"
-                                        data-placeholder="{{ __('locale.select') }}"
-                                        class="form-control select2 d-none @error('performer_id') is-invalid error-data-input @enderror">
-                                    <option value="">------------</option>
-                                    @empty(!$users)
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->id }}"
-                                                    {{ Auth::user()->id == $user->id ? 'selected' : '' }}>
-                                                {{ $user->first_name }}</option>
-                                        @endforeach
-                                    @endempty
-                                </select>
-                                <select name="type" id="type"
-                                        data-placeholder="{{ __('locale.select') }}"
-                                        class="form-control select2 d-none @error('type') is-invalid error-data-input @enderror">
-                                    <option value="Связаться">{{translate('Call')}}</option>
-                                    <option value="Встреча">{{translate('Meeting')}}</option>
-                                </select>
-                            </div>
+                        
+                        <div class="mb-2">
+                            <label for="performer_id">{{translate('for')}}</label>
+                            <br>
+                            <select name="performer_id" id="performer_id"
+                                    data-placeholder="{{ __('locale.select') }}"
+                                    class="form-control select2 @error('performer_id') is-invalid error-data-input @enderror">
+                                <option value=""></option>
+                                @empty(!$users)
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}"
+                                                {{ Auth::user()->id == $user->id ? 'selected' : '' }}>
+                                            {{ $user->first_name }}</option>
+                                    @endforeach
+                                @endempty
+                            </select>
                         </div>
-                        <div class="modal-calendar-buttons d-flex textareaButttonSend">
-                            <button type="submit" class="opacity_button PostavitButton">{{ translate('Put') }}</button>
-                            <button class="OtmenitButton" data-dismiss="modal" aria-label="Close">{{ translate('Cancell') }}</button>
+                        <div class="mb-2">
+                            <label for="">{{translate('Call')}}</label>
+                            <select name="type" id="type" data-placeholder="{{ __('locale.select') }}" class="form-control select2 @error('type') is-invalid error-data-input @enderror">
+                                <option value="Связаться">{{translate('Call')}}</option>
+                                <option value="Встреча">{{translate('Meeting')}}</option>
+                            </select>
                         </div>
+                        <div class="mb-2">
+                            <label>{{ translate('Title')}}</label>
+                            <input name="title" type="text" class="form-control">
+                            
+                        </div>
+                        <div class="mb-2">
+                            <label>{{ translate('Task on')}}</label>
+                            <input name="task_date_2" id="task_date2" type="text" class="form-control @error('task_date') error-data-input is-invalid @enderror" value="{{ date('d.m.Y H:i') }}">
+                            
+                        </div>
+                        <br>
+
+
+                        <div class="modal-footer p-0">
+                            <button type="submit" class="btn opacity_button PostavitButton">{{ translate('Put') }}</button>
+                            <button class="btn OtmenitButton" data-dismiss="modal" aria-label="Close">{{ translate('Cancell') }}</button>
+                        </div>
+
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
@@ -335,8 +353,25 @@
 <script src="{{asset('/backend-assets/forthebuilders/select/js/select2.min.js')}}"></script>
 <script src="{{asset('/backend-assets/forthebuilders/toastr/js/toastr.min.js')}}"></script>
 <script src="{{asset('/backend-assets/forthebuilders/moment/js/moment.min.js')}}"></script>
-<script defer src="{{asset('/backend-assets/forthebuilders/fullcalendar/main.js')}}"></script>
 <script src='{{asset('/backend-assets/plugins/fullcalendar/locales/ru.js')}}'></script>
+
+<script defer src="{{asset('/backend-assets/forthebuilders/fullcalendar/main.js')}}"></script>
+
+<script>
+    $(function(){
+         $('#task_date2').datetimepicker({
+            "allowInputToggle": true,
+            "showClose": false,
+            "showClear": true,
+            "showTodayButton": true,
+            "format": "DD.MM.YYYY HH:mm",
+        });
+        $('.select2').select2({
+            dropdownParent: $("#exampleModal")
+        })
+    })
+</script>
+
 <script defer>
     let page_name = 'calendar';
     let calling_or_meeting = document.getElementById('calling_or_meeting')
@@ -357,11 +392,19 @@
             se.removeClass('d-none');
             se[0].size = 10;
         })
+        
         $('.PostavitButton').on('click', function (e){
-            if($('#selected_deal_id').val() == ""){
-                e.preventDefault()
+            var deal = $('#deal_select').val()
+            if (deal == '') {
+                e.preventDefault()    
             }
+            
         });
+
+        $(document).on('change','#deal_select',function(){
+            $('.PostavitButton').removeClass('opacity_button')
+        })
+
         if($('#selected_deal_id').val() != ""){
             if($('.PostavitButton').hasClass('opacity_button')){
                 $('.PostavitButton').removeClass('opacity_button')
@@ -471,7 +514,7 @@
             models.name.push("{{(($model_->performer) ? $model_->performer->first_name : '')}}")
             models.surname.push("{{(($model_->performer) ? $model_->performer->last_name : '')}}")
             models.middlename.push("{{(($model_->performer) ? $model_->performer->middle_name : '')}}")
-            models.created_at.push("{{$model_->created_at}}")
+            models.created_at.push("{{$model_->task_date_2}}")
             models.email.push("{{(($model_->performer) ? $model_->performer->email : '')}}")
             models.task_date.push("{{$model_->task_date}}")
             models.type.push("{{$model_->type}}")
@@ -484,7 +527,7 @@
             my_models.name.push("{{$my_model_->performer->first_name}}")
             my_models.surname.push("{{$my_model_->performer->last_name}}")
             my_models.middlename.push("{{$my_model_->performer->middle_name}}")
-            my_models.created_at.push("{{$my_model_->created_at}}")
+            my_models.created_at.push("{{$my_model_->task_date_2}}")
             my_models.email.push("{{$my_model_->performer->email}}")
             my_models.task_date.push("{{$my_model_->task_date}}")
             my_models.type.push("{{$my_model_->type}}")

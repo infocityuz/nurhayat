@@ -233,6 +233,10 @@ class HouseFlatController extends Controller
         ];
         $model->areas = json_encode($area);
 
+        if ($_POST['price_70']) {
+            $data['price_70'] = $_POST['price_70'];
+        }
+
         $area_price = [
             'hundred' => [
                 'total' => $data['price'] ?? 0,
@@ -254,7 +258,16 @@ class HouseFlatController extends Controller
                 'attic' => $data['price_attic_50'] ?? 0,
                 'terraca' => $data['price_terrace_50'] ?? 0,
             ],
+
+            'seventy' => [
+                'total' => $data['price_70'] ?? 0,
+                'basement' => $data['price_basement_70'] ?? 0,
+                'attic' => $data['price_attic_70'] ?? 0,
+                'terraca' => $data['price_terrace_70'] ?? 0,
+            ],
         ];
+
+
         $model->ares_price = json_encode($area_price);
 
         $model->save();
@@ -264,41 +277,7 @@ class HouseFlatController extends Controller
             $path = $dirname . '/../../../../public/uploads/house-flat/' . $model->house_id;
             File::makeDirectory($path, $mode = 0777, true, true);
         }
-        // uploads/tmp_files/
-        // if (file_exists($dirname . '/../../../../public/uploads/tmp_files/' . Auth::user()->id . '/house-flat')) {
-        //     $files_saved = File::allFiles($dirname . '/../../../../public/uploads/tmp_files/' . Auth::user()->id . '/house-flat');
-        //     $j = 0;
-        //     foreach ($files_saved as $files_savedItem) {
-        //         $j++;
-        //         $sourcePath = $dirname . '/../../../../public/uploads/tmp_files/' . Auth::user()->id . '/house-flat/' . $files_savedItem->getFilename();
-        //         $filenamehash = md5($files_savedItem->getFilename() . time()) . '.' . $files_savedItem->getExtension();
-        //         $filesize =  File::size($sourcePath);
-
-
-        //         $pathInfo = pathinfo($sourcePath);
-        //         if ($pathInfo['extension'] == 'jpg' || $pathInfo['extension'] == 'png' || $pathInfo['extension'] == 'jpeg') {
-        //             $imageR = new ImageResize($sourcePath);
-        //             $imageR->resizeToBestFit(config('params.large_image.width'), config('params.large_image.width'))->save(public_path('uploads/house-flat/' . $model->house_id . '/l_' . $filenamehash));
-        //             $imageR->resizeToWidth(config('params.medium_image.width'))->save(public_path('uploads/house-flat/' . $model->house_id . '/m_' . $filenamehash));
-        //             $imageR->crop(config('params.small_image.width'), config('params.small_image.height'))->save(public_path('uploads/house-flat/' . $model->house_id . '/s_' . $filenamehash));
-        //         } else {
-        //             $storageDestinationPath = public_path('uploads/house-flat/' . $model->house_id . '/' . $filenamehash);
-        //             File::move($sourcePath, $storageDestinationPath);
-        //         }
-
-        //         HouseDocument::create([
-        //             'house_flat_id' => $model->id,
-        //             'name' => $files_savedItem->getFilename(),
-        //             'guid' => $filenamehash,
-        //             'ext' => $files_savedItem->getExtension(),
-        //             'size' => $filesize ?? '',
-        //             'main_image' => $j == 1 ? 1 : 0,
-        //         ]);
-
-        //         File::delete($sourcePath);
-        //     }
-        // }
-
+        
         $image = $data['files'] ?? '';
         if (!empty($image)) {
             $imageName = md5(time().$image).'.'.$image->getClientOriginalExtension();
@@ -520,5 +499,75 @@ class HouseFlatController extends Controller
     {
         $model = Coupon::select('name', 'percent')->where('name', $text)->first();
         return $model;
+    }
+
+
+    public function add($id)
+    {
+        $arr_explode = explode('_', $id);
+        if (!empty($arr_explode)) {
+            $id = (int)$arr_explode[0];
+            $add_type = (int)$arr_explode[1];
+        }
+        $model = new HouseFlat();
+        $model_areas = HouseFlat::where('house_id',$id)->orderBy('id', 'desc')->first();
+
+        $houses = House::all();
+        $model->house_id = (int)$id;
+        
+        return view('forthebuilder::house-flat.add', [
+            'model' => $model,
+            'model_areas' => $model_areas,
+            'houses' => $houses,
+            'add_type' => $add_type,
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    public function saved(Request $request)
+    {
+        $dirname = dirname(__FILE__);
+        $data = $_POST;
+        if (!empty($data)) {
+            // 1
+            // 2 Цокольный этаж  
+            // 3 Мансарда           
+            
+            $newHouseFlat = new HouseFlat();
+            $newHouseFlat->number_of_flat = (int)$data['number_of_flat'];
+            $newHouseFlat->floor = (int)$data['floor'];
+            $newHouseFlat->entrance = (int)$data['entrance'];
+            $newHouseFlat->room_count = (int)$data['room_count'];
+            $newHouseFlat->price = $data['price'];
+            $newHouseFlat->doc_number = (int)$data['number_of_flat'];
+            $newHouseFlat->status = HouseFlat::STATUS_FREE;
+            $newHouseFlat->areas = json_encode($data['Area']);
+            $newHouseFlat->additional_type = $data['additional_type'];
+            $newHouseFlat->house_flat_id = null;
+            $newHouseFlat->free_start = date('Y-m-d H:i:s');
+            $newHouseFlat->free_end = '9999-12-31 23:59:59';
+            $newHouseFlat->house_id = (int)$data['house_id'];
+
+            // pre($newHouseFlat);
+            if($newHouseFlat->save()){
+
+            
+                Log::channel('action_logs2')->info("пользователь создал новую house : ", ['info-data' => 'new house flat id = '.$newHouseFlat->id]);
+
+                // $model = HouseFlat::findOrFail($newHouseFlat->id);
+                // $currency = Currency::first();
+                return redirect()->route('forthebuilder.house.show-more', $data['house_id'])->with('success', __('locale.successfully'));
+                
+                // return view('forthebuilder::house-flat.show', [
+                //     'model' => $model,
+                //     'currency' => $currency,
+                //     'status' => '',
+                //     'all_notifications' => $this->getNotification()
+                // ]);
+            }
+        }
+        
+
+
     }
 }

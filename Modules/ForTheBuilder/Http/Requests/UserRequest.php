@@ -32,6 +32,8 @@ class UserRequest extends BaseFormRequest
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'avatar' =>'nullable|mimes:jpeg,jpg,png|max:10240',
             'status' =>'nullable|integer',
+            'gender' =>'nullable|integer',
+            'gender_2' =>'nullable|string',
         ];
     }
     public function update()
@@ -47,6 +49,8 @@ class UserRequest extends BaseFormRequest
             'current_password' => ['nullable', 'string', 'min:8'],
             'avatar' =>'nullable|mimes:jpeg,jpg,png|max:10240',
             'status' =>'nullable|integer',
+            'gender' =>'nullable|integer',
+            'gender_2' =>'nullable|string',
         ];
     }
 }

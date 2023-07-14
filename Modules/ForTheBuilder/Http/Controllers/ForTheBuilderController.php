@@ -55,7 +55,7 @@ class ForTheBuilderController extends Controller
     }
 
     public function index()
-    {
+    {        
           // Deal
         $connect_for=Constants::FOR_1;
         $connect_new=Constants::NEW_1;
@@ -339,9 +339,11 @@ class ForTheBuilderController extends Controller
             }
             $core_chart="";
             $in = [];
+
+
             foreach ($month_prices as  $value) {
-                // dd($value);
-                $myDate=$value->date_deal;
+                
+                $myDate = date('Y-m-d', strtotime($value->date_deal));
                 $date_table = Carbon::createFromFormat('Y-m-d', $myDate);
                 $month_code = $date_table->format('n');
                 $date_day=Carbon::now()->format('m');
@@ -414,7 +416,9 @@ class ForTheBuilderController extends Controller
         ];
         
         $currency = Currency::first();
-        
+
+
+        // pre($this->getNotification());
 
         return view('forthebuilder::index',[
             // 'newLeadsCount' => $newLeadsCount,
@@ -796,7 +800,7 @@ class ForTheBuilderController extends Controller
                 
                 foreach ($month_prices as  $value) {
                     // dd($value);
-                    $myDate=$value->date_deal;
+                    $myDate = date('Y-m-d',strtotime($value->date_deal));
                     $date_table = Carbon::createFromFormat('Y-m-d', $myDate);
                     $month_code = $date_table->format('n');
                     $date_day=Carbon::now()->format('m');
@@ -865,11 +869,36 @@ class ForTheBuilderController extends Controller
             ];
 
         }
+        $currency = Currency::first();
 
          return view('forthebuilder::filtr',[
             'data' => $data,
+            'currency' => $currency,
             'months' => json_encode($months),
             'all_notifications' => $this->getNotification()
         ]);
+    }
+
+
+    public function clearNotification(Request $request)
+    {
+        $notifications = $this->getNotification();
+        if (count($notifications['all_task']) > 0) {
+            foreach ($notifications['all_task'] as $key => $value) {
+                $value->delete();
+            }
+        }
+        if (count($notifications['all_booking']) > 0) {
+            foreach ($notifications['all_booking'] as $key => $value) {
+                $value->delete();
+            }
+        }
+        if (count($notifications['all_installment_plan']) > 0) {
+            foreach ($notifications['all_installment_plan'] as $key => $value) {
+                $value->delete();
+            }
+        }
+        
+        return true;  
     }
 }

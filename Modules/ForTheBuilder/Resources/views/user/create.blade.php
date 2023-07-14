@@ -64,8 +64,8 @@
                         <div class="sozdatImyaSpsok">
                             <h3 class="sozdatImyaSpisokH3">{{ translate('Birth date') }}</h3>
                             <input name="birth_date"
-                                   class="sozdatImyaSpisokInput1272 @error('birth_date') error-data-input is-invalid @enderror"
-                                   value="{{ old('birth_date') }}" type="date">
+                                   class="sozdatImyaSpisokInput1272 datepicker @error('birth_date') error-data-input is-invalid @enderror"
+                                   value="{{ old('birth_date') }}" type="text">
                         </div>
                         <div class="sozdatImyaSpsok">
                             <h3 class="sozdatImyaSpisokH3">{{ translate('Phone number') }}</h3>
@@ -88,11 +88,15 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="sozdatImyaSpsok">
+                                <h3 class="sozdatImyaSpisokH3"> {{ translate('Gender') }}</h3>
+                                <select name="gender" id="gender" class="sozdatImyaSpisokInput1272 @error('gender') is-invalid error-data-input @enderror" required>
+                                        <option value="1">{{ translate('Men') }}</option>
+                                        <option value="2">{{ translate('Women') }}</option>
+                                </select>
+                            </div>
 
-                            {{--                            <div class="sozdatImyaSpsok"> --}}
-                            {{--                                <h3 class="sozdatImyaSpisokH3">{{translate('Status')}}</h3> --}}
-                            {{--                                <input class="sozdatImyaSpisokInput1272" name="status" type="text"> --}}
-                            {{--                            </div> --}}
+                            
                         </div>
 
                         <div>
@@ -107,6 +111,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
@@ -127,7 +132,12 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         let page_name = 'user';
+        $('.datepicker').datepicker({
+            format: 'dd.mm.yyyy',
+            autoclose: true
+        })
     </script>
 @endsection

@@ -74,6 +74,13 @@
                 <div class="up-arrow2"></div>
                 <div class="dropdownMenyApplyNotification">
                     @if ($all_count > 0)
+                        <div class="px-1 py-2">
+                            <button type="button" class="btn btn-sm btn-danger clear_notification">
+                                <i class="fa fa-trash"></i>
+                                {{ translate('Clear all') }}
+                            </button>
+                        </div>
+                        <hr class="my-1">
                         @foreach ($all_notifications['all_booking'] as $booking_notification)
                             @php
                               $notification_data = json_decode($booking_notification->data);
@@ -253,6 +260,8 @@
     </div>
 </div>
 
+<div id="confirm_notification_clear" data-text="{{ translate("Are you sure ?") }}"></div>
+
 <script src="{{ asset('/backend-assets/forthebuilders/javascript/jquery-3.6.1.js') }}"></script>
 <script src="{{ asset('/backend-assets/js/custom.js') }}"></script>
 <script defer>
@@ -310,4 +319,18 @@
             language_flag.classList.add('display-none')
         }
     });
+
+    $(document).on('click','.clear_notification',function(){
+        if (confirm($('#confirm_notification_clear').attr('data-text'))) {
+            $.ajax({
+                url: `/forthebuilder/clear-notification/`,
+                type: 'GET',
+                success: function(data) {
+                    if(data == true){
+                       window.location.reload()
+                    }
+                }
+            });
+        }
+    })
 </script>

@@ -9,6 +9,10 @@
         <a href="{{ route('forthebuilder.user.show', $current_user->id) }}" class="d-flex">
             @if(isset($current_user->id))
                 @php
+                    $gender_img = 'men.png';
+                    if ($current_user->gender == 2) {
+                        $gender_img = 'women.png';
+                    }
                     $sms_avatar = public_path('/uploads/user/' . $current_user->id . '/s_' . $current_user->avatar);
                 @endphp
                 @if(file_exists($sms_avatar))
@@ -16,10 +20,10 @@
                          src="{{ asset('/uploads/user/' . $current_user->id . '/s_' . $current_user->avatar) }}"
                          alt="">
                 @else
-                    <img class="profile" src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" alt="">
+                    <img class="profile" src="{{ asset('/backend-assets/img/'.$gender_img) }}" alt="">
                 @endif
             @else
-                <img class="profile" src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" alt="">
+                <img class="profile" src="{{ asset('/backend-assets/img/men.png') }}" alt="">
             @endif
             <h4 class="userName">{{ $current_user->first_name }} <span
                         class="userSurname">{{ $current_user->last_name }}</span></h4>

@@ -71,7 +71,13 @@
                                         <img src="{{ asset('/uploads/user/' . $model->id . '/s_' . $model->avatar) }}"
                                             alt="HUman">
                                     @else
-                                        <img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}"
+                                     @php
+                                        $gender_img = 'men.png';
+                                        if ($model->gender == 2) {
+                                            $gender_img = 'women.png';
+                                        }
+                                    @endphp
+                                        <img src="{{ asset('/backend-assets/img/'.$gender_img) }}"
                                             alt="HUman">
                                     @endif
                                 </a>

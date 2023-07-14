@@ -103,7 +103,11 @@ class UserController extends Controller
             $imageName = md5(time().$image).'.'.$image->getClientOriginalExtension();
             $data['avatar'] = $imageName;
         }
+
+        $data['gender'] = (int)$_POST['gender'];
         $model = User::create($data);
+        $model->birth_date = ((isset($data['birth_date']) && !empty($data['birth_date'])) ? date('Y-m-d', strtotime($data['birth_date'])) : NULL);
+        
         if (!empty($image)) {
             //bu yerda orginal rasm yuklanyapti ochilgan papkaga
             $image->move(public_path('uploads/user/'.$model->id),$imageName);
@@ -247,7 +251,7 @@ class UserController extends Controller
         $core_chart="";
         $in = [];
         foreach ($month_prices as  $value) {
-            $myDate=$value->date_deal;
+            $myDate = date('Y-m-d',strtotime($value->date_deal));
             $date_table = Carbon::createFromFormat('Y-m-d', $myDate);
             $month_code = $date_table->format('n');
             $date_day=Carbon::now()->format('m');
@@ -656,6 +660,7 @@ class UserController extends Controller
                 $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
             }      
             
+
             
 
 
@@ -679,6 +684,22 @@ class UserController extends Controller
 
         }
 
+        $months = [
+            translate('January'), 
+            translate('February'), 
+            translate('March'), 
+            translate('April'), 
+            translate('May'), 
+            translate('June'), 
+            translate('July'), 
+            translate('August'), 
+            translate('September'), 
+            translate('October'), 
+            translate('November'), 
+            translate('December')
+        ];
+
+
         return view('forthebuilder::user.filtr',[
             'id' => $id,
             'data' => $data,
@@ -691,6 +712,7 @@ class UserController extends Controller
             'monthly_count' => $monthly_count,
             'my_tasks' => $my_tasks,
             'task_count' => $task_count,
+            'months' => json_encode($months),
             'all_notifications' => $this->getNotification()
         ]);
     }

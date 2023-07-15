@@ -219,18 +219,28 @@ class HouseFlatController extends Controller
         $price = ((($data['price'] ?? 0) * ($data['area_total'] ?? 0)) + (($data['price_basement'] ?? 0) * ($data['area_basement'] ?? 0)) + (($data['price_attic'] ?? 0) * ($data['area_attic'] ?? 0)));
         $model->price = $price;
 
-        // dd($data);
+        
         $area = [
             'housing' => $data['area_housing'] ?? 0,
             'total' => $data['area_total'] ?? 0,
             'basement' => $data['area_basement'] ?? 0,
             "hotel" => $data['area_hotel'] ?? 0,
+            "hotel2" => $data['area_hotel_2'] ?? 0,
+            "hotel3" => $data['area_hotel_3'] ?? 0,
+            "hotel4" => $data['area_hotel_4'] ?? 0,
+            "hotel5" => $data['area_hotel_5'] ?? 0,
             "bedroom" => $data['area_bedroom'] ?? 0,
+            "bedroom2" => $data['area_bedroom_2'] ?? 0,
+            "bedroom3" => $data['area_bedroom_3'] ?? 0,
+            "bedroom4" => $data['area_bedroom_4'] ?? 0,
+            "bedroom5" => $data['area_bedroom_5'] ?? 0,
             'terraca' => $data['area_terraca'] ?? 0,
             'attic' => $data['area_attic'] ?? 0,
             'balcony' => $data['area_balcony'] ?? 0,
-            'kitchen' => 0,
+            'kitchen' => $data['area_kitchen'] ?? 0,
+            'other' => $data['area_other'] ?? 0
         ];
+
         $model->areas = json_encode($area);
 
         if ($_POST['price_70']) {

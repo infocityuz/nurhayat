@@ -257,7 +257,11 @@
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Email') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ (($val->email) ? $val->email : translate('Not specified')) }}</div>
+                                                        <div class="klientNameInformatsia2">
+                                                            @php 
+                                                                echo (($val->email) ? $val->email : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                                            @endphp
+                                                        </div>
                                                     </div>
 
                                                     <div class="d-flex justify-content-between">
@@ -333,7 +337,11 @@
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Email') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ (($val->email) ? $val->email : translate('Not specified')) }}</div>
+                                                        <div class="klientNameInformatsia2">
+                                                            @php 
+                                                                echo (($val->email) ? $val->email : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                                            @endphp
+                                                        </div>
                                                     </div>
 
                                                     <div class="d-flex justify-content-between">
@@ -353,15 +361,27 @@
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Series number') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ (($val->series_number) ? $val->series_number : translate('Not specified')) }}</div>
+                                                        <div class="klientNameInformatsia2">
+                                                            @php 
+                                                                echo (($val->series_number) ? $val->series_number : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                                            @endphp
+                                                        </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Issued by') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ (($val->issued_by) ? $val->issued_by : translate('Not specified'))  }}</div>
+                                                        <div class="klientNameInformatsia2">
+                                                            @php 
+                                                                echo (($val->issued_by) ? $val->issued_by : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                                            @endphp
+                                                        </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('INN') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ (($val->inn) ? $val->inn : translate('Not specified')) }}</div>
+                                                        <div class="klientNameInformatsia2">
+                                                            @php 
+                                                                echo (($val->inn) ? $val->inn : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                                            @endphp
+                                                        </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Budget') }}</div>
@@ -432,7 +452,9 @@
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Email') }}</div>
                                                         <div class="klientNameInformatsia2">
-                                                            {{ (($val->email) ? $val->email : translate('Not specified')) }}
+                                                        @php 
+                                                            echo (($val->email) ? $val->email : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                                        @endphp
                                                         </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
@@ -458,15 +480,27 @@
 
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Series number') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ (($val->series_number) ? $val->series_number : translate('Not specified')) }}</div>
+                                                        <div class="klientNameInformatsia2">
+                                                            @php 
+                                                                echo (($val->series_number) ? $val->series_number : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                                            @endphp
+                                                        </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Issued by') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ (($val->issued_by) ? $val->issued_by : translate('Not specified'))  }}</div>
+                                                        <div class="klientNameInformatsia2">
+                                                            @php 
+                                                                echo (($val->issued_by) ? $val->issued_by : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                                            @endphp
+                                                        </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('INN') }}</div>
-                                                        <div class="klientNameInformatsia2">{{ (($val->inn) ? $val->inn : translate('Not specified')) }}</div>
+                                                        <div class="klientNameInformatsia2">
+                                                            @php 
+                                                                echo (($val->inn) ? $val->inn : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                                            @endphp
+                                                        </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Budget') }}</div>
@@ -670,7 +704,7 @@
                                                                                      alt="Avatar">
                                                                             @else
                                                                                 <img class="smsAvatar"
-                                                                                     src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}"
+                                                                                     src="{{ asset('/backend-assets/img/men.png') }}"
                                                                                      alt="Avatar">
                                                                             @endif
                                                                         @endif
@@ -798,12 +832,12 @@
                                                                                      alt="Avatar">
                                                                                 @else
                                                                                     <img class="smsAvatar"
-                                                                                         src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}"
+                                                                                         src="{{ asset('/backend-assets/img/men.png') }}"
                                                                                          alt="Avatar">
                                                                                 @endif
                                                                             @else
                                                                                 <img class="smsAvatar"
-                                                                                     src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}"
+                                                                                     src="{{ asset('/backend-assets/img/men.png') }}"
                                                                                      alt="Avatar">
                                                                             @endif
                                                                         </div>
@@ -830,16 +864,7 @@
                                                     @endforeach
                                                 @endif
                                             </div>
-                                            {{--                                            <div class="smsMiniBlueData">--}}
-                                            {{--                                                <img width="19" height="19"--}}
-                                            {{--                                                    src="{{ asset('backend-assets/forthebuilders/images/Time Circle.png') }}"--}}
-                                            {{--                                                    alt="Photo">--}}
-                                            {{--                                                <p class="smsZaftra">Завтра для <b>Magomed</b></p>--}}
-                                            {{--                                                <img width="19" height="19"--}}
-                                            {{--                                                    src="{{ asset('backend-assets/forthebuilders/images/Call.png') }}"--}}
-                                            {{--                                                    alt="Photo">--}}
-                                            {{--                                                <p class="smsZaftra">Позвонить</p>--}}
-                                            {{--                                            </div>--}}
+                                           
 
                                             <form action="{{ route('forthebuilder.task.calendar_store') }}"
                                                   method="POST" enctype="multipart/form-data"
@@ -858,17 +883,16 @@
                                                            value="{{ $client->id }}">
                                                     <div class="add-task">
                                                         <div>
+                                                            <br>
                                                             <div class="row">
                                                                 <div class="col-4">
-                                                                    <label>{{ translate('Task on')}}</label>
                                                                     <input name="task_date_2" id="task_date" type="text"
                                                                            class="choise-date form-control w-100 @error('task_date') error-data-input is-invalid @enderror" value="{{ date('d.m.Y H:i') }}">
                                                                     <span id="show_task_date"></span>
                                                                 </div>
                                                                 <div class="col-4">
-                                                                    <label for="">{{ translate('for') }}</label>
                                                                     <select name="performer_id" id="performer_id"
-                                                                        data-placeholder="" class="form-control select2 @error('performer_id') is-invalid error-data-input @enderror">
+                                                                        data-placeholder="{{ translate('for') }}" class="form-control select2 @error('performer_id') is-invalid error-data-input @enderror">
                                                                     @empty(!$users)
                                                                         @foreach ($users as $user)
                                                                             <option value="{{ $user->id }}"
@@ -879,8 +903,7 @@
                                                                     </select>        
                                                                 </div>
                                                                 <div class="col-4">
-                                                                    <label for="">{{translate('Call')}}</label>
-                                                                    <select name="type" id="type" class="form-control select2">
+                                                                    <select data-placeholder="{{translate('Call')}}" name="type" id="type" class="form-control select2">
                                                                         <option value="Связаться">{{ translate('Call') }}
                                                                         </option>
                                                                         <option value="Встреча">{{ translate('Meeting') }}
@@ -893,9 +916,8 @@
                                                             
                                                         </div>
                                                     </div>
-                                                    
-                                                    <label class="mt-2">{{ translate('Title') }}</label>
-                                                    <textarea cols="4" class="form-control task_title m-0" name="task_title" rows="1"></textarea>
+                                                    <br>
+                                                    <textarea cols="4" class="form-control task_title m-0" name="task_title" rows="1" placeholder="{{ translate('Description') }}"></textarea>
                                                     <div class="d-flex justify-content-end mt-2">
                                                         <button class="smsZadacha task_put_button">{{ translate('Put') }}</button>
                                                     </div>
@@ -1057,6 +1079,7 @@
         </div>
     </div>
     <div class="backdrop d-none" id="backdrop"></div>
+    <div id="line_months" lang="{{ $line_month }}"></div>
     <script src="{{ asset('/backend-assets/forthebuilders/javascript/jquery-3.6.1.js')}}" type="text/javascript"></script>
 <script src="{{asset('/backend-assets/forthebuilders/select/js/select2.min.js')}}"></script>
 <script src="{{asset('/backend-assets/forthebuilders/toastr/js/toastr.min.js')}}"></script>
@@ -1065,6 +1088,8 @@
 <script src='{{asset('/backend-assets/plugins/fullcalendar/locales/ru.js')}}'></script>
     
     <script>
+        var line_months = $('#line_months').attr('lang');
+        line_months = line_months.split(",");
         $(function(){
              $('#task_date').datetimepicker({
                 "allowInputToggle": true,
@@ -1072,6 +1097,9 @@
                 "showClear": true,
                 "showTodayButton": true,
                 "format": "DD.MM.YYYY HH:mm",
+                // locale: {
+                //     // "monthNames": line_months
+                // }
             });
             $('.select2').select2()
         })
@@ -1222,31 +1250,7 @@
                 }
             })
         }
-        // choise_manager[0].addEventListener('click', function(e) {
-        //     e.preventDefault();
-        //     performer_id.classList.remove('d-none');
-        //     performer_id.size = 10;
-        // })
-        // performer_id.addEventListener("click", function() {
-        //     this.classList.add('d-none');
-        //     choise_manager[0].innerHTML = this.options[this.selectedIndex].textContent
-        // });
-        // choise_phone[0].addEventListener('click', function(e) {
-        //     e.preventDefault();
-        //     type.classList.remove('d-none');
-        //     type.size = 2;
-        // })
-        // type.addEventListener("change", function() {
-        //     this.classList.add('d-none');
-        //     if (this.options[this.selectedIndex].textContent == 'Meeting') {
-        //         calling_or_meeting.setAttribute('src', meeting_png)
-        //     }
-        //     if (this.options[this.selectedIndex].textContent == 'Call') {
-        //         calling_or_meeting.setAttribute('src', call_png)
-        //     }
-        //     choise_phone[0].innerHTML = this.options[this.selectedIndex].textContent
-        // });
-
+       
         if (looking_for_checkbox.checked != true) {
             looking_for_input.setAttribute('disabled', true)
             budget_input.value = ''
@@ -1548,7 +1552,7 @@
     </script>
 
 
-    {{--
+    
          <script>
 
 
@@ -1562,7 +1566,7 @@
 
             // var conn = new WebSocket('ws://95.130.227.39:8080/?token={{ auth()->user()->token }}');
 
-            var conn = new WebSocket('ws://127.0.0.1:8080/?token={{ auth()->user()->token }}');
+            var conn = new WebSocket('ws://127.0.0.1:1236/?token={{ auth()->user()->token }}');
             // http://127.0.0.1/
 
             var from_user_id = "{{ Auth::user()->id }}";
@@ -1610,7 +1614,7 @@
             }
 
 
-         </script> --}}
+         </script> 
 
 
 
@@ -1671,7 +1675,7 @@
                                 `
                         if(data.sender_connection.avatar== null)
                         {
-                            user_image = `<img class="smsVerifed" src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                            user_image = `<img class="smsVerifed" src="{{ asset('/backend-assets/img/men.png') }}" width="35" class="rounded-circle" />`
                         }
                         else{
                             user_image = `<img class="smsVerifed" src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection.avatar+`" width="35" class="rounded-circle" />`
@@ -1717,7 +1721,7 @@
                                 `
                         if(data.sender_connection.avatar== null)
                         {
-                            user_image = `<img class="smsVerifed" src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                            user_image = `<img class="smsVerifed" src="{{ asset('/backend-assets/img/men.png') }}" width="35" class="rounded-circle" />`
                         }
                         else{
                             user_image = `<img class="smsVerifed" src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection.avatar+`" width="35" class="rounded-circle" />`
@@ -1754,7 +1758,7 @@
                         //             `
                         // if(data.sender_connection.avatar== null)
                         // {
-                        //     user_image = `<img src="{{ asset('/backend-assets/forthebuilders/images/X.png') }}" width="35" class="rounded-circle" />`
+                        //     user_image = `<img src="{{ asset('/backend-assets/img/men.png') }}" width="35" class="rounded-circle" />`
                         // }
                         // else{
                         //     user_image = `<img src="{{ asset('uploads/user/') }}/`+data.from_user_id+`/s_`+data.sender_connection.avatar+`" width="35" class="rounded-circle" />`

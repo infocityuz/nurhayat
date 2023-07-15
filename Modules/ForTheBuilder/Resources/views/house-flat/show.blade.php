@@ -145,13 +145,71 @@
                         <div class="jkAttributEdit2">{{ $areas->hotel ?? 0 }}</div>
                     </div>
                     @endif
-                    
+                    @if (!empty($areas->hotel2))
+                    <div class="jkEditText1">
+                        <div class="jkAttributEdit2">2 - {{ translate('Hotel') }}</div>
+                        <div class="jkAttributEdit2">{{ $areas->hotel2 ?? 0 }}</div>
+                    </div>
+                    @endif
+
+                    @if (!empty($areas->hotel3))
+                    <div class="jkEditText1">
+                        <div class="jkAttributEdit2">3 - {{ translate('Hotel') }}</div>
+                        <div class="jkAttributEdit2">{{ $areas->hotel3 ?? 0 }}</div>
+                    </div>
+                    @endif
+
+                    @if (!empty($areas->hotel4))
+                    <div class="jkEditText1">
+                        <div class="jkAttributEdit2">4 - {{ translate('Hotel') }}</div>
+                        <div class="jkAttributEdit2">{{ $areas->hotel4 ?? 0 }}</div>
+                    </div>
+                    @endif
+
+                    @if (!empty($areas->hotel5))
+                    <div class="jkEditText1">
+                        <div class="jkAttributEdit2">5 - {{ translate('Hotel') }}</div>
+                        <div class="jkAttributEdit2">{{ $areas->hotel5 ?? 0 }}</div>
+                    </div>
+                    @endif
+
                     @if (isset($areas->bedroom))
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Bedroom') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->bedroom ?? 0 }}</div>
                         </div>
                     @endif
+                    
+                    @if (!empty($areas->bedroom2))
+                        <div class="jkEditText1">
+                            <div class="jkAttributEdit2">2 - {{ translate('Bedroom') }}</div>
+                            <div class="jkAttributEdit2">{{ $areas->bedroom2 ?? 0 }}</div>
+                        </div>
+                    @endif
+
+                     @if (!empty($areas->bedroom3))
+                        <div class="jkEditText1">
+                            <div class="jkAttributEdit2">3 - {{ translate('Bedroom') }}</div>
+                            <div class="jkAttributEdit2">{{ $areas->bedroom3 ?? 0 }}</div>
+                        </div>
+                    @endif
+
+                     @if (!empty($areas->bedroom4))
+                        <div class="jkEditText1">
+                            <div class="jkAttributEdit2">4 - {{ translate('Bedroom') }}</div>
+                            <div class="jkAttributEdit2">{{ $areas->bedroom4 ?? 0 }}</div>
+                        </div>
+                    @endif
+
+
+                     @if (!empty($areas->bedroom5))
+                        <div class="jkEditText1">
+                            <div class="jkAttributEdit2">5 -{{ translate('Bedroom') }}</div>
+                            <div class="jkAttributEdit2">{{ $areas->bedroom5 ?? 0 }}</div>
+                        </div>
+                    @endif
+
+                     
 
                     @if ($areas->terraca > 0)
                         <div class="jkEditText1">
@@ -185,6 +243,13 @@
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Balcony') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->balcony ?? 0 }}</div>
+                        </div>
+                    @endif
+
+                    @if ($areas->other > 0)
+                        <div class="jkEditText1">
+                            <div class="jkAttributEdit2">{{ translate('Other') }}</div>
+                            <div class="jkAttributEdit2">{{ $areas->other ?? 0 }}</div>
                         </div>
                     @endif
                 </div>

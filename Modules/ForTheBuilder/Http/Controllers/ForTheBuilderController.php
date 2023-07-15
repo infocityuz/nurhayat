@@ -414,31 +414,24 @@ class ForTheBuilderController extends Controller
             translate('November'), 
             translate('December')
         ];
-        
+
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
         $currency = Currency::first();
 
 
-        // pre($this->getNotification());
-
         return view('forthebuilder::index',[
-            // 'newLeadsCount' => $newLeadsCount,
-            // 'boughFlatsCount' => $boughFlatsCount,
-            // 'newFlatsCount' => $newFlatsCount,
-            // 'busyFlatsCount' => $busyFlatsCount,
             'data'=>$data,
+            'line_month'=>$line_month,
             'currency'=>$currency,
             'months'=> json_encode($months),
              'all_notifications' => $this->getNotification()
         ]);
     }
-    // public function indexLayout()
-    // {
-    //     $houses = House::all();
-    //     return view('forthebuilder::layouts.forthebuilder',[
-    //         'houses' => $houses,
-    //     ]);
-    // }
-
+  
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -869,11 +862,17 @@ class ForTheBuilderController extends Controller
             ];
 
         }
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
         $currency = Currency::first();
 
          return view('forthebuilder::filtr',[
             'data' => $data,
             'currency' => $currency,
+            'line_month' => $line_month,
             'months' => json_encode($months),
             'all_notifications' => $this->getNotification()
         ]);

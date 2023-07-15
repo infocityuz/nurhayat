@@ -54,7 +54,7 @@ class WebSocketServer extends Command
                     new ChatController()
                 )
             ),
-            1235
+            1236
         );
         $server->run();
     }

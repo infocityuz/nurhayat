@@ -91,8 +91,8 @@
                             <div class="sozdatImyaSpsok">
                                 <h3 class="sozdatImyaSpisokH3"> {{ translate('Gender') }}</h3>
                                 <select name="gender" id="gender" class="sozdatImyaSpisokInput1272 @error('gender') is-invalid error-data-input @enderror" required>
-                                        <option value="1">{{ translate('Men') }}</option>
-                                        <option value="2">{{ translate('Women') }}</option>
+                                        <option value="1">{{ translate('Male') }}</option>
+                                        <option value="2">{{ translate('Female') }}</option>
                                 </select>
                             </div>
 

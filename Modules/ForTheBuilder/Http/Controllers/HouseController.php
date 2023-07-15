@@ -424,7 +424,7 @@ class HouseController extends Controller
             }
 
             if ($val->room_count == 'p') {
-                $f_j = translate('Park');                
+                $f_j = translate('Parking');                
             }
 
 
@@ -559,7 +559,7 @@ class HouseController extends Controller
             }
 
             if ($val->room_count == 'p') {
-                $f_j = translate('Park');                
+                $f_j = translate('Parking');                
             }
 
             $areas = json_decode($val->areas);
@@ -903,8 +903,8 @@ class HouseController extends Controller
         if (isset($request['flats'])) {
             $room_count = $request['flats'][1]['room_count'];
             $flats = $request['flats'][0]['flats'];
-            // $kv_m = $request['kv_m'];
-            // dd($room_count = $request['flats'][1]);
+            
+
 
             $n = 0;
             if (!empty($flats)) {
@@ -946,25 +946,34 @@ class HouseController extends Controller
                             }
                         }
 
+
                         $areaArr = [
                             "total" => $formData['total_area'],
                             "housing" => $formData['living_space'] ?? 0,
                             "hotel" => $formData['hotel'] ?? 0,
+                            "hotel2" => $formData['hotel_2'] ?? 0,
+                            "hotel3" => $formData['hotel_3'] ?? 0,
+                            "hotel4" => $formData['hotel_4'] ?? 0,
+                            "hotel5" => $formData['hotel_5'] ?? 0,
                             "bedroom" => $formData['bedroom'] ?? 0,
+                            "bedroom2" => $formData['bedroom_2'] ?? 0,
+                            "bedroom3" => $formData['bedroom_3'] ?? 0,
+                            "bedroom4" => $formData['bedroom_4'] ?? 0,
+                            "bedroom5" => $formData['bedroom_5'] ?? 0,
                             "kitchen" => $formData['kitchen_area'] ?? 0,
-                            "basement" => 0,
+                            "basement" => $formData['basement'] ?? 0,
                             "terraca" => $formData['terassa'] ?? 0,
-                            "attic" => 0,
+                            "attic" => $formData['attic'] ?? 0,,
                             "balcony" => $formData['balcony'] ?? 0,
+                            "other" => $formData['other'] ?? 0,
                         ];
+
+
+
+
                         $modelFlats->room_count = $room_count;
                         $modelFlats->areas = json_encode($areaArr);
 
-                        // $modelFlats->total_area = ;
-                        // $modelFlats->kitchen_area = $formData['kitchen_area'];
-                        // $modelFlats->area = $formData['living_space'];
-                        // $modelFlats->terrace = $formData['terassa'] ?? 0;
-                        // $modelFlats->balcony = $formData['balcony'] ?? 0;
                         $modelFlats->save();
 
                         if (isset($files_savedItem)) {

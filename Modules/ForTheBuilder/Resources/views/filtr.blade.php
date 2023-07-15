@@ -139,6 +139,9 @@
     <div id="lang_app" lang="{{ translate('Apply') }}"></div>
     <div id="lang_cancel" lang="{{ translate('Cancel') }}"></div>
     <div id="lang_months" lang="{{ $months }}"></div>
+    <div id="line_months" lang="{{ $line_month }}"></div>
+    <div id="no_data" data-text="{{ translate('No data') }}"></div>
+    <div id="core_chart" data-arr="{{ $data['core_chart'] }}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -148,19 +151,24 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
-        let page_name = 'index';
-// chart1
+        let page_name = 'filtr';
+        
+        // chart1
+        const ctx = document.getElementById('myChart');
+        var month_day = <?php echo json_encode($data['month_day']); ?>;
+        var price_day_array = <?php echo json_encode($data['price_day_array']); ?>;
+        var lang_months = $('#lang_months').attr('lang');
+        var line_months = $('#line_months').attr('lang');
 
-            const ctx = document.getElementById('myChart');
-            var month_day = <?php echo json_encode($data['month_day']); ?>;
-            var price_day_array = <?php echo json_encode($data['price_day_array']); ?>;
+        line_months = line_months.split(",");
 
-            new Chart(ctx, {
+
+        new Chart(ctx, {
             type: 'line',
             data: {
                 labels:month_day,
                 datasets: [{
-                label: '# of Votes',
+                label: '',
                 data:price_day_array,
                 borderWidth: 2,
                 barPercentage:0.1
@@ -175,26 +183,16 @@
             }
         });
 
+        // chart2
+        const ctx_2 = document.getElementById('myChart_2');
+        var users = <?php echo json_encode($data['month_sales_price']); ?>;
 
-
-
-
-
-            
-
-
-    // chart2
-
-    //
-            const ctx_2 = document.getElementById('myChart_2');
-            var users = <?php echo json_encode($data['month_sales_price']); ?>;
-
-            new Chart(ctx_2, {
+        new Chart(ctx_2, {
             type: 'line',
             data: {
-                labels: ['January ', 'February ', 'March ', 'April', 'May', 'june','july','August','September','October','November','December'],
+                labels: line_months,
                 datasets: [{
-                label: '# of Votes',
+                label: '',
                 data:users,
                 borderWidth: 2,
                 barPercentage:0.1
@@ -207,93 +205,83 @@
                 }
                 }
             }
-            });
-
-
-
-    // bar chart
-
-    //   google.charts.load('current', {'packages':['bar']});
-    //   google.charts.setOnLoadCallback(drawChart);
-
-    //   function drawChart() {
-    //     var data = google.visualization.arrayToDataTable([
-    //       ['', 'alijon', 'bbb', 'dd',],
-    //       ['1-week', 2000, 400,11],
-    //       ['2-week', 1170, 460,11],
-    //       ['3-week', 660, 1120,11],
-    //       ['4-week', 1030, 540,11]
-    //     ]);
-
-    //     var options = {
-    //       title: 'Chess opening moves',
-    //       width: 500,
-    //       height: 200,
-    //       legend: { position: 'none' },
-
-    //       bars: 'vertical', // Required for Material Bar Charts.
-    //       axes: {
-    //         x: {
-    //           0: { side: 'button'} // Top x-axis.
-    //         }
-    //       },
-    //       bar: { groupWidth: "90%" }
-    //     };
-
-    //     var chart = new google.charts.Bar(document.getElementById('barchart_material'));
-    //     chart.draw(data, options);
-    //   }
-    
-//  chart3
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart_1);
-
-      function drawChart_1() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          <?php echo $data['core_chart']; ?>
-        ]);
-
-        var options = {
-            title: '',
-          width: 400,
-          height: 400,
-          legend: { position: 'bottom'},
-
-          bars: 'vertical', // Required for Material Bar Charts.
-          axes: {
-            x: {
-              0: { side: 'button', label: 'Percentage'} // Top x-axis.
-            }
-          },
-          bar: { groupWidth: "90%" }
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-      }
-
-      $(document).ready(function(){
-        $('.daterange').daterangepicker({
-            // autoApply: true,
-            locale: {
-                format: 'DD.MM.YYYY',
-                "applyLabel": $('#lang_app').attr('lang'),
-                "cancelLabel": $('#lang_cancel').attr('lang'),
-                "monthNames": $('#lang_months').attr('lang')
-            }
         });
 
-      })
+        //  chart3
+        //  chart3
+        const core_chart = $('#core_chart').attr('data-arr')
+        if (core_chart != '') {
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart_1);
+            function drawChart_1() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  <?php echo $data['core_chart']; ?>
+                  // [$('#no_data').attr('data-text'), 1]
+                ]);
 
-      $(document).on('click','.applyBtn',function(){
-        var date = $('.daterange').val()
+                var options = {
+                    title: '',
+                    width: 400,
+                    height: 400,
+                    legend: { position: 'bottom'},
+                    bars: 'vertical', // Required for Material Bar Charts.
+                    axes: {
+                        x: {
+                            0: { side: 'button', label: 'Percentage'} // Top x-axis.
+                        }
+                    },
+                    bar: { groupWidth: "90%" }
+                };
 
-        location.href = `/forthebuilder/filtr/${date}`;
-        
-      })
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }    
+        }
+        else{
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart_1);
+            function drawChart_1() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  <?php echo $data['core_chart']; ?>
+                  [$('#no_data').attr('data-text'), 1]
+                ]);
 
-      </script>
+                var options = {
+                    title: '',
+                    width: 400,
+                    height: 400,
+                    legend: { position: 'bottom'},
+                    bars: 'vertical', // Required for Material Bar Charts.
+                    axes: {
+                        x: {
+                            0: { side: 'button', label: 'Percentage'} // Top x-axis.
+                        }
+                    },
+                    bar: { groupWidth: "90%" }
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }   
+        }
+
+        $(document).ready(function(){
+            $('.daterange').daterangepicker({
+                locale: {
+                    format: 'DD.MM.YYYY',
+                    "applyLabel": $('#lang_app').attr('lang'),
+                    "cancelLabel": $('#lang_cancel').attr('lang'),
+                    "monthNames": line_months
+                }
+            });
+        })
+
+        $(document).on('click','.applyBtn',function(){
+            var date = $('.daterange').val()
+            location.href = `/forthebuilder/filtr/${date}`;
+        })
+
+</script>
 @endsection

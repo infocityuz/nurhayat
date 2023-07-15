@@ -206,6 +206,7 @@
                         <button class="plusFlexModalInformation">+</button>
                         <h3 class="plusFlexModalInformationDobavitCvartir"> Добавить квартиру</h3>
                     </div> --}}
+                        <br>
                         <label for="files">{{ __('locale.file__upload') }}</label>
                         <input type="file" name="files[]" id="files" multiple>
 
@@ -233,6 +234,79 @@
     </form>
     <script>
         let page_name = 'house';
+
+        $(document).on('click','.plus_hotel',function(){
+            var count = $('.add_hotel_rooms').attr('data-count')
+            if (count <= 5) {
+                $('.add_hotel_rooms').append(`<div class="mt-3">
+                    <h3 class="sozdatJkSpisokH3722 d-flex justify-content-between">
+                        ${count} - {{ translate('Hotel') }}
+                    </h3>
+                    <input type="number" name="hotel_${count}" class="modalMiniCapsule4 text-left keyup_input_area">                       
+                </div>`
+                );
+                $('.add_hotel_rooms').attr('data-count',++count)    
+            }
+            
+        })
+
+        $(document).on('click','.minus_hotel',function(){
+            var count = $('.add_hotel_rooms').attr('data-count')
+            if (count > 2) {
+                $('.add_hotel_rooms .mt-3').last().remove()
+                $('.add_hotel_rooms').attr('data-count',--count) 
+                var sum = 0;
+                $('.keyup_input_area').each(function(){
+                    if ($(this).val() != '') {
+                        sum += parseFloat($(this).val());    
+                    }
+                    $('input[name="total_area"]').val(sum)
+                    
+                });   
+            }
+        })
+
+        $(document).on('click','.plus_bedroom',function(){
+            var count = $('.add_bedroom_rooms').attr('data-count')
+            if (count <= 5) {
+                $('.add_bedroom_rooms').append(`<div class="mt-3">
+                        <h3 class="sozdatJkSpisokH3722 d-flex justify-content-between">
+                            ${count} - {{ translate('Bedroom') }}
+                        </h3>
+                        <input type="number" name="bedroom_${count}" class="modalMiniCapsule4 text-left keyup_input_area">                       
+                    </div>`
+                );
+                $('.add_bedroom_rooms').attr('data-count',++count)
+            }
+        })
+
+        $(document).on('click','.minus_bedroom',function(){
+            var count = $('.add_bedroom_rooms').attr('data-count')
+            if (count > 2) {
+                $('.add_bedroom_rooms .mt-3').last().remove()
+                $('.add_bedroom_rooms').attr('data-count',--count)    
+                var sum = 0;
+                $('.keyup_input_area').each(function(){
+                    if ($(this).val() != '') {
+                        sum += parseFloat($(this).val());    
+                    }
+                });
+                $('input[name="total_area"]').val(sum)
+            }
+        })
+
+        $(document).on('keyup','.keyup_input_area',function(){
+            var sum = 0;
+            $('.keyup_input_area').each(function(){
+                if ($(this).val() != '') {
+                    sum += parseFloat($(this).val());    
+                }
+                
+            });
+
+            $('input[name="total_area"]').val(sum)
+        })
+
     </script>
 @endsection
 

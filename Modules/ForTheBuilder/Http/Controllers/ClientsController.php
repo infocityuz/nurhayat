@@ -861,6 +861,28 @@ class ClientsController extends Controller
         // $users = User::all();
 
         // $listTasks = Task::where('lead_id', $id)->orderBy('id', 'desc')->paginate(config('params.pagination'));
+
+        $months = [
+            translate('January'), 
+            translate('February'), 
+            translate('March'), 
+            translate('April'), 
+            translate('May'), 
+            translate('June'), 
+            translate('July'), 
+            translate('August'), 
+            translate('September'), 
+            translate('October'), 
+            translate('November'), 
+            translate('December')
+        ];
+
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
+        
         return view('forthebuilder::clients.show', [
             // 'model' => $model,
             // 'modelDeals' => $modelDeals,
@@ -870,6 +892,7 @@ class ClientsController extends Controller
             'tasks' => $tasks,
             'client' => $client,
             'chats' => $chats,
+            'line_month' => $line_month,
             'all_notifications' => $this->getNotification()
             // 'leadStatuses' => $leadStatuses,
             // 'personalinfo' => $personalinfo,

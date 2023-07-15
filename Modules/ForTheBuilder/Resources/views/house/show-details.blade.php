@@ -63,7 +63,7 @@
                     {{ translate('Commercial') }} ( {{ $arr['count_commercial'] }} )
                 </button>
                 <button class="prodnoButton btn-filter btn" style="background: {{ $colors[4] ?? '' }};" data-filter="4">
-                    {{ translate('Park') }} ( {{ $arr['count_park'] }} )
+                    {{ translate('Parking') }} ( {{ $arr['count_park'] }} )
                 </button>
             </div>
 

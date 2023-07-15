@@ -285,8 +285,7 @@
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('forthebuilder.task.calendar_store') }}" method="POST" enctype="multipart/form-data" id="chees-modal"> @csrf @method('POST')
-                        <div class="mb-2">
-                            <label for="">{{ translate('Clients') }}</label>
+                        <div class="mb-4">
                             <select name="deal_id" class="form-control select2" id="deal_select" data-placeholder="{{ translate('Choose client') }}">
                                 <option value=""></option>
                                 @empty(!$deals)
@@ -300,12 +299,9 @@
                                 @endempty
                             </select>
                         </div>
-                        
-                        <div class="mb-2">
-                            <label for="performer_id">{{translate('for')}}</label>
-                            <br>
+                        <div class="mb-4">
                             <select name="performer_id" id="performer_id"
-                                    data-placeholder="{{ __('locale.select') }}"
+                                    data-placeholder="{{translate('for')}}"
                                     class="form-control select2 @error('performer_id') is-invalid error-data-input @enderror">
                                 <option value=""></option>
                                 @empty(!$users)
@@ -317,24 +313,19 @@
                                 @endempty
                             </select>
                         </div>
-                        <div class="mb-2">
-                            <label for="">{{translate('Call')}}</label>
-                            <select name="type" id="type" data-placeholder="{{ __('locale.select') }}" class="form-control select2 @error('type') is-invalid error-data-input @enderror">
+                        <div class="mb-4">
+                            
+                            <select name="type" id="type" data-placeholder="{{translate('Call')}}" class="form-control select2 @error('type') is-invalid error-data-input @enderror">
                                 <option value="Связаться">{{translate('Call')}}</option>
                                 <option value="Встреча">{{translate('Meeting')}}</option>
                             </select>
                         </div>
-                        <div class="mb-2">
-                            <label>{{ translate('Title')}}</label>
-                            <input name="title" type="text" class="form-control">
-                            
+                        <div class="mb-4">
+                            <input name="title" type="text" class="form-control" placeholder="{{ translate('Description')}}">
                         </div>
-                        <div class="mb-2">
-                            <label>{{ translate('Task on')}}</label>
+                        <div class="mb-4">
                             <input name="task_date_2" id="task_date2" type="text" class="form-control @error('task_date') error-data-input is-invalid @enderror" value="{{ date('d.m.Y H:i') }}">
-                            
                         </div>
-                        <br>
 
 
                         <div class="modal-footer p-0">
@@ -627,7 +618,7 @@
                         {{--url: '/forthebuilder/leads/show/{{$model->id}}',--}}
                         url: '#',
                         title : "{{(($model->performer) ? $model->performer->first_name : '')}} <br> {{$model->status}} {{$model->type}}",
-                        customHtml : "<span>{{(($model->performer) ? $model->performer->first_name : '').' '}}{{(($model->performer) ? $model->performer->last_name : '')}} <br> {{(($model->user) ? $model->user->first_name : '')}}</span>",
+                        customHtml : "<span>{{ $model->title }}</span>",
                         start          : '{{$model->task_date}}',
                         backgroundColor: '{{$back_color}}',
                         borderColor    : '{{$back_color}}', //red

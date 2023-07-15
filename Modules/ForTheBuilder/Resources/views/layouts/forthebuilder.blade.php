@@ -459,6 +459,15 @@
             }
         })
 
+        $(document).on('change', '#other', function() {
+            if ($(this).prop("checked") == true) {
+                $('#other_input').attr('disabled', false)
+            } else {
+                $('#other_input').attr('disabled', true)
+                $('#other_input').val('')
+            }
+        })
+
         $(document).ready(function() {
             var $el1 = $("#files");
             $.ajaxSetup({
@@ -1479,56 +1488,85 @@
                     </div>
                 `)
             } else if (number == 'c') {
-                $('#exampleModal .modal-body').find('form .change_content').html(`
-                    <div class="mt-3">
-                        <h3 class="sozdatJkSpisokH3722">{{ translate('Total area') }}</h3>
-                        <input type="number" name="total_area" class="modalMiniCapsule4 text-left">
-                    </div>
+                $('#exampleModal .modal-body').find('form .change_content').html(`                    
 
                     <div class="mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Terrace') }} <input type="checkbox"
                                 id="terassa"></h3>
-                        <input type="number" placeholder="" name="terassa" class="modalMiniCapsule4 text-left"
+                        <input type="number" placeholder="" name="terassa" class="modalMiniCapsule4 text-left keyup_input_area"
                             id="terassa_input" disabled>
                     </div>
 
                     <div class="mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Balcony') }} <input type="checkbox"
                                 id="balcony"></h3>
-                        <input type="text" placeholder="" name="balcony" class="modalMiniCapsule4 text-left"
+                        <input type="text" placeholder="" name="balcony" class="modalMiniCapsule4 text-left keyup_input_area"
                             id="balcony_input" disabled>
                     </div>
-                `)
-            } else {
-                $('#exampleModal .modal-body').find('form .change_content').html(`
+
                     <div class="mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Total area') }}</h3>
                         <input type="number" name="total_area" class="modalMiniCapsule4 text-left">
                     </div>
+                `)
+            } else {
+                $('#exampleModal .modal-body').find('form .change_content').html(`
+                    
+                    <div class="mt-3">
+                        <h3 class="sozdatJkSpisokH3722 d-flex justify-content-between">
+                            <b>{{ translate('Hotel') }}</b>
+                            <span>
+                                <span class="btn btn-sm btn-danger minus_hotel">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <span class="btn btn-sm btn-success plus_hotel">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                            </span>
+                        </h3>
+                        <input type="number" name="hotel" class="modalMiniCapsule4 text-left keyup_input_area">                       
+                    </div>
+                    <div class="add_hotel_rooms" data-count="2"></div>
 
                     <div class="mt-3">
-                        <h3 class="sozdatJkSpisokH3722">{{ translate('Hotel') }}</h3>
-                        <input type="number" name="hotel" class="modalMiniCapsule4 text-left">
+                        <h3 class="sozdatJkSpisokH3722 d-flex justify-content-between">
+                            <b>{{ translate('Bedroom') }}</b>
+                            <span>
+                                <span class="btn btn-sm btn-danger minus_bedroom">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <span class="btn btn-sm btn-success plus_bedroom">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                            </span>
+                        </h3>
+                        <input type="number" name="bedroom" class="modalMiniCapsule4 text-left keyup_input_area">
                     </div>
-
-                    <div class="mt-3">
-                        <h3 class="sozdatJkSpisokH3722">{{ translate('Bedroom') }}</h3>
-                        <input type="number" name="bedroom" class="modalMiniCapsule4 text-left">
-                    </div>
+                    <div class="add_bedroom_rooms" data-count="2"></div>
 
                     <div class="mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Kitchen area') }}</h3>
-                        <input type="number" name="kitchen_area" class="modalMiniCapsule4 text-left">
+                        <input type="number" name="kitchen_area" class="modalMiniCapsule4 text-left keyup_input_area">
                     </div>
 
                     <div class="mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Terrace') }} <input type="checkbox" id="terassa"></h3>
-                        <input type="number" placeholder="" name="terassa" class="modalMiniCapsule4 text-left" id="terassa_input" disabled>
+                        <input type="number" placeholder="" name="terassa" class="modalMiniCapsule4 text-left keyup_input_area" id="terassa_input" disabled>
                     </div>
 
                     <div class="mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Balcony') }} <input type="checkbox" id="balcony"></h3>
-                        <input type="text" placeholder="" name="balcony" class="modalMiniCapsule4 text-left" id="balcony_input" disabled>
+                        <input type="text" placeholder="" name="balcony" class="modalMiniCapsule4 text-left keyup_input_area" id="balcony_input" disabled>
+                    </div>
+
+                    <div class="mt-3">
+                        <h3 class="sozdatJkSpisokH3722">{{ translate('Other') }} <input type="checkbox" id="other"></h3>
+                        <input type="text" placeholder="" name="other" class="modalMiniCapsule4 text-left keyup_input_area" id="other_input" disabled>
+                    </div>
+
+                    <div class="mt-3">
+                        <h3 class="sozdatJkSpisokH3722">{{ translate('Total area') }}</h3>
+                        <input type="number" name="total_area" class="modalMiniCapsule4 text-left">
                     </div>
                 `)
             }
@@ -1679,6 +1717,8 @@
             $(this).html('<i class="fa fa-check"></i>')
             
         })
+
+
     </script>
 </body>
 

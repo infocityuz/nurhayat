@@ -169,7 +169,7 @@
                                     @php $name = $model->client->first_name.' ' ?? '';
                                         $name .= $model->client->last_name.' ' ?? '';
                                         $name .= $model->client->middle_name ?? '';
-                                        echo mb_strimwidth($name, 0, 30, "...");
+                                        echo mb_strimwidth($name, 0, 25, "...");
                                         // if (strlen($name) > 44)
                                         //     echo substr($name, 0, 45) . '...';
 
@@ -183,19 +183,29 @@
                             <div class="lidiMarginRight1272">
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3 ml-0">{{ translate('Phone') }}</h3>
-                                    <div class="sozdatImyaSpisokInputTel1272">{{ $model->client->phone ?? translate('Not specified') }}</div>
+                                    <div class="sozdatImyaSpisokInputTel1272">
+                                        @php 
+                                            echo (($model->client->phone) ? $model->client->phone : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                        @endphp
+                                    </div>
 
                                 </div>
 
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3 ml-0">{{ translate('Email') }}</h3>
-                                    <div class="sozdatImyaSpisokInputMail1272">{{ $model->client->email ?? translate('Not specified') }}</div>
+                                    <div class="sozdatImyaSpisokInputMail1272">
+                                        @php 
+                                            echo (($model->client->email) ? $model->client->email : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                        @endphp
+                                    </div>
                                 </div>
 
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3 ml-0">{{ translate('Passport data') }}</h3>
                                     <div class="sozdatImyaSpisokInputPasport1272">
-                                        {{ $model->client->informations->series_number ?? translate('Not specified') }}
+                                        @php 
+                                            echo (($model->client->informations->series_number) ? $model->client->informations->series_number : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                        @endphp
                                     </div>
                                 </div>
                                 <div class="sozdatImyaSpsok">
@@ -218,7 +228,10 @@
                             <div class="sozdatImyaSpsok">
                                 <h3 class="sozdatImyaSpisokH3 ml-0">{{ translate('Apartment') }}</h3>
                                 <div class="sozdatImyaSpisokInputKvartira1272">
-                                    {{ $model->agreement_number ?? translate('Not specified') }}
+                                    @php 
+                                        echo (($model->agreement_number) ? $model->agreement_number : '<span class="text-secondary">'.translate('Not specified').'</span>');
+                                    @endphp
+
                                 </div>
                             </div>
 

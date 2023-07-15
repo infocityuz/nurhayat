@@ -361,6 +361,8 @@ class UserController extends Controller
         $model->role_id = $data['role_id'];
         $model->birth_date = $data['birth_date'];
         $model->phone_number = $data['phone_number'];
+        $data['gender'] = (int)$_POST['gender'];
+        $model->gender = $data['gender'];
         $model->save();
 
         if(!empty($request->input('current_password')) && !empty($request->input('password'))) {

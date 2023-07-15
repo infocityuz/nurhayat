@@ -117,6 +117,13 @@
                                     <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') error-data-input is-invalid @enderror" value="{{ old('password_confirmation') }}" >
                                     <span class="error-data">@error('password_confirmation'){{$message}}@enderror</span>
                                 </div>
+                                <div class="form-group">
+                                    <label class="password_confirmation"> {{ translate('Gender') }}</label>
+                                    <select name="gender" id="gender" class="form-control select2">
+                                            <option value="1">{{ translate('Male') }}</option>
+                                            <option value="2">{{ translate('Female') }}</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                  <div class="form-group ">
@@ -174,18 +181,21 @@
     </form>
         </div>
     </div>
-    <script src="{{asset('/backend-assets/forthebuilders/select/js/select2.full.min.js')}}"></script>
+    <script src="{{ asset('/backend-assets/forthebuilders/javascript/jquery-3.6.1.js')}}" type="text/javascript"></script>
     <script src="{{asset('/backend-assets/forthebuilders/moment/js/moment.min.js')}}"></script>
     <script src="{{asset('/backend-assets/forthebuilders/bootstrap-datetimepicker.js')}}"></script>
     <script src="{{asset('/backend-assets/forthebuilders/inputmask/jquery.inputmask.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{asset('/backend-assets/forthebuilders/select/js/select2.min.js')}}"></script>
     <script>
         let page_name = 'user';
+        
         $(document).ready(function () {
             $('.datepicker').datepicker({
                 format: 'dd.mm.yyyy',
                 autoclose: true
             })
+
             // $('#year_constructionId').datetimepicker({
             //     format: 'Y-M-D',
             // });

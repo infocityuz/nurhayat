@@ -248,7 +248,9 @@
     <div id="lang_app" lang="{{ translate('Apply') }}"></div>
     <div id="lang_cancel" lang="{{ translate('Cancel') }}"></div>
     <div id="lang_months" lang="{{ $months }}"></div>
-
+    <div id="line_months" lang="{{ $line_month }}"></div>
+    <div id="no_data" data-text="{{ translate('No data') }}"></div>
+    <div id="core_chart" data-arr="{{ $data['core_chart'] }}"></div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -264,13 +266,17 @@
         const ctx_3 = document.getElementById('myChart_dash');
             var month_day = <?php echo json_encode($data['month_day']); ?>;
             var price_day_array = <?php echo json_encode($data['price_day_array']); ?>;
+            var lang_months = $('#lang_months').attr('lang');
+            var line_months = $('#line_months').attr('lang');
+
+            line_months = line_months.split(",");
 
             new Chart(ctx_3, {
             type: 'line',
             data: {
                 labels:month_day,
                 datasets: [{
-                label: '# of Votes',
+                label: '',
                 data:price_day_array,
                 borderWidth: 2,
                 barPercentage:0.1
@@ -291,9 +297,9 @@
         new Chart(ctx_2, {
             type: 'line',
             data: {
-                labels: ['January ', 'February ', 'March ', 'April', 'May', 'june','july','August','September','October','November','December'],
+                labels: line_months,
                 datasets: [{
-                label: '# of Votes',
+                label: '',
                 data:users,
                 borderWidth: 2,
                 barPercentage:0.1
@@ -308,34 +314,67 @@
             }
         });
 
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart_1);
+        
 
-        function drawChart_1() {
-            var data = google.visualization.arrayToDataTable([
-              ['Task', 'Hours per Day'],
-              <?php echo $data['core_chart']; ?>
-            ]);
+        //  chart3
+        const core_chart = $('#core_chart').attr('data-arr')
+        if (core_chart != '') {
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart_1);
+            function drawChart_1() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  <?php echo $data['core_chart']; ?>
+                  // [$('#no_data').attr('data-text'), 1]
+                ]);
 
-            var options = {
-                title: '',
-              width: 400,
-              height: 400,
-              slices: {0: {color: '#FF9D9D'}, 1:{color: '#F7FF9D'}, 2:{color: '#B1FF9D'}},
-              legend: { position: 'bottom'},
+                var options = {
+                    title: '',
+                    width: 400,
+                    height: 400,
+                    slices: {0: {color: '#FF9D9D'}, 1:{color: '#F7FF9D'}, 2:{color: '#B1FF9D'}},
+                    legend: { position: 'bottom'},
+                    bars: 'vertical', // Required for Material Bar Charts.
+                    axes: {
+                        x: {
+                            0: { side: 'button', label: 'Percentage'} // Top x-axis.
+                        }
+                    },
+                    bar: { groupWidth: "90%" }
+                };
 
-              bars: 'vertical', // Required for Material Bar Charts.
-              axes: {
-                x: {
-                  0: { side: 'button', label: 'Percentage'} // Top x-axis.
-                }
-              },
-              bar: { groupWidth: "90%" }
-            };
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }    
+        }
+        else{
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart_1);
+            function drawChart_1() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  <?php echo $data['core_chart']; ?>
+                  [$('#no_data').attr('data-text'), 1]
+                ]);
 
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                var options = {
+                    title: '',
+                    width: 400,
+                    height: 400,
+                    slices: {0: {color: '#FF9D9D'}, 1:{color: '#F7FF9D'}, 2:{color: '#B1FF9D'}},
+                    legend: { position: 'bottom'},
+                    bars: 'vertical', // Required for Material Bar Charts.
+                    axes: {
+                        x: {
+                            0: { side: 'button', label: 'Percentage'} // Top x-axis.
+                        }
+                    },
+                    bar: { groupWidth: "90%" }
+                };
 
-            chart.draw(data, options);
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }   
         }
     </script>
 
@@ -351,7 +390,7 @@
 
         // var conn = new WebSocket('http://businesshouse-kg.icstroy.com:30000/?token={{ auth()->user()->token }}');
 
-        var conn = new WebSocket('ws://127.0.0.1:1235/?token={{ auth()->user()->token }}');
+        // var conn = new WebSocket('ws://127.0.0.1:1235/?token={{ auth()->user()->token }}');
         // http://127.0.0.1/
 
         var from_user_id = "{{ Auth::user()->id }}";
@@ -1116,7 +1155,8 @@
                      // "customRangeLabel": "Custom",
                     "applyLabel": $('#lang_app').attr('lang'),
                     "cancelLabel": $('#lang_cancel').attr('lang'),
-                    "monthNames": $('#lang_months').attr('lang')
+                    "monthNames": $('#lang_months').attr('lang'),
+                    "monthNames": line_months
                 }
             });
 

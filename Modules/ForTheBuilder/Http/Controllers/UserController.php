@@ -303,6 +303,12 @@ class UserController extends Controller
            'core_chart'=>$core_chart
         ];
 
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
+
 
         return view('forthebuilder::user.show',[
             'id' => $id,
@@ -316,6 +322,7 @@ class UserController extends Controller
             'monthly_count' => $monthly_count,
             'my_tasks' => $my_tasks,
             'task_count' => $task_count,
+            'line_month' => $line_month,
             'months'=> json_encode($months),
             'all_notifications' => $this->getNotification()
         ]);

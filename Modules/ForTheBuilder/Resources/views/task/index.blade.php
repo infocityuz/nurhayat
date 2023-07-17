@@ -12,8 +12,8 @@
 
 {{-- @extends('forthebuilder::task.extra') --}}
 @extends('forthebuilder::layouts.forthebuilder')
-<link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/datatables/css/dataTables.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+
+
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/toastr/css/toastr.min.css')}}">
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/select/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/fullcalendar/main.css')}}">
@@ -361,7 +361,7 @@
 <script src="{{asset('/backend-assets/forthebuilders/moment/js/moment.min.js')}}"></script>
 <script defer src="{{asset('/backend-assets/forthebuilders/fullcalendar/main.js')}}"></script>
 <script src='{{asset('/backend-assets/plugins/fullcalendar/locales/ru.js')}}'></script>
-<script src='{{asset('/backend-assets/js/datetimepicker.min.js')}}'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
     $(function(){

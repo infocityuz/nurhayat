@@ -776,7 +776,11 @@ class ClientsController extends Controller
 
     public function show($id, $house_flat_id = 0, $task_id = 0)
     {
-
+        $host = gethostbyname(gethostname());
+        $db_name = 'nurh_icstroyc_newhouse_test';
+        if (isset($host) && $host == 'MacBook-Pro-User.local') {
+            $db_name = 'icstroyc_newhouse_test';
+        }
         $user = Auth::user();
         $connect_for=Constants::FOR_1;
         $connect_new=Constants::NEW_1;
@@ -786,7 +790,7 @@ class ClientsController extends Controller
             ->leftJoin($connect_for.'.house as h', 'd.house_id', '=', 'h.id')
             ->leftJoin($connect_for.'.house_flat as h_f', 'd.house_flat_id', '=', 'h_f.id')
             ->leftJoin($connect_for.'.personal_informations as pi', 'c.id', '=', 'pi.client_id')
-            ->leftJoin('icstroyc_newhouse_test.users as nu', 'nu.id', '=', 'd.user_id')
+            ->leftJoin($db_name.'.users as nu', 'nu.id', '=', 'd.user_id')
             ->leftJoin($connect_for.'.deals_files as df', 'df.deal_id', '=', 'd.id')
             ->where('c.id', $id)
             ->select(

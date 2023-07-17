@@ -360,7 +360,7 @@
 <script src="{{asset('/backend-assets/forthebuilders/moment/js/moment.min.js')}}"></script>
 <script defer src="{{asset('/backend-assets/forthebuilders/fullcalendar/main.js')}}"></script>
 <script src='{{asset('/backend-assets/plugins/fullcalendar/locales/ru.js')}}'></script>
-{{-- <script src='{{asset('/backend-assets/js/datetimepicker.min.js')}}'></script> --}}
+<script src='{{asset('/backend-assets/js/datetimepicker.min.js')}}'></script>
 
 <script>
     $(function(){

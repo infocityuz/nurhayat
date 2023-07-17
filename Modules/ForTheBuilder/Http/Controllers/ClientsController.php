@@ -550,6 +550,8 @@ class ClientsController extends Controller
         //     for ($j = $model->floor_count; $j >= 1; $j--)
         //         $arr['list'][$i]['list'][$j] = [];
 
+
+
         $count_all = 0;
         $count_bookings = 0;
         $count_free = 0;
@@ -683,6 +685,7 @@ class ClientsController extends Controller
             'colors' => $colors,
             'status' => 'client',
             'client_id' => $client_id,
+            'house_id' => $house_id,
             'all_notifications' => $this->getNotification()
         ]);
     }

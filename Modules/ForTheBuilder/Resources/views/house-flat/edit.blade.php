@@ -141,18 +141,18 @@
                             @php 
                                 $hotel_count = 2;
                                 $hotel_total_count = 0;
-                                if ($areas->hotel2 > 0)
+                                if (isset($areas->hotel2) && $areas->hotel2 > 0)
                                     $hotel_count++;
-                                if ($areas->hotel3 > 0)
+                                if (isset($areas->hotel3) && $areas->hotel3 > 0)
                                     $hotel_count++;
-                                if ($areas->hotel4 > 0)
+                                if (isset($areas->hotel4) && $areas->hotel4 > 0)
                                     $hotel_count++;
-                                if ($areas->hotel5 > 0)
+                                if (isset($areas->hotel5) && $areas->hotel5 > 0)
                                     $hotel_count++;
                             @endphp
 
                             <div class="add_hotel_rooms" data-count="{{ $hotel_count }}">
-                                @if ($areas->hotel2 > 0)
+                                @if (isset($areas->hotel2) && $areas->hotel2 > 0)
                                     <div class="sozdatImyaSpsok" data-total="{{ $hotel_total_count++ }}">
                                         <h3 class="sozdatImyaSpisokH3">{{ translate('Hotel - 2 area m2') }}</h3>
                                         <input
@@ -160,7 +160,7 @@
                                             type="text" value="{{ $areas->hotel2 ?? 0}}" name="area_hotel_2">
                                     </div>
                                 @endif
-                                @if ($areas->hotel3 > 0)
+                                @if (isset($areas->hotel3) && $areas->hotel3 > 0)
                                     <div class="sozdatImyaSpsok" data-total="{{ $hotel_total_count++ }}">
                                         <h3 class="sozdatImyaSpisokH3">{{ translate('Hotel - 3 area m2') }}</h3>
                                         <input
@@ -168,7 +168,7 @@
                                             type="text" value="{{ $areas->hotel3 ?? 0}}" name="area_hotel_3">
                                     </div>
                                 @endif
-                                @if ($areas->hotel4 > 0)
+                                @if (isset($areas->hotel4) && $areas->hotel4 > 0)
                                     <div class="sozdatImyaSpsok" data-total="{{ $hotel_total_count++ }}">
                                         <h3 class="sozdatImyaSpisokH3">{{ translate('Hotel - 4 area m2') }}</h3>
                                         <input
@@ -176,7 +176,7 @@
                                             type="text" value="{{ $areas->hotel4 ?? 0}}" name="area_hotel_4"> 
                                     </div>
                                 @endif
-                                @if ($areas->hotel5 > 0)
+                                @if (isset($areas->hotel5) && $areas->hotel5 > 0)
                                     <div class="sozdatImyaSpsok" data-total="{{ $hotel_total_count++ }}">
                                         <h3 class="sozdatImyaSpisokH3">{{ translate('Hotel - 5 area m2') }}</h3>
                                         <input
@@ -214,18 +214,18 @@
                             @php 
                                 $bedroom_count = 2;
                                 $bedroom_total_count = 0;
-                                if ($areas->bedroom2 > 0)
+                                if (isset($areas->bedroom2) && $areas->bedroom2 > 0)
                                     $bedroom_count++;
-                                if ($areas->bedroom3 > 0)
+                                if (isset($areas->bedroom3) && $areas->bedroom3 > 0)
                                     $bedroom_count++;
-                                if ($areas->bedroom4 > 0)
+                                if (isset($areas->bedroom4) && $areas->bedroom4 > 0)
                                     $bedroom_count++;
-                                if ($areas->bedroom5 > 0)
+                                if (isset($areas->bedroom5) && $areas->bedroom5 > 0)
                                     $bedroom_count++;
                             @endphp
 
                             <div class="add_bedroom_rooms" data-count="{{ $bedroom_count }}">
-                                @if ($areas->bedroom2 > 0)
+                                @if (isset($areas->bedroom2) && $areas->bedroom2 > 0)
                                     <div class="sozdatImyaSpsok" data-total="{{ $bedroom_total_count++ }}">
                                         <h3 class="sozdatImyaSpisokH3">{{ translate('Bedroom - 2 area m2') }}</h3>
                                         <input
@@ -233,7 +233,7 @@
                                             type="text" value="{{ $areas->bedroom2 ?? 0}}" name="area_bedroom_2">
                                     </div>
                                 @endif
-                                @if ($areas->bedroom3 > 0)
+                                @if (isset($areas->bedroom3) && $areas->bedroom3 > 0)
                                     <div class="sozdatImyaSpsok" data-total="{{ $bedroom_total_count++ }}">
                                         <h3 class="sozdatImyaSpisokH3">{{ translate('Bedroom - 3 area m2') }}</h3>
                                         <input
@@ -241,7 +241,7 @@
                                             type="text" value="{{ $areas->bedroom3 ?? 0}}" name="area_bedroom_3">
                                     </div>
                                 @endif
-                                @if ($areas->bedroom4 > 0)
+                                @if (isset($areas->bedroom4) && $areas->bedroom4 > 0)
                                     <div class="sozdatImyaSpsok" data-total="{{ $bedroom_total_count++ }}">
                                         <h3 class="sozdatImyaSpisokH3">{{ translate('Bedroom - 4 area m2') }}</h3>
                                         <input
@@ -249,7 +249,7 @@
                                             type="text" value="{{ $areas->bedroom4 ?? 0}}" name="area_bedroom_4"> 
                                     </div>
                                 @endif
-                                @if ($areas->bedroom5 > 0)
+                                @if (isset($areas->bedroom5) && $areas->bedroom5 > 0)
                                     <div class="sozdatImyaSpsok" data-total="{{ $bedroom_total_count++ }}">
                                         <h3 class="sozdatImyaSpisokH3">{{ translate('Bedroom - 5 area m2') }}</h3>
                                         <input
@@ -326,7 +326,7 @@
                                 </div>
                             @endif
 
-                            @if ($areas->other > 0)
+                            @if (isset($areas->other) && $areas->other > 0)
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Other m2') }}</h3>
                                     <input
@@ -354,10 +354,7 @@
                         </div>
 
                         <div>
-                            {{-- <div class="sozdatImyaSpsok">
-                                <h3 class="sozdatImyaSpisokH3">{{ translate('PINFL or TIN') }}</h3>
-                                <input class="sozdatImyaSpisokInput1272" type="text" value="{{ $areas->total }}">
-                            </div> --}}
+                            
 
                             <div class="sozdatImyaSpsok">
                                 @if (is_int($model->room_count))

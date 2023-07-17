@@ -1,5 +1,4 @@
 @extends('forthebuilder::layouts.forthebuilder')
-
 @section('title') {{translate('Currency create')}} @endsection
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/datatables/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/datatables-responsive/css/responsive.bootstrap4.min.css')}}">

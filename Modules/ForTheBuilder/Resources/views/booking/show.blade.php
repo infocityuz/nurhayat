@@ -433,5 +433,4 @@
         });
     </script>
     
-    
 @endsection

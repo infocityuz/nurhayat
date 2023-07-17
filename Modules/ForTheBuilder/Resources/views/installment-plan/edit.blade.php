@@ -1,5 +1,4 @@
 @extends('forthebuilder::layouts.forthebuilder')
-
 @section('title') {{translate('update')}} @endsection
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/datatables/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/bootstrap-datetimepicker.min.css')}}">

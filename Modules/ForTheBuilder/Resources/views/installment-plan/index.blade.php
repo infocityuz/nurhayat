@@ -1,5 +1,4 @@
 @extends('forthebuilder::layouts.forthebuilder')
-
 @section('title')
     {{ translate('update') }}
 @endsection

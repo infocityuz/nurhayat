@@ -585,6 +585,24 @@
     </div>
     <script>
         let page_name = 'house-flat';
+        function round(value, exp) {
+          if (typeof exp === 'undefined' || +exp === 0)
+            return Math.round(value);
+
+          value = +value;
+          exp = +exp;
+
+          if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
+            return NaN;
+
+          // Shift
+          value = value.toString().split('e');
+          value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp)));
+
+          // Shift back
+          value = value.toString().split('e');
+          return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
+        }
 
         $(document).on('click','.plus_hotel',function(){
             var count = $('.add_hotel_rooms').attr('data-count')
@@ -612,7 +630,8 @@
                 var sum = 0;
                 $('.keyup_input_area').each(function(){
                     if ($(this).val() != '') {
-                        sum += parseFloat($(this).val());    
+                        sum += parseFloat($(this).val());   
+                        sum = round(sum,2);    
                     }
                     $('input[name="area_total"]').val(sum)
                     
@@ -643,7 +662,8 @@
                 var sum = 0;
                 $('.keyup_input_area').each(function(){
                     if ($(this).val() != '') {
-                        sum += parseFloat($(this).val());    
+                        sum += parseFloat($(this).val());  
+                        sum = round(sum,2);     
                     }
                 });
                 $('input[name="area_total"]').val(sum)
@@ -654,7 +674,8 @@
             var sum = 0;
             $('.keyup_input_area').each(function(){
                 if ($(this).val() != '') {
-                    sum += parseFloat($(this).val());    
+                    sum += parseFloat($(this).val());
+                    sum = round(sum,2);       
                 }
                 
             });

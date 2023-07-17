@@ -29,13 +29,14 @@
                     <div>
                         @php
                             $areaPrices = NULL;
+                            $priceForM2 = NULL;
                             if ($model->ares_price)
                                 $areaPrices = json_decode($model->ares_price);
 
                             if ($areaPrices != NULL)
                                 $priceForM2 = $areaPrices->hundred->total;
                         @endphp
-                        {{-- @dd($priceForM2) --}}
+                        
                         <div class="sozdatImyaSpsok">
                             <h3 class="sozdatImyaSpisokH3">{{ translate('Client Full Name') }}</h3>
                             <div class="sozdatImyaSpisokInput1272" style="width: 517px;">

@@ -666,4 +666,3 @@
 
 
 
-{{-- @extends('forthebuilder::house.extra') --}}

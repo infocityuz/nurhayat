@@ -1,5 +1,4 @@
 @extends('forthebuilder::layouts.forthebuilder')
-
 @section('title')
     {{ __('locale.create') }}
 @endsection

@@ -198,3 +198,4 @@
         let page_name = 'settings';
     </script>
 @endsection
+

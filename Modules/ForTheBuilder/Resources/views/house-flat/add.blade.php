@@ -424,4 +424,4 @@
         let page_name = 'house-flat';
     </script>
 @endsection
-{{-- @extends('forthebuilder::house.extra') --}}
+

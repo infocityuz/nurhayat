@@ -125,5 +125,4 @@
         </div>
     </div>
 @endsection
-
 @extends('forthebuilder::house.extra')

@@ -1,5 +1,4 @@
 @extends('forthebuilder::layouts.forthebuilder')
-
 @section('title') {{__('locale.house')}} @endsection
 @section('styles')
     <link rel="stylesheet" href="{{asset('/backend-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">

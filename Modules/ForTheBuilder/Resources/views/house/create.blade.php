@@ -173,3 +173,4 @@
         let page_name = 'house';
     </script>
 @endsection
+

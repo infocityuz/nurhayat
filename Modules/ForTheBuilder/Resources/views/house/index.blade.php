@@ -2,12 +2,10 @@
 @php
     use Modules\ForTheBuilder\Entities\House;
     use Modules\ForTheBuilder\Entities\Constants; 
-
 @endphp
 @section('title')
     {{ translate('JK') }}
 @endsection
-
 @section('content')
     <div class="d-flex aad">
         @include('forthebuilder::layouts.content.navigation')

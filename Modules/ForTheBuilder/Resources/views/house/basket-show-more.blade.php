@@ -310,4 +310,4 @@
     </script>
 @endsection
 
- @extends('forthebuilder::house.extra')
+@extends('forthebuilder::house.extra')

@@ -1,10 +1,6 @@
 @extends('forthebuilder::layouts.forthebuilder')
 @section('content')
-<style>
-   /* rect,text {
-    display: none;
-   }  */
-</style>
+
     <div class="d-flex aad">
         
    {{-- @dd($data['date_today']) --}}

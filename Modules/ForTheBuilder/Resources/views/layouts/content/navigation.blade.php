@@ -3,7 +3,6 @@
     use Modules\ForTheBuilder\Entities\Constants;
 
 @endphp
-
 <div class="navigation active">
     <ul>
         <a href="{{ route('forthebuilder.user.show', $current_user->id) }}" class="d-flex">

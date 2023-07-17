@@ -9,8 +9,6 @@
     }
     use Modules\ForTheBuilder\Entities\Constants;
 @endphp
-
-{{-- @extends('forthebuilder::task.extra') --}}
 @extends('forthebuilder::layouts.forthebuilder')
 
 

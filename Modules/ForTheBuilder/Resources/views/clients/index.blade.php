@@ -1,5 +1,4 @@
 @extends('forthebuilder::layouts.forthebuilder')
-
 @php
     use Modules\ForTheBuilder\Entities\Constants;
 @endphp

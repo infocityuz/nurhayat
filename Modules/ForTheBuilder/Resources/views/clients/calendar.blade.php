@@ -2,7 +2,6 @@
 @php
     use Modules\ForTheBuilder\Entities\Constants;
 @endphp
-
 @section('title') {{translate('calendar')}} @endsection
 
 <link rel="stylesheet" href="{{asset('/backend-assets/forthebuilders/toastr/css/toastr.min.css')}}">

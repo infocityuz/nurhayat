@@ -2,7 +2,6 @@
     let page_name = 'clients';
 </script>
 @extends('forthebuilder::layouts.forthebuilder')
-
 @php
     use Modules\ForTheBuilder\Entities\Constants;
 @endphp

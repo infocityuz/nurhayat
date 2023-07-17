@@ -963,7 +963,7 @@ class HouseController extends Controller
                             "kitchen" => $formData['kitchen_area'] ?? 0,
                             "basement" => $formData['basement'] ?? 0,
                             "terraca" => $formData['terassa'] ?? 0,
-                            "attic" => $formData['attic'] ?? 0,,
+                            "attic" => $formData['attic'] ?? 0,
                             "balcony" => $formData['balcony'] ?? 0,
                             "other" => $formData['other'] ?? 0,
                         ];

@@ -2,7 +2,6 @@
     {{ __('locale.apartment_sale') }}
 @endsection
 @extends('forthebuilder::layouts.forthebuilder')
-
 @section('content')
     <div class="d-flex aad">
         @include('forthebuilder::layouts.content.navigation')

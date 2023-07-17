@@ -1,8 +1,5 @@
 @section('title') {{__('locale.apartment_sale')}}  @endsection
 @extends('forthebuilder::layouts.forthebuilder')
-
-
-
 @section('title')  {{translate('User show')}} @endsection
 <style>
 #chat_area

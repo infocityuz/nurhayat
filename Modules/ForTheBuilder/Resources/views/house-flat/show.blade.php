@@ -246,7 +246,7 @@
                         </div>
                     @endif
 
-                    @if ($areas->other > 0)
+                    @if (isset($areas->other) && $areas->other > 0)
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Other') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->other ?? 0 }}</div>

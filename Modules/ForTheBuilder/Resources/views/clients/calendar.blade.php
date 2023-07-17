@@ -773,20 +773,13 @@
                 }
             });
 
-            // adding task to leads
-            // $(document).on('click', '.choise-date', function(e) {
-            //     e.preventDefault();
-            //     $("#task_date").datetimepicker("show");
-            // })
+            
             $(document).on('click', '.choise-manager', function(e) {
                 e.preventDefault();
 
             })
 
-            // $("#deal_id").on("click", function() {
-            //
-            //     $('.choise-manager').text($('#deal_id option:selected').text())
-            // });
+            
 
             let call_png = '{{asset('/backend-assets/forthebuilders/images/Call.png')}}'
             let meeting_png = '{{asset('/backend-assets/forthebuilders/images/meeting.png')}}'

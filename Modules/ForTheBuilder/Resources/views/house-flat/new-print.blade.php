@@ -183,7 +183,7 @@
                     <td style="width: 20%; text-align: center;">
                         <br>
                         <br>
-                        <img width="90px" src="{{ asset('/backend-assets/img/word/5.png') }}" alt="">
+                        <img width="80px" src="{{ asset('/backend-assets/img/word/5.png') }}" alt="">
                         <br>
                         <br>
                         <div style="width: 100%;font-family: Times New 'Times New Roman', Times, serif; font-size: 14px;font-weight: bold; text-align: center;">
@@ -195,7 +195,7 @@
                     <td style="width: 20%; text-align: center;">
                         <br>
                         
-                        <img width="90px" src="{{ asset('/backend-assets/img/word/4.png') }}" alt="">
+                        <img width="80px" src="{{ asset('/backend-assets/img/word/4.png') }}" alt="">
                         <br>
                         <br>
                         <div style="width: 100%;font-family: Times New 'Times New Roman', Times, serif; font-size: 14px;font-weight: bold; text-align: center;">
@@ -207,7 +207,7 @@
                     <td style="width: 20%; text-align: center;">
                         <br>
                         
-                        <img width="90px" src="{{ asset('/backend-assets/img/word/3.png') }}" alt="">
+                        <img width="80px" src="{{ asset('/backend-assets/img/word/3.png') }}" alt="">
                         <br>
                         <br>
                         <div style="width: 100%;font-family: Times New 'Times New Roman', Times, serif; font-size: 14px;font-weight: bold; text-align: center;">
@@ -220,7 +220,7 @@
                         <br>
                         <br>
                         
-                        <img width="90px" src="{{ asset('/backend-assets/img/word/1.png') }}" alt="">
+                        <img width="80px" src="{{ asset('/backend-assets/img/word/1.png') }}" alt="">
                         <br>
                         <br>
                         <div style="width: 100%;font-family: Times New 'Times New Roman', Times, serif; font-size: 14px;font-weight: bold; text-align: center;">
@@ -231,7 +231,7 @@
                     <td style="width: 20%; text-align: center;">
                         <br>
                         <br>
-                        <img width="90px" src="{{ asset('/backend-assets/img/word/2.png') }}" alt="">
+                        <img width="80px" src="{{ asset('/backend-assets/img/word/2.png') }}" alt="">
                         <br>
                         <br>
                         <div style="width: 100%;font-family: Times New 'Times New Roman', Times, serif; font-size: 14px;font-weight: bold; text-align: center;">

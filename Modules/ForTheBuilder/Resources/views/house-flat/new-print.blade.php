@@ -170,7 +170,7 @@
             </tr>
         </table> 
         
-        <div style="position: absolute; width:85%; left: 7.5%; bottom: 160px;">
+        <div style="position: absolute; width:85%; left: 7.5%; bottom: 140px;">
             <div style="width: 100%;font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: right;">
                 Менеджер: {{ $user_name }}
             </div>   

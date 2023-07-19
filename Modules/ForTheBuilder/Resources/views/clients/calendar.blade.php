@@ -732,7 +732,7 @@
                         {{--url: '/forthebuilder/leads/show/{{$model->id}}',--}}
                         url: '#',
                         title : "{{$my_model->performer->first_name}} <br> {{$my_model->status}} {{$my_model->type}}",
-                        customHtml : "<span>{{$my_model->performer->first_name.' '}}{{$my_model->performer->last_name}} <br> {{$my_model->user->first_name}}</span>",
+                        customHtml : "<span>{{ $model->title }}</span>",
                         start          : '{{$my_model->task_date}}',
                         backgroundColor: '{{$back_color}}',
                         borderColor    : '{{$back_color}}', //red

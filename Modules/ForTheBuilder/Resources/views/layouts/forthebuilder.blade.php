@@ -433,6 +433,9 @@
                     if (data == true) {
                         location.reload()
                     }
+                    else{
+                        console.log(data)
+                    }
                 },
                 // error: function(data) {
                 //     console.log(data);

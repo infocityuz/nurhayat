@@ -95,7 +95,7 @@
                             elseif($key == translate('Commercial')){
                                 $add_type = 4;   
                             }
-                            elseif($key == translate('Park')){
+                            elseif($key == translate('Parking')){
                                 $add_type = 5;   
                             } 
                            

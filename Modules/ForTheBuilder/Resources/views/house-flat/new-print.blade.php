@@ -34,9 +34,7 @@
 
 <div id="DivIdToPrint" style="width: 100%; position: relative;">
     <img style="position: absolute; top: 0; left: 0; width: 100%; z-index: -1" src="{{'/backend-assets/img/word/nurhayat.png'}}" alt="">
-    <br>
-    <br>
-    <br>
+    
     <div style="width: 85%; margin: 200px auto;">
         <table style="border-collapse: collapse;width: 100%;">
             <tr>
@@ -172,7 +170,7 @@
             </tr>
         </table> 
         
-        <div style="position: absolute; width:85%; left: 7.5%; bottom: 180px;">
+        <div style="position: absolute; width:85%; left: 7.5%; bottom: 160px;">
             <div style="width: 100%;font-family: Times New 'Times New Roman', Times, serif; font-size: 16px;font-weight: bold; text-align: right;">
                 Менеджер: {{ $user_name }}
             </div>   

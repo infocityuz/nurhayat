@@ -456,13 +456,10 @@
                                                         @endphp
                                                         </div>
                                                     </div>
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="klientNameInformatsia2">{{ translate('Contract') }}</div>
-                                                        <div class="klientNameInformatsia2"><a href="{{ route('forthebuilder.deal.printContract', $val->deal_id) }}">{{ translate('Print') }}</a></div>
-                                                    </div>
+                                                    
                                                     <div class="d-flex justify-content-between">
                                                         <div class="klientNameInformatsia2">{{ translate('Status') }}</div>
-                                                        <button type="submit" data-toggle="modal"
+                                                        {{-- <button type="submit" data-toggle="modal"
                                                                 client_id="{{ $val->client_id }}" deal_id="{{ $deal_id }}"
                                                                 personal_id="{{ $val->personal_id }}" deal_status="{{$val->type}}"
                                                                 class="PerviyContact status_button PerviyContactGreen client-show-change-status"
@@ -474,7 +471,8 @@
                                                                 data-given_date="{{ $val->given_date }}"
                                                                 data-address="{{ $val->address }}">
                                                             {{ translate('Making a deal') }}
-                                                        </button>
+                                                        </button> --}}
+                                                        <a class="PerviyContact status_button PerviyContactGreen" href="{{ route('forthebuilder.deal.contract-show', [$val->deal_id]) }}">{{ translate('Making a deal') }}</a>
                                                     </div>
 
                                                     <div class="d-flex justify-content-between">

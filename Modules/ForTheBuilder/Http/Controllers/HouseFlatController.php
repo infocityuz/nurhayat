@@ -238,6 +238,8 @@ class HouseFlatController extends Controller
             'attic' => $data['area_attic'] ?? 0,
             'balcony' => $data['area_balcony'] ?? 0,
             'kitchen' => $data['area_kitchen'] ?? 0,
+            'corridor' => $data['area_corridor'] ?? 0,
+            'bathroom' => $data['area_bathroom'] ?? 0,
             'other' => $data['area_other'] ?? 0
         ];
 

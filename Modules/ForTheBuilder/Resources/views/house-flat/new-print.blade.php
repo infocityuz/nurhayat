@@ -242,7 +242,29 @@
             </table>
         </div>
     </div>
-    
+    <div>
+        
+        @if (!empty($model->files))
+            @php
+                $first = true;
+            @endphp
+            @foreach ($model->files as $img)
+                @php
+                    $class = '';
+                    if ($first) {
+                        $first = false;
+                        $class = 'active';
+                    }
+                @endphp
+                    @if(file_exists(asset('/uploads/house-flat/' . $model->house_id . '/l_' . $img->guid)))
+                        <img style="width: 100%;" 
+                        src="{{ asset('/uploads/house-flat/' . $model->house_id . '/l_' . $img->guid) }}"
+                        alt="Home">
+                    @endif
+            @endforeach
+        @endif
+        
+    </div>
 </div>
 
 <input type="hidden" id="showId" value="{{ $model->id }}">

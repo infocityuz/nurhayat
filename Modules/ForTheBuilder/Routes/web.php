@@ -236,7 +236,9 @@ Route::group(['prefix' => 'forthebuilder', 'middleware' => ['auth', 'forthebuild
     Route::group(['prefix' => 'deal'], function () {
         Route::get('/', [DealController::class, 'index'])->name('forthebuilder.deal.index');
         Route::put('/update-type/{id}', [DealController::class, 'updateType'])->name('forthebuilder.deal.update-type');
+        Route::get('/contract-show/{id}', [DealController::class, 'contractShow'])->name('forthebuilder.deal.contract-show');
         Route::get('create', [DealController::class, 'create'])->name('forthebuilder.deal.create');
+        Route::get('contracts', [DealController::class, 'contracts'])->name('forthebuilder.deal.contracts');
 
 
         Route::get('get-flat', [DealController::class, 'getFlat'])->name('forthebuilder.deal.getFlat');

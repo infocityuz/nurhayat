@@ -238,4 +238,4 @@ if(test1 != null){
   var value = test1.value;
   var text = test1.options[test1.selectedIndex].text;
 }
-console.log(text);
+// console.log(text);

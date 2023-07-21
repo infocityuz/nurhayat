@@ -483,7 +483,7 @@ class HouseController extends Controller
     public function showDetails($house_id, $entrance, $flat_id)
     {
         $model = House::findOrFail($house_id);
-        $flats = HouseFlat::select('id', 'floor', 'entrance', 'status', 'number_of_flat', 'price', 'areas', 'room_count', 'house_id', 'doc_number', 'ares_price')->where(['house_id' => $model->id, 'entrance' => $entrance])->orderBy('entrance', 'asc')->orderBy('floor', 'desc')->orderBy('number_of_flat', 'asc')->get();
+        $flats = HouseFlat::select('id', 'floor', 'entrance', 'status', 'number_of_flat', 'price', 'areas', 'room_count', 'house_id', 'doc_number', 'ares_price')->where(['house_id' => $model->id, 'entrance' => $entrance])->orderBy('entrance', 'asc')->orderBy('floor', 'desc')->orderBy('id', 'asc')->get();
         $statusColors = StatusColors::select('id', 'color', 'status')->get();
         $arr = [];
         // for ($i = 1; $i <= $model->entrance_count; $i++)
@@ -609,6 +609,7 @@ class HouseController extends Controller
         $arr['count_commercial'] = $count_commercial;
         $arr['count_park'] = $count_park;
 
+        // pre($arr);
         $colors = [];
         if (!empty($statusColors))
             foreach ($statusColors as $value)
@@ -738,21 +739,22 @@ class HouseController extends Controller
 
                 // $basketHouseFlats = BasketHouseFlat::where('basket_house_id', $model->id)->orderBy('entrance', 'asc')->orderBy('floor', 'asc')->get();
                 if ($request->order == 2)
-                    $basketHouseFlats = BasketHouseFlat::where('basket_house_id', $model->id)->orderBy('number_of_flat', 'asc')->get();
+                    $basketHouseFlats = BasketHouseFlat::where('basket_house_id', $model->id)->orderBy('number_of_flat', 'desc')->get();
                 else
-                    $basketHouseFlats = BasketHouseFlat::where('basket_house_id', $model->id)->orderBy('entrance', 'desc')->orderBy('floor', 'asc')->orderBy('number_of_flat', 'desc')->get();
+                    $basketHouseFlats = BasketHouseFlat::where('basket_house_id', $model->id)->orderBy('number_of_flat', 'asc')->get();
 
+
+                
                 if (!empty($basketHouseFlats)) {
-                    $n = $request->from;
-                    foreach ($basketHouseFlats as $val) {
+                    foreach ($basketHouseFlats as $val) {                        
                         $newHouseFlat = new HouseFlat();
                         $newHouseFlat->house_id = $newHouse->id;
-                        $newHouseFlat->number_of_flat = $n;
+                        $newHouseFlat->number_of_flat = $val->number_of_flat;
                         $newHouseFlat->floor = $val->floor;
                         $newHouseFlat->entrance = $val->entrance;
                         $newHouseFlat->room_count = $val->room_count;
                         $newHouseFlat->price = $val->price;
-                        $newHouseFlat->doc_number = $n;
+                        $newHouseFlat->doc_number = $val->number_of_flat;
                         $newHouseFlat->status = HouseFlat::STATUS_FREE;
                         $newHouseFlat->areas = $val->areas;
                         $newHouseFlat->additional_type = $val->additional_type;
@@ -760,7 +762,7 @@ class HouseController extends Controller
                         $newHouseFlat->free_start = date('Y-m-d H:i:s');
                         $newHouseFlat->free_end = '9999-12-31 23:59:59';
                         $newHouseFlat->save();
-                        $n++;
+                        
 
                         $modelBasketDocument = BasketHouseDocument::where('basket_house_flat_id', $val->id)->first();
                         if (isset($modelBasketDocument)) {
@@ -965,6 +967,8 @@ class HouseController extends Controller
                             "terraca" => $formData['terassa'] ?? 0,
                             "attic" => $formData['attic'] ?? 0,
                             "balcony" => $formData['balcony'] ?? 0,
+                            "bathroom" => $formData['bathroom'] ?? 0,
+                            "corridor" => $formData['corridor'] ?? 0,
                             "other" => $formData['other'] ?? 0,
                         ];
 

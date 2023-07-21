@@ -66,7 +66,7 @@
                                     @for ($j = $i * 3 - 3; $j <= $i * 3 - 1 && $j < count($model->files); $j++)
                                         <div data-toggle="modal" data-target="#exampleModalKatalog">
                                             <img class="jkImageEditSee"
-                                                src="{{ asset('/uploads/house-flat/' . $model->house_id . '/m_' . $model->files[$n++]->guid) }}"
+                                                src="{{ asset('/uploads/house-flat/' . $model->house_id . '/l_' . $model->files[$n++]->guid) }}"
                                                 alt="Home">
                                         </div>
                                     @endfor
@@ -121,7 +121,7 @@
                         <div class="jkAttributEdit2">{{ $model->floor }}</div>
                     </div>
 
-                    @if (is_int($model->room_count))
+                    @if (is_int($model->rool_count))
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Apartment number') }}</div>
                             <div class="jkAttributEdit2">{{ $model->number_of_flat }}</div>
@@ -211,38 +211,52 @@
 
                      
 
-                    @if ($areas->terraca > 0)
+                    @if (isset($areas->terraca) && $areas->terraca > 0)
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Area (Terrace)') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->terraca ?? 0 }}</div>
                         </div>
                     @endif
 
-                    @if ($areas->basement > 0)
+                    @if (isset($areas->basement) && $areas->basement > 0)
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Area (Sokolny)') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->basement ?? 0 }}</div>
                         </div>
                     @endif
 
-                    @if ($areas->attic > 0)
+                    @if (isset($areas->attic) && $areas->attic > 0)
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Area (Attic)') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->attic ?? 0 }}</div>
                         </div>
                     @endif
 
-                    @if (is_int($model->room_count))
+                    @if (is_int($model->rool_count))
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Number rooms') }}</div>
-                            <div class="jkAttributEdit2">{{ $model->room_count ?? 0 }}</div>
+                            <div class="jkAttributEdit2">{{ $model->rool_count ?? 0 }}</div>
                         </div>
                     @endif
 
-                    @if ($areas->balcony > 0)
+                    @if (isset($areas->balcony) && $areas->balcony > 0)
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Balcony') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->balcony ?? 0 }}</div>
+                        </div>
+                    @endif
+
+                    @if (isset($areas->corridor) && $areas->corridor > 0)
+                        <div class="jkEditText1">
+                            <div class="jkAttributEdit2">{{ translate('Corridor') }}</div>
+                            <div class="jkAttributEdit2">{{ $areas->corridor ?? 0 }}</div>
+                        </div>
+                    @endif
+
+                    @if (isset($areas->bathroom) && $areas->bathroom > 0)
+                        <div class="jkEditText1">
+                            <div class="jkAttributEdit2">{{ translate('Bathroom') }}</div>
+                            <div class="jkAttributEdit2">{{ $areas->bathroom ?? 0 }}</div>
                         </div>
                     @endif
 
@@ -313,7 +327,7 @@
                         </div>
                     </div>
 
-                    @if (is_int($model->room_count))
+                    @if (is_int($model->rool_count))
                         <div class="jkEditText1">
                             <div class="jkAttributEdit2">{{ translate('Registry number') }}</div>
                             <div class="jkAttributEdit2">{{ $model->doc_number ?? $model->number_of_flat }}</div>
@@ -437,7 +451,7 @@
                                     @endphp
                                     <div class="carousel-item {{ $class }}">
                                         <img class="madlImageJkEdit"
-                                            src="{{ asset('/uploads/house-flat/' . $model->house_id . '/m_' . $img->guid) }}"
+                                            src="{{ asset('/uploads/house-flat/' . $model->house_id . '/l_' . $img->guid) }}"
                                             alt="Home">
                                     </div>
                                 @endforeach

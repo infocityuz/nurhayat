@@ -40,6 +40,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     @method("POST")
+                    <input type="hidden" name="not_contract" class="not_contract" value="0">
                     <div class="d-flex justify-content-between">
                         <div>
                             <h3 class="prodnoDataH5Text">{{ translate('Description of the object') }}</h3>
@@ -565,12 +566,31 @@
                     <input type="hidden" name="model_house_flat_id" id="model_house_flat_id" value="{{$house_flat->id}}">
                     <input type="hidden" name="model_client_id" id="model_client_id">
                     <input type="hidden" name="model_type" id="model_type" value="3">
-                    <button type="submit" class="sozdatImyaSpisokSozdatButtonSave text-light saveDealDogovor"
+                    
+                    <button type="button" class="sozdatImyaSpisokSozdatButtonSave text-light saveDealDogovor"
                         style="cursor: pointer;">{{ translate('Save') }}</button>
+
+                    <button type="submit" class="text-light submit_form_save" style="opacity: 0;"></button>
+
                 </form>
             </div>
 
         </div>
+    </div>
+
+    <div class="modal fade" id="exampleModalSave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          
+          <div class="modal-body text-center">
+            <h4>{{ translate('Print the contract now?') }}</h4>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary px-3 not_now" data-dismiss="modal">{{ translate('No') }}</button>
+            <button type="button" class="btn btn-primary px-3 yes_now" data-dismiss="modal">{{ translate('Yes') }}</button>
+          </div>
+        </div>
+      </div>
     </div>
     <script>
          $(function(){

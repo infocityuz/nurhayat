@@ -430,20 +430,28 @@
                 'room_count': roomCount,
                 'flats': [],
             })
-        })
-
-        $(document).on('click', '.apartments-button', function() {
-            $(this).removeClass('btn-primary').addClass('btn-success')
-            $('.count-rooms').text(parseInt($('.count-rooms').text()) + 1)
-            $(this).attr('disabled', true)
-            $(this).attr('is-selected', true)
-            var thisId = $(this).attr('data-id')
-            var roomCount = $('.room-count-button[is-selected=true]').attr('data-number')
-            $('.save-flats').attr('disabled', false)
-
-            if (arr[0].flats.indexOf(thisId) === -1) arr[0].flats.push(thisId)
             console.log(arr)
         })
+
+        // $(document).on('click', '.apartments-button', function() {
+
+        //     $(this).removeClass('btn-primary').addClass('btn-success')
+        //     $('.count-rooms').text(parseInt($('.count-rooms').text()) + 1)
+        //     // $(this).attr('disabled', true)
+        //     $(this).attr('is-selected', true)
+        //     var thisId = $(this).attr('data-id')
+        //     var roomCount = $('.room-count-button[is-selected=true]').attr('data-number')
+        //     $('.save-flats').attr('disabled', false)
+
+        //     if (arr[0].flats.indexOf(thisId) === -1) arr[0].flats.push(thisId)
+        //     $(this).addClass('cancel_selected')
+        
+        // })
+
+        // $(document).on('click','.cancel_selected', function(){
+        //     $(this).removeClass('cancel_selected')
+        //     console.log(arr)
+        // })
 
         // $(document).on('click', '.show-hidden-input', function() {
         //     $(this).hide()

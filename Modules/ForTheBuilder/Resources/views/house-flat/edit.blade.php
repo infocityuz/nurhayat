@@ -284,7 +284,7 @@
                                 </div>
                             @endif
 
-                            @if ($areas->terraca > 0)
+                            @if (isset($areas->terraca) && $areas->terraca > 0)
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Area (Terrace) m2') }}</h3>
                                     <input
@@ -298,7 +298,7 @@
                                 </div>
                             @endif
 
-                            @if ($areas->attic > 0)
+                            @if (isset($areas->attic) && $areas->attic > 0)
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Area (Attic) m2') }}</h3>
                                     <input
@@ -312,12 +312,40 @@
                                 </div>
                             @endif
 
-                            @if ($areas->balcony > 0)
+                            @if (isset($areas->balcony) && $areas->balcony > 0)
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Balcony m2') }}</h3>
                                     <input
                                         class="sozdatImyaSpisokInput1272 keyup_input_area @error('area_balcony') error-data-input is-invalid @enderror"
                                         type="text" value="{{ $areas->balcony }}" name="area_balcony">
+                                    <span class="error-data">
+                                        @error('area_balcony')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
+                                </div>
+                            @endif
+
+                            @if (isset($areas->corridor) && $areas->corridor > 0)
+                                <div class="sozdatImyaSpsok">
+                                    <h3 class="sozdatImyaSpisokH3">{{ translate('Corridor m2') }}</h3>
+                                    <input
+                                        class="sozdatImyaSpisokInput1272 keyup_input_area @error('area_balcony') error-data-input is-invalid @enderror"
+                                        type="text" value="{{ $areas->corridor }}" name="area_corridor">
+                                    <span class="error-data">
+                                        @error('area_balcony')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
+                                </div>
+                            @endif
+
+                            @if (isset($areas->bathroom) && $areas->bathroom > 0)
+                                <div class="sozdatImyaSpsok">
+                                    <h3 class="sozdatImyaSpisokH3">{{ translate('Bathroom m2') }}</h3>
+                                    <input
+                                        class="sozdatImyaSpisokInput1272 keyup_input_area @error('area_balcony') error-data-input is-invalid @enderror"
+                                        type="text" value="{{ $areas->bathroom }}" name="area_bathroom">
                                     <span class="error-data">
                                         @error('area_balcony')
                                             {{ $message }}

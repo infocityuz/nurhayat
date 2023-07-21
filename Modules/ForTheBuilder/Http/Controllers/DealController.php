@@ -374,6 +374,7 @@ class DealController extends Controller
                 $newClient->birth_date = $data['birth_date'];
                 $newClient->status = Constants::CLIENT_ACTIVE;
                 $newClient->save();
+                    
 
                 $client_id = $newClient->id;
                 if (isset($data['series_number'])) {
@@ -517,10 +518,16 @@ class DealController extends Controller
             DB::commit();
             Log::channel('action_logs2')->info("пользователь создал новую deal : ", ['info-data' => $model]);
             // $view = 'forthebuilder::deal.print';
+            
+
             $view = 'forthebuilder::deal.new_print';
             if (isset($data['is_installment']) && $data['is_installment'] != NULL)
                 // $view = 'forthebuilder::deal.printR';
                 $view = 'forthebuilder::deal.new_print';
+
+            if ($_POST['not_contract'] == 1) {
+                return redirect()->route('forthebuilder.deal.index');
+            }
 
             // $area = json_decode($houseFlatItem->ares_price)->hundred->total;
             // dd($has_pay_status);
@@ -539,9 +546,9 @@ class DealController extends Controller
             // return redirect()->route($url)->with('success', translate('successfully'));
         } catch (\Exception $e) {
             //=================== file yuklash yakunlandi === mana shu controllerdagi fileUpload methodga qara ===================
-            dd($e->getMessage());
             DB::rollBack();
-            // dd('................ Exception Error' . $e->getMessage());
+            // return redirect()->route('forthebuilder.deal.create');
+            dd('................ Exception Error' . $e->getMessage());
         }
     }
 
@@ -915,6 +922,91 @@ class DealController extends Controller
             'booking' => $booking,
             'agreement_number_increment' => $agreement_number_increment,
             'dealFiles' => $dealFiles ?? '',
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    public function contracts()
+    {
+        $user=Auth::user();
+        $connect_for=Constants::FOR_1;
+        // $user->role_id==Constants::MANAGER
+        if ($user->role_id==Constants::MANAGER) {
+            $models=DB::table($connect_for.'.deals as dt1')
+            ->leftJoin($connect_for.'.clients as dt2', 'dt2.id', '=', 'dt1.client_id')
+            ->leftJoin($connect_for.'.task as dt3', 'dt3.deal_id', '=', 'dt1.id')
+            ->leftJoin($connect_for.'.house as dt4', 'dt4.id', '=', 'dt1.house_id')
+            ->select('dt1.id as deal_id', 'dt1.updated_at as updated_at', 'dt1.price_sell','dt1.type as deal_type', 'dt2.id as client_id',  'dt2.first_name as client_first_name', 'dt2.last_name as client_last_name', 'dt2.middle_name as client_middle_name',  'dt3.title as task_title', 'dt4.name as house_name')
+            ->where('dt2.status',Constants::CLIENT_ACTIVE)
+            ->where('dt1.user_id',$user->id)
+            ->where('dt1.type',Constants::MAKE_DEAL)
+            ->orderByDesc('dt1.created_at')
+            ->paginate(15);
+        }else {
+            
+
+            $models=DB::table($connect_for.'.deals as dt1')
+            ->leftJoin($connect_for.'.clients as dt2', 'dt2.id', '=', 'dt1.client_id')
+            ->leftJoin($connect_for.'.task as dt3', 'dt3.deal_id', '=', 'dt1.id')
+            ->leftJoin($connect_for.'.house as dt4', 'dt4.id', '=', 'dt1.house_id')
+            ->select('dt1.id as deal_id', 'dt1.updated_at as updated_at', 'dt1.price_sell','dt1.type as deal_type', 'dt2.id as client_id',  'dt2.first_name as client_first_name', 'dt2.last_name as client_last_name', 'dt2.middle_name as client_middle_name',  'dt3.title as task_title', 'dt3.id as task_id', 'dt4.name as house_name')
+            ->where('dt2.status',Constants::CLIENT_ACTIVE)
+            ->where('dt1.type', Constants::MAKE_DEAL)
+            ->orderByDesc('dt1.created_at')
+            ->paginate(15);
+
+           
+        }
+        
+        $defaultAction = [
+            Constants::FIRST_CONTACT => translate('First contact'),
+            Constants::NEGOTIATION => translate('Negotiation'),
+            Constants::MAKE_DEAL => translate('Making a deal'),
+        ];
+        
+        return view('forthebuilder::deal.contracts', [
+            'models' => $models,
+            'defaultAction' => $defaultAction,
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    // contractShow
+    public function contractShow(Request $request, $id)
+    {
+        $id = (int)$id;
+        $connect_for = Constants::FOR_1;
+        $models = DB::table($connect_for.'.deals as dt1')
+        ->leftJoin($connect_for.'.clients as dt2', 'dt2.id', '=', 'dt1.client_id')
+        ->leftJoin($connect_for.'.task as dt3', 'dt3.deal_id', '=', 'dt1.id')
+        ->leftJoin($connect_for.'.house as dt4', 'dt4.id', '=', 'dt1.house_id')
+        ->leftJoin($connect_for.'.house_flat as hf', 'hf.id', '=', 'dt1.house_flat_id')
+        ->select(
+            'dt1.id as deal_id', 
+            'dt1.updated_at as updated_at', 
+            'dt1.price_sell','dt1.type as deal_type', 
+            'dt2.id as client_id', 
+            'dt2.first_name as client_first_name', 
+            'dt2.last_name as client_last_name', 
+            'dt2.middle_name as client_middle_name', 
+            'dt3.title as task_title', 
+            'dt3.id as task_id', 
+            'dt4.name as house_name',
+            'hf.number_of_flat',
+            'hf.floor',
+            'hf.room_count',
+            'hf.areas'
+        )
+        ->where('dt2.status',Constants::CLIENT_ACTIVE)
+        ->where('dt1.type', Constants::MAKE_DEAL)
+        ->where('dt1.id',$id)
+        ->orderByDesc('dt1.created_at')
+        ->first();
+
+        // pre(json_decode($models->areas));
+
+        return view('forthebuilder::deal.contract-show', [
+            'models' => $models,
             'all_notifications' => $this->getNotification()
         ]);
     }

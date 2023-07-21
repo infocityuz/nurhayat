@@ -180,6 +180,7 @@ class BookingController extends Controller
         } else {
             DB::beginTransaction();
             try {
+
                 // dd('22222');
                 $client_id = $request->client_id;
                 if (isset($request->client_id) && $request->client_id != null && $request->client_id != 'null') {
@@ -211,6 +212,8 @@ class BookingController extends Controller
                         $newPersonalInfo = new PersonalInformations();
                         $newPersonalInfo->client_id = $newClient->id;
                         $newPersonalInfo->series_number = $request->series_number;
+                        $newPersonalInfo->given_date = ((isset($_POST['given_date']) && !empty($_POST['given_date'])) ? date('Y-m-d',strtotime($_POST['given_date'])) : NULL);
+                        $newPersonalInfo->issued_by = ((isset(_POST['issued_by']) && !empty($_POST['issued_by'])) ? $_POST['issued_by'] : NULL);
                         $newPersonalInfo->save();
                     }
                 }
@@ -234,7 +237,12 @@ class BookingController extends Controller
                 $model->house_id = $request->house_house_id;
                 $model->deal_id = $newDeal->id;
                 $model->status = Constants::BOOKING_ACTIVE;
+
                 $model->expire_dates = json_encode([['comment' => '', 'date' => date('Y-m-d', strtotime('+5 days'))]]);
+                if (isset($_POST['booking_period']) && !empty($_POST['booking_period'])) {
+                    $model->expire_dates = json_encode([['comment' => '', 'date' => date('Y-m-d', strtotime($_POST['booking_period']))]]);
+                }
+
                 $model->notification_date = date('Y-m-d H:i:s', strtotime('+4 days'));
                 $model->prepayment = ($request->prepayment) ? $request->prepayment_summa : 0;
                 $model->save();

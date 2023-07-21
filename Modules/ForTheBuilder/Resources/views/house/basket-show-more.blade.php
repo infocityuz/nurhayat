@@ -164,14 +164,14 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="border: none;background-color: #E8F0FF;width: 315px;margin-left: 185px;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="background-color: #E8F0FF;">
                 <div class="modal-body">
                     <form action="{{ route('forthebuilder.house.update-flats-data') }}" method="POST"
                         enctype="multipart/form-data" id="chees-modal">
-                        <div class="change_content">
+                        <div class="change_content row">
                             <div class="mt-3">
                                 <h3 class="sozdatJkSpisokH3722">{{ translate('Total area') }}</h3>
                                 <input type="number" name="total_area" class="modalMiniCapsule4 text-left">
@@ -262,7 +262,7 @@
                     <h3 class="sozdatJkSpisokH3722 d-flex justify-content-between">
                         ${count} - {{ translate('Hotel') }}
                     </h3>
-                    <input type="number" name="hotel_${count}" class="modalMiniCapsule4 text-left keyup_input_area">                       
+                    <input type="number" name="hotel_${count}" class="form-control text-left keyup_input_area">                       
                 </div>`
                 );
                 $('.add_hotel_rooms').attr('data-count',++count)    
@@ -294,7 +294,7 @@
                         <h3 class="sozdatJkSpisokH3722 d-flex justify-content-between">
                             ${count} - {{ translate('Bedroom') }}
                         </h3>
-                        <input type="number" name="bedroom_${count}" class="modalMiniCapsule4 text-left keyup_input_area">                       
+                        <input type="number" name="bedroom_${count}" class="form-control text-left keyup_input_area">                       
                     </div>`
                 );
                 $('.add_bedroom_rooms').attr('data-count',++count)

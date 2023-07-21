@@ -8,6 +8,7 @@
 @endsection
 @section('content')
     <link rel="stylesheet" href="{{ asset('/backend-assets/forthebuilders/toastr/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .client-show-buttons {
             left: 0 !important;
@@ -286,6 +287,7 @@
                             <input type="hidden" class="house_contract_number" value="">
                             <input type="hidden" class="house_entrance" value="">
                             <input type="hidden" class="house_floor" value="">
+                            <input type="hidden" class="room_count" value="">
                             <input type="hidden" class="house_price_m2" value="">
                         </div>
                     </div>
@@ -300,28 +302,25 @@
             <form id="modal-form" action="{{ route('forthebuilder.booking.store') }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
-                <div class="modal-content modalMyJk2">
-                    <div class="modal-header border border-0">
-                        <div class="d-flex justify-content-between" style="width: 100%;">
-                            <div>
-                                <h5 class="nomerKvartiraChenaKvartiri">
-                                    {{ translate('Apartment number') }}: <b class="apartment_number"></b> <br>
-                                    {{ translate('Price per sq/m') }}: <b class="apartment_price_m2"></b>
-                                </h5>
-                            </div>
-                            <div>
-                                <h5 class="nomerKvartiraChenaKvartiri">
-                                    {{ translate('Total area') }}: <b class="apartment_area"> </b> m2 <br>
-                                    {{ translate('Apartment price m2') }}: <b class="apartment_price"></b>
-                                </h5>
-                            </div>
-                        </div>
+                <div class="modal-content modalMyJk2" style="padding-left: 0;">
+                    <div class="modal-header align-items-center">
+                        <h4 class="m-0">{{ translate('To book') }}</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span id="closeSpan" aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
                     <div class="modal-body">
+                        <table class="table-bordered table-striped table table-sm">
+                            <tr>
+                                <td>{{ translate('Number of rooms') }}: <b class="apartment_number"></b></td>
+                                <td>{{ translate('Price per sq/m') }}: <b class="apartment_price_m2"></b></td>
+                            </tr>
+                            <tr>
+                                <td>{{ translate('Total area') }}: <b class="apartment_area"></b><b> m2</b></td>
+                                <td>{{ translate('Apartment price m2') }}: <b class="apartment_price"></b></td>
+                            </tr>
+                        </table>
                         <input class="booking-client_id" type="hidden" name="client_id"
                             value="{{ old('client_id') }}">
                         <input class="booking-house_flat_id" type="hidden" name="house_flat_id"
@@ -338,10 +337,12 @@
                             value="{{ old('house_entrance') }}">
                         <input class="booking-house_floor" type="hidden" name="house_floor"
                             value="{{ old('house_floor') }}">
-                        <div style="width: 500px;">
+                        <input class="booking-room_count" type="hidden" name="room_count"
+                            value="{{ old('room_count') }}">
+                        <div class="w-100">
                             <div class="sozdatImyaSpsok">
-                                <h3 class="sozdatImyaSpisokH3">{{ translate('First name') }}</h3>
-                                <input
+                                <label class="form-label font-weight-bold">{{ translate('First name') }}</label>
+                                <input style="font-size: 18px;" 
                                     class="sozdatImyaSpisokInput keyUpName booking-first_name @error('first_name') error-data-input is-invalid @enderror"
                                     type="text" name="first_name" value="{{ old('first_name') }}"
                                     autocomplete="off">
@@ -366,8 +367,8 @@
                             </div>
 
                             <div class="sozdatImyaSpsok">
-                                <h3 class="sozdatImyaSpisokH3">{{ translate('Last name') }}</h3>
-                                <input
+                                <label class="form-label font-weight-bold">{{ translate('Last name') }}</label>
+                                <input style="font-size: 18px;" 
                                     class="sozdatImyaSpisokInput keyUpName booking-last_name @error('last_name') error-data-input is-invalid @enderror"
                                     value="{{ old('last_name') }}" type="text" name="last_name">
                                 <div class="keyUpNameResult d-none"
@@ -381,8 +382,8 @@
                             </div>
 
                             <div class="sozdatImyaSpsok">
-                                <h3 class="sozdatImyaSpisokH3">{{ translate('Middle name') }}</h3>
-                                <input
+                                <label class="form-label font-weight-bold">{{ translate('Middle name') }}</label>
+                                <input style="font-size: 18px;" 
                                     class="sozdatImyaSpisokInput keyUpName booking-middle_name @error('middle_name') error-data-input is-invalid @enderror"
                                     value="{{ old('middle_name') }}" type="text" name="middle_name">
                                 <div class="keyUpNameResult d-none"
@@ -396,117 +397,131 @@
                             </div>
                         </div>
 
-                        <div class="sozdatImyaSpsok">
-                            <h3 class="sozdatImyaSpisokH3">{{ translate('Phone number') }}</h3>
-                            <div class="d-flex">
-                                <div>
-                                    <img src="{{ asset('backend-assets/forthebuilders/images/region.png') }}"
-                                        alt="Region">
-                                </div>
-                                <div>
-                                    <label
-                                        style="margin-bottom: -35px;z-index: 99;width: 50px;margin-left: 5px;margin-right: -55px;position: sticky;margin-top: 13px;padding-left: 6px;"
-                                        for="+998">+998</label>
-                                    <input
-                                        class="sozdatImyaSpisokInputTel keyUpName booking-phone @error('phone') error-data-input is-invalid @enderror"
-                                        value="{{ old('phone') }}" type="tel" id="phone" name="phone"
-                                        required="">
-                                    <div class="keyUpNameResult d-none"
-                                        style="width: 65%; background: lightgrey; max-height: 220px; position: absolute; margin-top: 75px; overflow: scroll; border-radius: 15px;">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label font-weight-bold">{{ translate('Phone number') }}</label>
+                                <div class="d-flex">
+                                    <div>
+                                        <img style="max-width: 50px; margin-top: 4px;margin-right: 3px" src="{{ asset('backend-assets/forthebuilders/images/region.png') }}"
+                                            alt="Region">
                                     </div>
-                                    {{-- pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" --}}
-                                    <span class="error-data">
-                                        @error('phone')
-                                            {{ $message }}
-                                        @enderror
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex">
-                            <div>
-                                <div class="sozdatImyaSpsok">
-                                    <h3 class="sozdatImyaSpisokH3">{{ translate('additional_phone_number') }}</h3>
-                                    <div class="d-flex">
-                                        <div>
-                                            <img src="{{ asset('backend-assets/forthebuilders/images/region.png') }}"
-                                                alt="Region">
+                                    <div class="w-100">
+                                        <label
+                                            style="margin-bottom: -35px;z-index: 99;width: 50px;margin-left: 5px;margin-right: -55px;position: sticky;margin-top: 13px;padding-left: 6px;"
+                                            for="+998">+998</label>
+                                        <input style="font-size: 16px;padding-top: 6px;" 
+                                            class="w-100 sozdatImyaSpisokInputTel keyUpName booking-phone @error('phone') error-data-input is-invalid @enderror"
+                                            value="{{ old('phone') }}" type="tel" id="phone" name="phone"
+                                            required="">
+                                        <div class="keyUpNameResult d-none"
+                                            style="width: 65%; background: lightgrey; max-height: 220px; position: absolute; margin-top: 75px; overflow: scroll; border-radius: 15px;">
                                         </div>
-                                        <div>
-                                            <label
-                                                style="margin-bottom: -35px;z-index: 99;width: 50px;margin-left: 5px;margin-right: -55px;position: sticky;margin-top: 13px;padding-left: 6px;"
-                                                for="+998">+998</label>
-                                            <input
-                                                class="sozdatImyaSpisokInputTel keyUpName booking-additional_phone @error('additional_phone') error-data-input is-invalid @enderror"
-                                                value="{{ old('additional_phone') }}" type="tel"
-                                                id="additional_phone" name="additional_phone">
-                                            <div class="keyUpNameResult d-none"
-                                                style="width: 65%; background: lightgrey; max-height: 220px; position: absolute; margin-top: 75px; overflow: scroll; border-radius: 15px;">
-                                            </div>
-                                            {{-- pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" --}}
-                                            <span class="error-data">
-                                                @error('additional_phone')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span>
+                                        {{-- pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" --}}
+                                        <span class="error-data">
+                                            @error('phone')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label font-weight-bold">{{ translate('additional_phone_number') }}</label>
+                                <div class="d-flex">
+                                    <div>
+                                        <img style="max-width: 50px; margin-top: 4px;margin-right: 3px" src="{{ asset('backend-assets/forthebuilders/images/region.png') }}"
+                                            alt="Region">
+                                    </div>
+                                    <div class="w-100">
+                                        <label
+                                            style="margin-bottom: -35px;z-index: 99;width: 50px;margin-left: 5px;margin-right: -55px;position: sticky;margin-top: 13px;padding-left: 6px;"
+                                            for="+998">+998</label>
+                                        <input style="font-size: 16px;padding-top: 6px;" 
+                                            class="w-100 sozdatImyaSpisokInputTel keyUpName booking-additional_phone @error('additional_phone') error-data-input is-invalid @enderror"
+                                            value="{{ old('additional_phone') }}" type="tel"
+                                            id="additional_phone" name="additional_phone">
+                                        <div class="keyUpNameResult d-none"
+                                            style="width: 65%; background: lightgrey; max-height: 220px; position: absolute; margin-top: 75px; overflow: scroll; border-radius: 15px;">
                                         </div>
+                                        
+                                        <span class="error-data">
+                                            @error('additional_phone')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                 </div>
-
-                                <div class="sozdatImyaSpsok">
-                                    <h3 class="sozdatImyaSpisokH3">{{ translate('Serial number of the passport') }}</h3>
-                                    <input
-                                        class="sozdatImyaSpisokInput keyUpName booking-series_number @error('series_number') error-data-input is-invalid @enderror"
-                                        value="{{ old('series_number') }}" type="text" name="series_number">
-                                    <div class="keyUpNameResult d-none"
-                                        style="width: 65%; background: lightgrey; max-height: 220px; position: absolute; margin-top: 75px; overflow: scroll; border-radius: 15px;">
-                                    </div>
-                                    <span class="error-data">
-                                        @error('series_number')
-                                            {{ $message }}
-                                        @enderror
-                                    </span>
-                                </div>
-
-                                <button type="submit"
-                                    class="sozdatImyaSpisokSozdatButton text-light">{{ translate('Create') }}</button>
                             </div>
 
-                            <div class="jkDataRightTop">
-                                <div class="d-flex" style="margin-top: -30px; margin-bottom: 30px;">
-                                    {{-- <img class="selectOPttionClickedImage"
-                                        src="{{ asset('backend-assets/forthebuilders/images/Frame 29.png') }}"
-                                        alt="Frame">
-                                    <h3 class="sozdatImyaSpisokH3 predoplataImageRight">Предоплата</h3> --}}
-                                    <input type="checkbox" name="prepayment" id="prepayment"
-                                        class="@error('prepayment') error-data-input is-invalid @enderror">
-                                    <label for="prepayment">
-                                        <h3 class="sozdatImyaSpisokH3 predoplataImageRight">{{ translate('prepayment') }}
-                                        </h3>
-                                    </label>
-                                    <span class="error-data">
-                                        @error('prepayment')
-                                            {{ $message }}
-                                        @enderror
-                                    </span>
+                            <div class="col-6 mt-2">
+                                <label class="form-label font-weight-bold">{{ translate('Serial number of the passport') }}</label>
+                                <input style="font-size: 16px;" 
+                                    class="sozdatImyaSpisokInput keyUpName booking-series_number @error('series_number') error-data-input is-invalid @enderror"
+                                    value="{{ old('series_number') }}" type="text" name="series_number">
+                                <div class="keyUpNameResult d-none"
+                                    style="width: 65%; background: lightgrey; max-height: 220px; position: absolute; margin-top: 75px; overflow: scroll; border-radius: 15px;">
                                 </div>
-
-                                <div class="sozdatImyaSpsok">
-                                    <h3 class="sozdatImyaSpisokH3">{{ translate('Prepayment amount') }}</h3>
-                                    <input
-                                        class="sozdatImyaSpisokInput booking-prepayment_summa @error('prepayment_summa') error-data-input is-invalid @enderror"
-                                        value="{{ old('prepayment_summa') }}" type="text" name="prepayment_summa"
-                                        disabled>
-                                    <span class="error-data">
-                                        @error('prepayment_summa')
-                                            {{ $message }}
-                                        @enderror
-                                    </span>
-                                </div>
+                                <span class="error-data">
+                                    @error('series_number')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
                             </div>
-                            {{-- <input type="hidden" id="house_flat_id" name="house_flat_id"> --}}
+
+                            <div class="col-6 mt-2">
+                                <label class="form-label font-weight-bold">
+                                    {{ translate('Issued by (Date of issue and expiration date)') }}</label>
+                                <input style="width: 100% !important;" 
+                                    class="sozdatImyaSpisokInputProdnoBig booking-given_date form-control @error('given_date') error-data-input is-invalid @enderror"
+                                    value="{{ old('given_date') }}" type="text" name="given_date" id="given_date" placeholder="{{ date('d.m.2000') }}">
+                                <span class="error-data">
+                                    @error('given_date')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+
+                            <div class="col-12 mt-2">
+                                <label class="form-label font-weight-bold">{{ translate('Issued by') }}</label>
+                                <input style="width: 100% !important;" 
+                                    class="sozdatImyaSpisokInputProdnoBig booking-issued_by form-control @error('issued_by') error-data-input is-invalid @enderror"
+                                    value="{{ old('issued_by') }}" type="text" name="issued_by" id="issued_by">
+                                <span class="error-data">
+                                    @error('issued_by')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+                            
+                            <div class="col-6 mt-2">
+                                <label class="form-label font-weight-bold">
+                                    {{ translate('Prepayment amount') }}
+                                    <input type="checkbox" name="prepayment" id="prepayment" class="@error('prepayment') error-data-input is-invalid @enderror" style="visibility: hidden;">
+                                </label>
+
+                                <input style="font-size: 16px;" 
+                                    class="sozdatImyaSpisokInput booking-prepayment_summa @error('prepayment_summa') error-data-input is-invalid @enderror"
+                                    value="{{ old('prepayment_summa') }}" type="text" name="prepayment_summa">
+                                <span class="error-data">
+                                    @error('prepayment_summa')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <label class="form-label font-weight-bold">
+                                    {{ translate('Booking period') }}
+                                </label>
+
+                                <input style="font-size: 16px;"class="sozdatImyaSpisokInput booking_period" type="text" name="booking_period" placeholder="{{ translate('Indefinite period') }}">
+                            </div>
+                            
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="sozdatImyaSpisokSozdatButton text-light">
+                            {{ translate('Create') }}
+                        </button>
                     </div>
                 </div>
             </form>
@@ -515,6 +530,7 @@
     <script src="{{ asset('/backend-assets/forthebuilders/toastr/js/toastr.min.js') }}"></script>
      <script src="{{ asset('/backend-assets/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('/backend-assets/plugins/jquery.maskedinput.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         let page_name = 'house'
 
@@ -532,6 +548,27 @@
                 toastr.warning(sessionWarning)
             }
         });
+
+        $(document).on('keyup','.booking-prepayment_summa',function(){
+            if ($(this).val() != '') {
+                $('#prepayment').prop('checked',true)
+            }
+            else{
+                $('#prepayment').prop('checked',false)
+            }
+        })
+
+        $(function(){
+            $('.booking-given_date').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true
+            })
+            
+            $('.booking_period').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true
+            })
+        })
     </script>
 @endsection
 @extends('forthebuilder::house.extra')

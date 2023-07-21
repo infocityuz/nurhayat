@@ -259,6 +259,7 @@
     </script>
     <script>
         $('.btn-filter[data-filter]').on('click', function() {
+            
             $('.btn-filter[data-filter]').removeClass('active');
             $(this).addClass('active');
             let filter = $(this).data('filter');
@@ -328,12 +329,14 @@
             }
         })
 
+        
+
         $(document).on('click', '.apartments-button', function() {
             var isSelected = $(this).attr('is-selected', true)
             var thisId = $(this).attr('data-id')
             var def = $(this).attr('data-def')
             var roomCount = $('.room-count-button[is-selected=true]').attr('data-number')
-            $('.save-flats').attr('disabled', false)
+            
 
             if (def == 0) {
                 $(this).removeClass('btn-primary').removeClass('btn-secondary')
@@ -351,7 +354,12 @@
                 $('.count-rooms').text(parseInt($('.count-rooms').text()) - 1)
             }
 
-            console.log(arr[0])
+            if(arr[0]['flats'].length > 0){
+                $('.save-flats').attr('disabled', false)
+            }
+            else{
+                $('.save-flats').attr('disabled', true)
+            }
         })
 
         $(document).on('click', '.flat-button-open-modal', function() {
@@ -399,6 +407,7 @@
             $('#exampleModal .modal-body').find('.house_contract_number').val(house_contract_number)
             $('#exampleModal .modal-body').find('.house_entrance').val(house_entrance)
             $('#exampleModal .modal-body').find('.house_floor').val(house_floor)
+            $('#exampleModal .modal-body').find('.room_count').val(room_count)
             $('#exampleModal .modal-body').find('.house_price_m2').val(price_m2)
             $('#exampleModal .modal-body').find('img').attr('src', data_doc)
 
@@ -419,7 +428,7 @@
             $.each(_form, function() {
                 data[this.name] = this.value
             })
-            console.log(data)
+            
             $.ajax({
                 url: `/forthebuilder/house/update-flats-data`,
                 data: {
@@ -542,14 +551,22 @@
                     @endif
                 ]
             }).on("filebatchselected", function(event, files) {
+                $('.save-flats-form').prop('disabled', false)
                 $el1.fileinput("upload");
             }).on('filesorted', function(e, params) {
+                
                 console.log('file sorted', e, params);
             }).on('fileuploaded', function(e, params) {
+                
                 console.log('file uploaded', e, params);
             }).on('filesuccessremove', function(e, id) {
+                
                 console.log('file success remove', e, id);
             });
+        })
+
+        $(document).on('change','#files',function(){
+            $('.save-flats-form').prop('disabled', true)
         })
 
         $(document).on('click', '.attach-order', function() {
@@ -604,6 +621,8 @@
             var flat_price = $('#exampleModal').find('.flat_price').text();
             var price_m2 = $('#exampleModal').find('.house_price_m2').val();
             var data_areas = $('#exampleModal').find('.flat_area').text();
+            var room_count = $('#exampleModal').find('.room_count').val();
+
 
             if (thisVal == {{ HouseFlat::STATUS_SOLD }}) {
                 location.replace("/forthebuilder/deal/create?house_flat_id=" + house_flat_id +
@@ -623,7 +642,7 @@
                 $('#exampleModal2').find('.booking-house_entrance').val(house_entrance)
                 $('#exampleModal2').find('.booking-house_floor').val(house_floor)
 
-                $('#exampleModal2').find('.apartment_number').text(house_number_of_flat)
+                $('#exampleModal2').find('.apartment_number').text(room_count)
                 $('#exampleModal2').find('.apartment_price_m2').text(price_m2)
                 $('#exampleModal2').find('.apartment_area').text(data_areas)
                 $('#exampleModal2').find('.apartment_price').text(flat_price)
@@ -729,7 +748,11 @@
                                     </li>`;
                     });
 
-                    _this.siblings('.keyUpNameResult').html(listData);
+                    if (listData != undefined && listData != '') {
+                        _this.siblings('.keyUpNameResult').html(listData);    
+                    }
+
+                    
                 }
 
             })
@@ -1484,37 +1507,35 @@
             var number = $('.room-count-button[is-selected="true"]').attr('data-number')
             if (number == 'p') {
                 $('#exampleModal .modal-body').find('form .change_content').html(`
-                    <div class="mt-3">
+                    <div class="col-sm-12 mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Total area') }}</h3>
-                        <input type="number" name="total_area" class="modalMiniCapsule4 text-left">
+                        <input type="number" name="total_area" class="form-control text-left">
                     </div>
                 `)
             } else if (number == 'c') {
                 $('#exampleModal .modal-body').find('form .change_content').html(`                    
 
-                    <div class="mt-3">
-                        <h3 class="sozdatJkSpisokH3722">{{ translate('Terrace') }} <input type="checkbox"
-                                id="terassa"></h3>
-                        <input type="number" placeholder="" name="terassa" class="modalMiniCapsule4 text-left keyup_input_area"
-                            id="terassa_input" disabled>
+                    <div class="col-sm-6 mt-3">
+                        <h3 class="sozdatJkSpisokH3722">{{ translate('Terrace') }}</h3>
+                        <input type="number" placeholder="" name="terassa" class="form-control text-left keyup_input_area"
+                            id="terassa_input">
                     </div>
 
-                    <div class="mt-3">
-                        <h3 class="sozdatJkSpisokH3722">{{ translate('Balcony') }} <input type="checkbox"
-                                id="balcony"></h3>
-                        <input type="text" placeholder="" name="balcony" class="modalMiniCapsule4 text-left keyup_input_area"
-                            id="balcony_input" disabled>
+                    <div class="col-sm-6 mt-3">
+                        <h3 class="sozdatJkSpisokH3722">{{ translate('Balcony') }}</h3>
+                        <input type="text" placeholder="" name="balcony" class="form-control text-left keyup_input_area"
+                            id="balcony_input">
                     </div>
 
-                    <div class="mt-3">
+                    <div class="col-sm-12 mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Total area') }}</h3>
-                        <input type="number" name="total_area" class="modalMiniCapsule4 text-left">
+                        <input type="number" name="total_area" class="form-control text-left">
                     </div>
                 `)
             } else {
                 $('#exampleModal .modal-body').find('form .change_content').html(`
                     
-                    <div class="mt-3">
+                    <div class="col-sm-6 mt-3">
                         <h3 class="sozdatJkSpisokH3722 d-flex justify-content-between">
                             <b>{{ translate('Hotel') }}</b>
                             <span>
@@ -1526,11 +1547,11 @@
                                 </span>
                             </span>
                         </h3>
-                        <input type="number" name="hotel" class="modalMiniCapsule4 text-left keyup_input_area">                       
+                        <input type="number" name="hotel" class="form-control text-left keyup_input_area">                       
+                        <div class="add_hotel_rooms" data-count="2"></div>
                     </div>
-                    <div class="add_hotel_rooms" data-count="2"></div>
 
-                    <div class="mt-3">
+                    <div class="col-sm-6 mt-3">
                         <h3 class="sozdatJkSpisokH3722 d-flex justify-content-between">
                             <b>{{ translate('Bedroom') }}</b>
                             <span>
@@ -1542,33 +1563,43 @@
                                 </span>
                             </span>
                         </h3>
-                        <input type="number" name="bedroom" class="modalMiniCapsule4 text-left keyup_input_area">
+                        <input type="number" name="bedroom" class="form-control text-left keyup_input_area">
+                        <div class="add_bedroom_rooms" data-count="2"></div>
                     </div>
-                    <div class="add_bedroom_rooms" data-count="2"></div>
 
-                    <div class="mt-3">
+                    <div class="col-sm-4 mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Kitchen area') }}</h3>
-                        <input type="number" name="kitchen_area" class="modalMiniCapsule4 text-left keyup_input_area">
+                        <input type="number" name="kitchen_area" class="form-control text-left keyup_input_area">
                     </div>
 
-                    <div class="mt-3">
-                        <h3 class="sozdatJkSpisokH3722">{{ translate('Terrace') }} <input type="checkbox" id="terassa"></h3>
-                        <input type="number" placeholder="" name="terassa" class="modalMiniCapsule4 text-left keyup_input_area" id="terassa_input" disabled>
+                    <div class="col-sm-4 mt-3">
+                        <h3 class="sozdatJkSpisokH3722">{{ translate('Terrace') }}</h3>
+                        <input type="number" placeholder="" name="terassa" class="form-control text-left keyup_input_area" id="terassa_input">
                     </div>
 
-                    <div class="mt-3">
-                        <h3 class="sozdatJkSpisokH3722">{{ translate('Balcony') }} <input type="checkbox" id="balcony"></h3>
-                        <input type="text" placeholder="" name="balcony" class="modalMiniCapsule4 text-left keyup_input_area" id="balcony_input" disabled>
+                    <div class="col-sm-4 mt-3">
+                        <h3 class="sozdatJkSpisokH3722">{{ translate('Balcony') }}</h3>
+                        <input type="text" placeholder="" name="balcony" class="form-control text-left keyup_input_area" id="balcony_input">
                     </div>
 
-                    <div class="mt-3">
-                        <h3 class="sozdatJkSpisokH3722">{{ translate('Other') }} <input type="checkbox" id="other"></h3>
-                        <input type="text" placeholder="" name="other" class="modalMiniCapsule4 text-left keyup_input_area" id="other_input" disabled>
+                    <div class="col-sm-4 mt-3">
+                        <h3 class="sozdatJkSpisokH3722">{{ translate('Bathroom') }}</h3>
+                        <input type="text" placeholder="" name="bathroom" class="form-control text-left keyup_input_area" id="bathroom_input">
                     </div>
 
-                    <div class="mt-3">
+                    <div class="col-sm-4 mt-3">
+                        <h3 class="sozdatJkSpisokH3722">{{ translate('Corridor') }}</h3>
+                        <input type="text" placeholder="" name="corridor" class="form-control text-left keyup_input_area" id="corridor_input">
+                    </div>
+
+                    <div class="col-sm-4 mt-3">
+                        <h3 class="sozdatJkSpisokH3722">{{ translate('Other') }}</h3>
+                        <input type="text" placeholder="" name="other" class="form-control text-left keyup_input_area" id="other_input">
+                    </div>
+
+                    <div class="col-sm-12 mt-3">
                         <h3 class="sozdatJkSpisokH3722">{{ translate('Total area') }}</h3>
-                        <input type="number" name="total_area" class="modalMiniCapsule4 text-left">
+                        <input type="number" name="total_area" class="form-control text-left">
                     </div>
                 `)
             }
@@ -1680,14 +1711,25 @@
             // $('.divForSummPrice').parent().append(`<div class="d-flex">` + partHtml + `</div>`)
         })
 
-        $(document).on('click', '.saveDealDogovor', function() {
-            setTimeout(function() {
-                var url = '/forthebuilder/deal'
-                if ($('input[name=is_installment]').prop("checked") == true) {
-                    var url = '/forthebuilder/installment-plan'
-                }
-                window.location.replace(url)
-            }, 2000);
+        $(document).on('click', '.saveDealDogovor', function(e) {
+            $('#exampleModalSave').modal('toggle')
+
+            // setTimeout(function() {
+            //     var url = '/forthebuilder/deal'
+            //     if ($('input[name=is_installment]').prop("checked") == true) {
+            //         var url = '/forthebuilder/installment-plan'
+            //     }
+            //     window.location.replace(url)
+            // }, 2000);
+        })
+
+        $(document).on('click','.yes_now',function(){
+            $('#deal-create-form').unbind('submit').submit();            
+        })
+
+        $(document).on('click','.not_now',function(){
+            $('#deal-create-form .not_contract').val(1)
+            $('#deal-create-form').unbind('submit').submit();            
         })
 
         $(document).on('click','#all_select',function(){

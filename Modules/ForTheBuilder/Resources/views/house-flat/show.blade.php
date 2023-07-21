@@ -567,7 +567,7 @@
                         <div class="sozdatImyaSpsok">
                             <h3 class="sozdatImyaSpisokH3">{{ translate('Valid until:') }}</h3>
                             <input class="sozdatImyaSpisokInput date_picker" style="padding-right: 10px;" type="text"
-                                name="date_picker" autocomplete="off" id="datePicker" value="{{ date('d.m.Y') }}">
+                                name="date_picker" autocomplete="off" id="datePicker" value="{{ date('d.m.Y', strtotime('+14 days')) }}">
                         </div>
 
                         <div class="sozdatImyaSpsok">
@@ -586,6 +586,7 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <script>
         let page_name = 'house';
         $(function(){
@@ -593,7 +594,13 @@
                 format: 'dd.mm.yyyy',
                 autoclose: true
             })
-            $(".date_picker").inputmask({"mask": "99.99.9999"});
+            $(".date_picker").inputmask({"mask": "99.99.9999"});   
+            
         })
+        $(document).on('click','.pechatButtonModal',function(){
+            $('#exampleModal2').modal('toggle')
+        })
+
+        
     </script>
 @endsection

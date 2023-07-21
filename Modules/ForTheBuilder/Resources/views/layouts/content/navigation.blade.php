@@ -6,7 +6,9 @@
 <div class="navigation active">
     <ul>
         <a href="{{ route('forthebuilder.user.show', $current_user->id) }}" class="d-flex">
-            @if(isset($current_user->id))
+            @if(Auth::user()->role_id==Constants::SUPERADMIN)
+                <img class="profile" src="{{ asset('/backend-assets/img/superadmin.png') }}" alt="">
+            @elseif(isset($current_user->id))
                 @php
                     $gender_img = 'men.png';
                     if ($current_user->gender == 2) {

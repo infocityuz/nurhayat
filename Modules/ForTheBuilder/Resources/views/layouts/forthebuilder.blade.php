@@ -422,6 +422,7 @@
 
         $(document).on('click', '.save-flats-form', function(e) {
             e.preventDefault()
+            
             var kv_m = $('.kv-m').val()
             var _token = $('input[name=_token]').val()
             var _form = $('#exampleModal #chees-modal').serializeArray()
@@ -429,28 +430,30 @@
             $.each(_form, function() {
                 data[this.name] = this.value
             })
+
             
-            $.ajax({
-                url: `/forthebuilder/house/update-flats-data`,
-                data: {
-                    form: data,
-                    flats: arr,
-                    kv_m: kv_m,
-                    _token: _token
-                },
-                type: 'PUT',
-                success: function(data) {
-                    if (data == true) {
-                        location.reload()
-                    }
-                    else{
-                        console.log(data)
-                    }
-                },
-                // error: function(data) {
-                //     console.log(data);
-                // }
-            });
+            
+            // $.ajax({
+            //     url: `/forthebuilder/house/update-flats-data`,
+            //     data: {
+            //         form: data,
+            //         flats: arr,
+            //         kv_m: kv_m,
+            //         _token: _token
+            //     },
+            //     type: 'PUT',
+            //     success: function(data) {
+            //         if (data == true) {
+            //             location.reload()
+            //         }
+            //         else{
+            //             console.log(data)
+            //         }
+            //     },
+            //     // error: function(data) {
+            //     //     console.log(data);
+            //     // }
+            // });
         })
 
         $(document).on('change', '#terassa', function() {
@@ -552,7 +555,7 @@
                     @endif
                 ]
             }).on("filebatchselected", function(event, files) {
-                $('.save-flats-form').prop('disabled', false)
+                // $('.save-flats-form').prop('disabled', false)
                 $el1.fileinput("upload");
             }).on('filesorted', function(e, params) {
                 
@@ -566,9 +569,9 @@
             });
         })
 
-        $(document).on('change','#files',function(){
-            $('.save-flats-form').prop('disabled', true)
-        })
+        // $(document).on('change','#files',function(){
+        //     $('.save-flats-form').prop('disabled', true)
+        // })
 
         $(document).on('click', '.attach-order', function() {
             $('#exampleModalNext .modal-title').text('')

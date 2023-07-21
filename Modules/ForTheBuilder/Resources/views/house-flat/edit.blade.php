@@ -15,7 +15,7 @@
 
             <div class="d-flex justify-content-between">
                 <div class="d-flex">
-                    <a href="{{ route('forthebuilder.house.index') }}" class="plus2 profileMaxNazadInformatsiyaKlient"><img
+                    <a onclick="history.back()" class="plus2 profileMaxNazadInformatsiyaKlient"><img
                             src="{{ asset('backend-assets/forthebuilders/images/icons/arrow-left.png') }}" alt=""></a>
                     <h2 class="panelUprText">{{ translate('Add') }}</h2>
                 </div>

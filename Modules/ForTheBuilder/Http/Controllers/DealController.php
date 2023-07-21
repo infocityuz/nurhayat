@@ -373,6 +373,7 @@ class DealController extends Controller
                 $newClient->additional_phone = $data['additional_phone'];
                 $newClient->birth_date = $data['birth_date'];
                 $newClient->status = Constants::CLIENT_ACTIVE;
+                $newClient->user_id = $user->id;
                 $newClient->save();
                     
 

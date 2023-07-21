@@ -7,6 +7,7 @@
     {{ translate('JK') }}
 @endsection
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
     .sozdatJkData {
@@ -17,6 +18,9 @@
         top: 0 !important;
         left:0 !important;
         z-index: 9999 !important;
+    }
+    .sozdatImyaSpisokInputTel{
+        font-size: 16px !important;
     }
     
 </style>
@@ -210,8 +214,8 @@
                                 <h3 class="sozdatImyaSpisokH3Prodno">
                                     {{ translate('Birth date') }}</h3>
                                 <input
-                                    class="sozdatImyaSpisokInputProdnoBig form-control @error('birth_date') error-data-input is-invalid @enderror"
-                                    value="{{ $clients != 'NULL' ? $clients->birth_date : '', old('birth_date') }}" type="date" name="birth_date" id="birth_date">
+                                    class="sozdatImyaSpisokInputProdnoBig date_picker form-control @error('birth_date') error-data-input is-invalid @enderror"
+                                    value="{{ $clients != 'NULL' ? $clients->birth_date : '', old('birth_date') }}" type="text" name="birth_date" id="birth_date">
                                 <span class="error-data">
                                     @error('birth_date')
                                         {{ $message }}
@@ -238,8 +242,8 @@
                                 <h3 class="sozdatImyaSpisokH3Prodno">
                                     {{ translate('Issued by (Date of issue and expiration date)') }}</h3>
                                 <input
-                                    class="sozdatImyaSpisokInputProdnoBig booking-given_date form-control @error('given_date') error-data-input is-invalid @enderror"
-                                    value="{{ $clients != 'NULL'?$clients->informations->given_date:'', old('given_date') }}" type="date" name="given_date" id="given_date">
+                                    class="sozdatImyaSpisokInputProdnoBig date_picker booking-given_date form-control @error('given_date') error-data-input is-invalid @enderror"
+                                    value="{{ $clients != 'NULL'?$clients->informations->given_date:'', old('given_date') }}" type="text" name="given_date" id="given_date">
                                 <span class="error-data">
                                     @error('given_date')
                                         {{ $message }}
@@ -516,8 +520,8 @@
                                             <div class="polniy_DropDown">
                                                 <h3 class="sozdatImyaDropDowno">{{ translate('Installment start date') }}
                                                 </h3>
-                                                <input id="dateInput3" class="form-control sozdatImyaSpisokDropDown"
-                                                    type="date" name="installment_date" value="{{ date('Y-m-d'); }}">
+                                                <input id="dateInput3" class="form-control date_picker sozdatImyaSpisokDropDown"
+                                                    type="text" name="installment_date" value="{{ date('Y-m-d'); }}">
                                                 <span class="error-data">
                                                     @error('installment_date')
                                                         {{ $message }}
@@ -552,7 +556,7 @@
 
                                 <div class="form-group">
                                     <h3 class="sozdatImyaSpisokH3Prodno">{{ translate('Date') }}</h3>
-                                    <input id="dateInput" placeholder="{{ date('d.m.Y') }}" type="date"
+                                    <input id="dateInput" class="date_picker" placeholder="{{ date('d.m.Y') }}" type="text"
                                         class="form-control sozdatImyaSpisokSelectOptionJkProdnoDate">
                                 </div>
                             </div>
@@ -570,7 +574,7 @@
                     <button type="button" class="sozdatImyaSpisokSozdatButtonSave text-light saveDealDogovor"
                         style="cursor: pointer;">{{ translate('Save') }}</button>
 
-                    <button type="submit" class="text-light submit_form_save" style="opacity: 0;"></button>
+                    <button type="submit" class="text-light submit_form_save" style="opacity: 0;">sadasdads</button>
 
                 </form>
             </div>
@@ -592,6 +596,7 @@
         </div>
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
          $(function(){
              $('#dateInput').datetimepicker({
@@ -601,7 +606,16 @@
                 "showTodayButton": true,
                 "format": "DD.MM.YYYY HH:mm",
             });
-        })  
+
+        }) 
+        $(function(){
+            $('.date_picker').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true
+            })
+            $(".date_picker").inputmask({"mask": "99.99.9999"});   
+            
+        })
         let page_name = 'deal';
         let budget_input = document.getElementById('budget_input')
         let looking_for_input = document.getElementById('looking_for_input')

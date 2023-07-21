@@ -425,9 +425,7 @@
             var showId = $('#showId').val();
             location.href = url;
         }, 10);
-        // setTimeout(function() {
-        //     newWin.close();
-        // }, 50);
+        
     })
 
     // $(document).ready(function() {

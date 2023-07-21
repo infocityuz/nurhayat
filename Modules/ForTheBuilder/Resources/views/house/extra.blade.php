@@ -474,27 +474,30 @@
             $.each(_form, function() {
                 data[this.name] = this.value
             })
-            console.log(data)
-            // alert('12312')
-            $.ajax({
-                url: `/forthebuilder/house/update-flats-data`,
-                data: {
-                    form: data,
-                    flats: arr,
-                    kv_m: kv_m,
-                    _token: _token
-                },
-                type: 'PUT',
-                success: function(data) {
-                    console.log(data)
-                    if (data == true) {
-                        location.reload()
-                    }
-                },
-                // error: function(data) {
-                //     console.log(data);
-                // }
-            });
+            var load_image = $('.kv-fileinput-caption.file-caption-disabled').length
+
+            if (load_image == 0) {
+                $.ajax({
+                    url: `/forthebuilder/house/update-flats-data`,
+                    data: {
+                        form: data,
+                        flats: arr,
+                        kv_m: kv_m,
+                        _token: _token
+                    },
+                    type: 'PUT',
+                    success: function(data) {
+                        console.log(data)
+                        if (data == true) {
+                            location.reload()
+                        }
+                    },
+                    // error: function(data) {
+                    //     console.log(data);
+                    // }
+                });
+            }
+            
         })
 
         $(document).on('click', '.attach-order', function() {

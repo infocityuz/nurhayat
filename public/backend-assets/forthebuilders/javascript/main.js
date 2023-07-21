@@ -80,6 +80,10 @@ if(page_name){
       document.getElementById('page-user').classList.add('active');
       $('#page-user').find('path').attr('fill', 'black')
       break;
+    case 'sales':
+      document.getElementById('page-sales').classList.add('active');
+      $('#page-sales').find('path').attr('fill', 'black')
+      break;
     
 
   }

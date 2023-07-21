@@ -95,7 +95,7 @@
 
 <script src="{{ asset('/backend-assets/forthebuilders/javascript/jquery.min.js') }}"></script>
 <script>
-    let page_name = 'booking';
+    let page_name = 'sales';
     console.log(page_name)
     $(document).ready(function() {
         $('.modalVideystvitelnoDa').on('click', function() {

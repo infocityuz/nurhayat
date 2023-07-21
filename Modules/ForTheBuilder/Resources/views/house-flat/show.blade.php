@@ -23,6 +23,7 @@
         @include('forthebuilder::layouts.content.navigation')
         <div class="mainMargin">
             @include('forthebuilder::layouts.content.header')
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
             <div class="d-flex justify-content-between">
                 <div class="d-flex">
@@ -550,36 +551,23 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="jkAttributEdit">{{ translate('Print') }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
                 <form class="modal-body" action="{{ route('forthebuilder.house-flat.print', $model->id) }}"
                     method="POST">
                     @csrf
                     <div class="modal-body modalPechat">
-                        <h5 class="jkAttributEdit">{{ translate('Print') }}</h5>
-
-                        {{-- <div class="d-flex justify-content-between">
-                            <div class="sozdatImyaSpsok" style="width: 100%;">
-                                <h3 class="sozdatImyaSpisokH3">{{ translate('U.S. dollar') }}
-                                    <input class="checkbox_us" name="checkbox_us" type="checkbox"  checked>
-                                </h3>
-                                <input type="number" value="1" class="form-control" name="USD" readonly>
-                                <div class="sozdatImyaSpisokInput text-right activeDollarSummaJK24"
-                                    style="padding-right: 10px;">1</div>
-                            </div>
-                            <div class="sozdatImyaSpsok" style="width: 100%; margin-left: 15px;">
-                                <h3 class="sozdatImyaSpisokH3">{{ translate('Kyrgyz soum') }}
-                                    <input class="checkbox_kg" name="checkbox_kg" type="checkbox">
-                                </h3>
-                                <input type="number" class="form-control" name="SUM" min="0" autocomplete="off"
-                                    value="{{ (isset($currency->SUM) ? $currency->SUM : 0) / (isset($currency->USD) ? $currency->USD : 1) }}" readonly>
-                                <div class="sozdatImyaSpisokInput text-right activeDollarSummaJK24"
-                                    id="activeDollarSummaJK2" style="padding-right: 10px;" type="text">11 000</div>
-                            </div>
-                        </div> --}}
+                        
+                       
 
                         <div class="sozdatImyaSpsok">
                             <h3 class="sozdatImyaSpisokH3">{{ translate('Valid until:') }}</h3>
-                            <input class="sozdatImyaSpisokInput" style="padding-right: 10px;" type="date"
-                                name="date_picker" autocomplete="off" id="datePicker" value="">
+                            <input class="sozdatImyaSpisokInput date_picker" style="padding-right: 10px;" type="text"
+                                name="date_picker" autocomplete="off" id="datePicker" value="{{ date('d.m.Y') }}">
                         </div>
 
                         <div class="sozdatImyaSpsok">
@@ -596,8 +584,16 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         let page_name = 'house';
+        $(function(){
+            $('.date_picker').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true
+            })
+            $(".date_picker").inputmask({"mask": "99.99.9999"});
+        })
     </script>
 @endsection

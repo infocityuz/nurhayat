@@ -103,10 +103,10 @@ class UserController extends Controller
             $imageName = md5(time().$image).'.'.$image->getClientOriginalExtension();
             $data['avatar'] = $imageName;
         }
-
+        $data['birth_date'] = ((isset($data['birth_date']) && !empty($data['birth_date'])) ? date('Y-m-d', strtotime($data['birth_date'])) : NULL);
         $data['gender'] = (int)$_POST['gender'];
         $model = User::create($data);
-        $model->birth_date = ((isset($data['birth_date']) && !empty($data['birth_date'])) ? date('Y-m-d', strtotime($data['birth_date'])) : NULL);
+        // $model->birth_date = ((isset($data['birth_date']) && !empty($data['birth_date'])) ? date('Y-m-d', strtotime($data['birth_date'])) : NULL);
         
         if (!empty($image)) {
             //bu yerda orginal rasm yuklanyapti ochilgan papkaga
@@ -366,7 +366,10 @@ class UserController extends Controller
         else $model->status = $data['status'];
         $model->email = $data['email'];
         $model->role_id = $data['role_id'];
+        
+        $data['birth_date'] = ((isset($data['birth_date']) && !empty($data['birth_date'])) ? date('Y-m-d', strtotime($data['birth_date'])) : NULL);
         $model->birth_date = $data['birth_date'];
+        
         $model->phone_number = $data['phone_number'];
         $data['gender'] = (int)$_POST['gender'];
         $model->gender = $data['gender'];

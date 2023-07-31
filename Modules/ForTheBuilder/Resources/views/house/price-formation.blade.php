@@ -77,7 +77,7 @@
                             {{ old('price_type') == Constants::PRICE_M2 ? 'selected' : '' }}>
                             {{ translate('Price per m2') }}
                         </option>
-                        <option value="{{ Constants::PRICE_M2_WITH_INSTALLMENT }}"
+                        <option value="{{ Constants::PRICE_M2_WITH_INITIAL_PAYMENT }}"
                             {{ old('price_type') == Constants::PRICE_M2_WITH_INITIAL_PAYMENT ? 'selected' : '' }}>
                             {{ translate('Price m2 with initial payment') }}
                         </option>

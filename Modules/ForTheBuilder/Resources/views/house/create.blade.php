@@ -32,17 +32,33 @@
                             @enderror
                         </span>
                     </div>
-
-                    <div class="sozdatImyaSpsok">
-                        <h3 class="sozdatImyaSpisokH3">{{ translate('Corpas') }}</h3>
-                        <input class="sozdatImyaSpisokKorpus @error('corpus') error-data-input is-invalid @enderror"
-                            type="text" name="corpus" value="{{ old('corpus') }}">
-                        <span class="error-data">
-                            @error('corpus')
-                                {{ $message }}
-                            @enderror
-                        </span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="sozdatImyaSpsok">
+                                <h3 class="sozdatImyaSpisokH3">{{ translate('Corpas') }}</h3>
+                                <input class="sozdatImyaSpisokKorpus @error('corpus') error-data-input is-invalid @enderror"
+                                       type="text" name="corpus" value="{{ old('corpus') }}">
+                                <span class="error-data">
+                                    @error('corpus')
+                                            {{ $message }}
+                                            @enderror
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="sozdatImyaSpsok">
+                                <h3 class="sozdatImyaSpisokH3">{{ translate('Number house') }}</h3>
+                                <input class="sozdatImyaSpisokKorpus @error('number_house') error-data-input is-invalid @enderror"
+                                       type="text" name="house_number" value="{{ old('number_house') }}">
+                                <span class="error-data">
+                                    @error('corpus')
+                                    {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="form-group">
                         <h3 class="sozdatImyaSpisokH3">{{ translate('Object status') }}</h3>

@@ -24,6 +24,7 @@ use Modules\ForTheBuilder\Entities\BasketHouseFlat;
 use Modules\ForTheBuilder\Entities\Clients;
 use Modules\ForTheBuilder\Entities\Constants;
 use Modules\ForTheBuilder\Entities\HouseDocument;
+use Modules\ForTheBuilder\Entities\PriceType;
 use Modules\ForTheBuilder\Http\Requests\HouseFlatPricesRequest;
 
 class HouseController extends Controller
@@ -114,6 +115,8 @@ class HouseController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->validated();
+
+
             // $model = BasketHouse::create($data);
             $has_basement = ($request->has_basement == 'on') ? true : false;
             $has_attic = ($request->has_attic == 'on') ? true : false;
@@ -127,7 +130,8 @@ class HouseController extends Controller
                 'total_flat' => $request->total_flat,
                 'entrance_one_floor_count' => $request->entrance_one_floor_count,
                 'has_basement' => $has_basement,
-                'has_attic' => $has_attic
+                'has_attic' => $has_attic,
+                'house_number' => $request->house_number
             ]);
             $n = 1;
             for ($i = 1; $i <= $model->entrance_count; $i++) {
@@ -722,6 +726,7 @@ class HouseController extends Controller
         DB::beginTransaction();
         try {
             $model = BasketHouse::find($request->id);
+
             if (isset($model)) {
                 $newHouse = new House();
                 $newHouse->name = $model->name;
@@ -735,6 +740,7 @@ class HouseController extends Controller
                 $newHouse->has_basement = $model->has_basement;
                 $newHouse->has_attic = $model->has_attic;
                 $newHouse->sort = $request->order;
+                $newHouse->house_number = $model->house_number;
                 $newHouse->save();
 
                 // $basketHouseFlats = BasketHouseFlat::where('basket_house_id', $model->id)->orderBy('entrance', 'asc')->orderBy('floor', 'asc')->get();
@@ -852,6 +858,7 @@ class HouseController extends Controller
         $model->description = $data['description'];
         $model->project_stage = $data['project_stage'];
       	$model->corpus = $data['corpus'];
+        $model->house_number = $data['house_number'];
         $model->save();
 
         Log::channel('action_logs2')->info("пользователь обновил house", ['info-data' => $model]);
@@ -1093,8 +1100,19 @@ class HouseController extends Controller
     public function priceFormation()
     {
         $model = House::all();
+        $price_types = PriceType::where('status',1)->get();
+
+        if (session()->has('locale'))
+            $language = session('locale');
+        else 
+            $language = env('DEFAULT_LANGUAGE', 'ru');
+        
+
+
         return view('forthebuilder::house.price-formation', [
             'model' => $model,
+            'price_types' => $price_types,
+            'language' => $language,
             'all_notifications' => $this->getNotification()
         ]);
     }
@@ -1242,7 +1260,6 @@ class HouseController extends Controller
                         switch ($pay_val['payment_type']) {
                             case Constants::PAYMENT_100:
                                 $payment_type = 'hundred';
-                                // $addToPrice = true;
                                 break;
                             case Constants::PAYMENT_50:
                                 $payment_type = 'fifty';
@@ -1255,36 +1272,23 @@ class HouseController extends Controller
                                 break;
                         }
 
-                        // {"attic": 0, "total": "90", "balcony": 0, "housing": "42", "kitchen": "63", "terraca": 0, "basement": 0}
 
                         switch ($data['price_type']) {
                             case Constants::PRICE_M2:
                                 $price_type = 'total';
-
-                                // if ($addToPrice)
-                                //     $price += $pay_val['amount'] * $areas->total;
-
                                 break;
                             case Constants::PRICE_TERRACE:
                                 $price_type = 'terraca';
-
-                                // if ($addToPrice)
-                                //     $price += $pay_val['amount'] * $areas->terraca;
-
                                 break;
                             case Constants::PRICE_ATTIC:
                                 $price_type = 'attic';
-
-                                // if ($addToPrice)
-                                //     $price += $pay_val['amount'] * $areas->attic;
-
                                 break;
                             case Constants::PRICE_BASEMENT:
                                 $price_type = 'basement';
+                                break;
 
-                                // if ($addToPrice)
-                                //     $price += $pay_val['amount'] * $areas->basement;
-
+                            case Constants::PRICE_M2_WITH_INITIAL_PAYMENT:
+                                $price_type = 'total_with_initial';
                                 break;
                         }
                         
@@ -1299,6 +1303,8 @@ class HouseController extends Controller
                 $houseFlat->save();
             }
 
+
+
             // Log::channel('action_logs2')->info("пользователь создал новую house : ", ['info-data' => $model]);
 
             DB::commit();
@@ -1307,5 +1313,48 @@ class HouseController extends Controller
             DB::rollback();
             return $e->getMessage();
         }
+    }
+
+    public function priceTypes()
+    {
+        $model = PriceType::orderBy('id', 'asc')->paginate(15);
+        return view('forthebuilder::house.price-types', [
+            'model' => $model,            
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    public function storeType(Request $request)
+    {
+        $model = new PriceType();
+        $model->name = $_POST['name'];
+        $model->name_ru = $_POST['name_ru'];
+        $model->name_en = $_POST['name_en'];
+        $model->status = PriceType::STATUS_ACTIVE;
+        if ($model->save())
+            return true;
+
+    }
+
+    public function destroyType(Request $request)
+    {
+        $model = PriceType::find($_POST['id']);
+        $model->status = (($model->status) ? 0 : 1);
+        if($model->save())
+            return true;
+    }
+
+    public function updateType(Request $request)
+    {   
+        $id = (int)$_POST['id'];
+        
+        $model = PriceType::findOrfail($id);
+        $model->name = $_POST['name'];
+        $model->name_ru = $_POST['name_ru'];
+        $model->name_en = $_POST['name_en'];
+        $model->status = PriceType::STATUS_ACTIVE;
+        if ($model->save())
+            return true;
+
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Console;
-
+use Modules\ForTheBuilder\Entities\Notification_;
 use App\Console\Commands\DeleteParsingCommand;
 use App\Console\Commands\DeleteMonthlyCommand;
 use App\Console\Commands\WebSocketServer;
@@ -37,8 +37,17 @@ class Kernel extends ConsoleKernel
 //         $schedule->command('parsing:rent')->dailyAt('03:00')->withoutOverlapping();
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('delete:parsing')->dailyAt('01:00')->withoutOverlapping();
-         $schedule->command('monthly:delete')->dailyAt('02:00')->withoutOverlapping();
+        $schedule->command('delete:parsing')->dailyAt('01:00')->withoutOverlapping();
+        $schedule->command('monthly:delete')->dailyAt('02:00')->withoutOverlapping();
+        
+        // $schedule->call(function () {
+                
+        // })->everyMinute();
+
+        
+        
+
+        
         //  $schedule->command('websocket:start')->everyMinute();
     }
 

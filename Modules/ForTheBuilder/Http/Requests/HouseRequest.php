@@ -24,6 +24,7 @@ class HouseRequest extends BaseFormRequest
             'entrance_one_floor_count' => 'required|integer|max:10000',
             'has_basement' => 'nullable|string',
             'has_attic' => 'nullable|string',
+            'house_number' => 'nullable|integer|max:10000',
         ];
     }
 
@@ -40,6 +41,7 @@ class HouseRequest extends BaseFormRequest
             // 'entrance_one_floor_count' => 'required|integer|max:10000',
             // 'has_basement' => 'nullable|string',
             // 'has_attic' => 'nullable|string',
+            'house_number' => 'nullable|integer|max:10000',
         ];
     }
 }

@@ -64,7 +64,14 @@ Route::group(['prefix' => 'forthebuilder', 'middleware' => ['auth', 'forthebuild
     Route::get('/readbefore/{booking_id}/{notification_id}', [BookingController::class, 'readBefore'])->name('forthebuilder.readBefore');
     Route::get('/bookingapi', [BookingController::class, 'bookingApi'])->name('forthebuilder.bookingApi');
     Route::get('/bookingnotification/{id}', [BookingController::class, 'bookingNotification'])->name('forthebuilder.bookingNotification');
-    Route::get('/thedaybeforenotification/{id}', [BookingController::class, 'TheDayBeforeNotification'])->name('forthebuilder.TheDayBeforeNotification');
+    Route::get('/thedaybeforenotification', [BookingController::class, 'TheDayBeforeNotification'])->name('forthebuilder.TheDayBeforeNotification');
+
+
+    // cron
+    Route::get('/crondaybeforenotification/{id}', [BookingController::class, 'CronDayBeforeNotification'])->name('forthebuilder.CronDayBeforeNotification');
+
+
+
     Route::get('/paystatus-notification/{id}', [InstallmentPlanController::class, 'paystatusNotification'])->name('forthebuilder.paystatusNotification');
     Route::get('/paystatus-api', [InstallmentPlanController::class, 'paystatusApi'])->name('forthebuilder.installment-plan.paystatusApi');
     // filtr-date-dashboard
@@ -200,6 +207,10 @@ Route::group(['prefix' => 'forthebuilder', 'middleware' => ['auth', 'forthebuild
         Route::get('/price-formation', [HouseController::class, 'priceFormation'])->name('forthebuilder.house.price-formation');
         Route::get('/prices-house-flats', [HouseController::class, 'pricesHouseFlats'])->name('forthebuilder.house.prices-house-flats');
         Route::post('/save-price-information', [HouseController::class, 'savePriceInformation'])->name('forthebuilder.house.save-price-information');
+        Route::get('/price-types', [HouseController::class, 'priceTypes'])->name('forthebuilder.house.price-types');
+        Route::post('/store-type', [HouseController::class, 'storeType'])->name('forthebuilder.house.store-type');
+        Route::post('/destroy-type', [HouseController::class, 'destroyType'])->name('forthebuilder.house.destroy-type');
+        Route::post('/update-type', [HouseController::class, 'updateType'])->name('forthebuilder.house.update-type');
     });
 
     Route::group(['prefix' => 'house-flat'], function () {

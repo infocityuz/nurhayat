@@ -152,14 +152,12 @@ class HouseFlatController extends Controller
     {
         $model = HouseFlat::findOrFail($id);
         $currency = Currency::first();
-        // $coupon = Coupon::all();
-        // pre($model);
+        
         return view('forthebuilder::house-flat.show', [
             'model' => $model,
             'currency' => $currency,
             'status' => '',
             'all_notifications' => $this->getNotification()
-            // 'coupon' => $coupon,
         ]);
     }
 
@@ -279,6 +277,18 @@ class HouseFlatController extends Controller
             ],
         ];
 
+        if (isset($data['price_initial_payment'])) {
+            $area_price['hundred']['total_with_initial'] = $data['price_initial_payment'];
+        }
+        if (isset($data['price_70_initial_payment'])) {
+            $area_price['seventy']['total_with_initial'] = $data['price_70_initial_payment'];
+        }
+        if (isset($data['price_50_initial_payment'])) {
+            $area_price['fifty']['total_with_initial'] = $data['price_50_initial_payment'];
+        }
+        if (isset($data['price_30_initial_payment'])) {
+            $area_price['thirty']['total_with_initial'] = $data['price_30_initial_payment'];
+        }
 
         $model->ares_price = json_encode($area_price);
 

@@ -454,6 +454,42 @@
                                 </span>
                             </div>
 
+                            @if(isset($ares_price->hundred->total_with_installment) && !empty($ares_price->hundred->total_with_installment))
+                                <div class="sozdatImyaSpsok">
+                                    <h3 class="sozdatImyaSpisokH3">{{ translate('Price m2 with initial payment') }}</h3>
+                                    <input
+                                        class="sozdatImyaSpisokInput1272 @error('price') error-data-input is-invalid @enderror"
+                                        type="text" name="price_initial_payment" value="{{ $ares_price->hundred->total_with_installment ?? 0.0 }}">
+                                </div>
+                            @endif
+
+                            @if(isset($ares_price->seventy->total_with_installment) && !empty($ares_price->seventy->total_with_installment))
+                                <div class="sozdatImyaSpsok">
+                                    <h3 class="sozdatImyaSpisokH3">{{ translate('Price m2 with initial payment (70%)') }}</h3>
+                                    <input
+                                        class="sozdatImyaSpisokInput1272 @error('price') error-data-input is-invalid @enderror"
+                                        type="text" name="price_70_initial_payment" value="{{ $ares_price->seventy->total_with_installment ?? 0.0 }}">
+                                </div>
+                            @endif
+
+                            @if(isset($ares_price->fifty->total_with_installment) && !empty($ares_price->fifty->total_with_installment))
+                                <div class="sozdatImyaSpsok">
+                                    <h3 class="sozdatImyaSpisokH3">{{ translate('Price m2 with initial payment (50%)') }}</h3>
+                                    <input
+                                        class="sozdatImyaSpisokInput1272 @error('price') error-data-input is-invalid @enderror"
+                                        type="text" name="price_50_initial_payment" value="{{ $ares_price->fifty->total_with_installment ?? 0.0 }}">
+                                </div>
+                            @endif
+
+                            @if(isset($ares_price->thirty->total_with_installment) && !empty($ares_price->thirty->total_with_installment))
+                                <div class="sozdatImyaSpsok">
+                                    <h3 class="sozdatImyaSpisokH3">{{ translate('Price m2 with initial payment (30%)') }}</h3>
+                                    <input
+                                        class="sozdatImyaSpisokInput1272 @error('price') error-data-input is-invalid @enderror"
+                                        type="text" name="price_30_initial_payment" value="{{ $ares_price->thirty->total_with_installment ?? 0.0 }}">
+                                </div>
+                            @endif
+
                             @if ($areas->basement > 0)
                                 <div class="sozdatImyaSpsok">
                                     <h3 class="sozdatImyaSpisokH3">{{ translate('Price for 1m2 (Ground)') }}</h3>

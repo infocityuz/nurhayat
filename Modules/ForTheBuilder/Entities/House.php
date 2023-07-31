@@ -33,6 +33,7 @@ class House extends Model
         'entrance_one_floor_count',
         'has_basement',
         'has_attic',
+        'house_number',
     ];
 
     public function house_flat(): HasMany

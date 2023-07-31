@@ -40,7 +40,7 @@
                         @endif
                     </h2>
                 </div>
-                <button class="downloadColor">
+                <button class="downloadColor" style="margin-right: 30px !important">
                     <div class="d-flex" style="cursor: pointer" data-toggle="modal" data-target="#exampleModal2">
                         <div class="raspechat">{{ translate('Print') }}</div>
                         <div>
@@ -95,35 +95,40 @@
                 </div>
             @endif
 
-            <div class="jkEditData">
-                <div class="jkDataEdit1">
-                    <div class="jkEditText1">
+            <div class="jkEditData" style="width: 95%;">
+                <div class="jkDataEdit1" style="width: 48%;">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit">{{ translate('Attribute') }}</div>
                         <div class="jkAttributEdit">{{ translate('Data') }}</div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('JK') }}</div>
                         <div class="jkAttributEdit2">{{ $model->house->name }}</div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Information') }}</div>
                         <div class="jkAttributEdit3">{{ $model->house->description ?? '' }}</div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
+                        <div class="jkAttributEdit2">{{ translate('Number house') }}</div>
+                        <div class="jkAttributEdit3">{{ $model->house->house_number ?? '' }}</div>
+                    </div>
+
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Entrance') }}</div>
                         <div class="jkAttributEdit2">{{ $model->entrance }}</div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Floor') }}</div>
                         <div class="jkAttributEdit2">{{ $model->floor }}</div>
                     </div>
 
                     @if (is_int($model->rool_count))
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Apartment number') }}</div>
                             <div class="jkAttributEdit2">{{ $model->number_of_flat }}</div>
                         </div>
@@ -141,62 +146,62 @@
                     @endif
 
                     @if (isset($areas->hotel))
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Hotel') }}</div>
                         <div class="jkAttributEdit2">{{ $areas->hotel ?? 0 }}</div>
                     </div>
                     @endif
                     @if (!empty($areas->hotel2))
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">2 - {{ translate('Hotel') }}</div>
                         <div class="jkAttributEdit2">{{ $areas->hotel2 ?? 0 }}</div>
                     </div>
                     @endif
 
                     @if (!empty($areas->hotel3))
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">3 - {{ translate('Hotel') }}</div>
                         <div class="jkAttributEdit2">{{ $areas->hotel3 ?? 0 }}</div>
                     </div>
                     @endif
 
                     @if (!empty($areas->hotel4))
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">4 - {{ translate('Hotel') }}</div>
                         <div class="jkAttributEdit2">{{ $areas->hotel4 ?? 0 }}</div>
                     </div>
                     @endif
 
                     @if (!empty($areas->hotel5))
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">5 - {{ translate('Hotel') }}</div>
                         <div class="jkAttributEdit2">{{ $areas->hotel5 ?? 0 }}</div>
                     </div>
                     @endif
 
                     @if (isset($areas->bedroom))
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Bedroom') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->bedroom ?? 0 }}</div>
                         </div>
                     @endif
                     
                     @if (!empty($areas->bedroom2))
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">2 - {{ translate('Bedroom') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->bedroom2 ?? 0 }}</div>
                         </div>
                     @endif
 
                      @if (!empty($areas->bedroom3))
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">3 - {{ translate('Bedroom') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->bedroom3 ?? 0 }}</div>
                         </div>
                     @endif
 
                      @if (!empty($areas->bedroom4))
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">4 - {{ translate('Bedroom') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->bedroom4 ?? 0 }}</div>
                         </div>
@@ -204,7 +209,7 @@
 
 
                      @if (!empty($areas->bedroom5))
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">5 -{{ translate('Bedroom') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->bedroom5 ?? 0 }}</div>
                         </div>
@@ -213,74 +218,74 @@
                      
 
                     @if (isset($areas->terraca) && $areas->terraca > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Area (Terrace)') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->terraca ?? 0 }}</div>
                         </div>
                     @endif
 
                     @if (isset($areas->basement) && $areas->basement > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Area (Sokolny)') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->basement ?? 0 }}</div>
                         </div>
                     @endif
 
                     @if (isset($areas->attic) && $areas->attic > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Area (Attic)') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->attic ?? 0 }}</div>
                         </div>
                     @endif
 
                     @if (is_int($model->rool_count))
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Number rooms') }}</div>
                             <div class="jkAttributEdit2">{{ $model->rool_count ?? 0 }}</div>
                         </div>
                     @endif
 
                     @if (isset($areas->balcony) && $areas->balcony > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Balcony') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->balcony ?? 0 }}</div>
                         </div>
                     @endif
 
                     @if (isset($areas->corridor) && $areas->corridor > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Corridor') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->corridor ?? 0 }}</div>
                         </div>
                     @endif
 
                     @if (isset($areas->bathroom) && $areas->bathroom > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Bathroom') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->bathroom ?? 0 }}</div>
                         </div>
                     @endif
 
                     @if (isset($areas->other) && $areas->other > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Other') }}</div>
                             <div class="jkAttributEdit2">{{ $areas->other ?? 0 }}</div>
                         </div>
                     @endif
                 </div>
 
-                <div class="jkDataEdit1">
-                    <div class="jkEditText1">
+                <div class="jkDataEdit1" style="width: 48%;">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit">{{ translate('Attribute') }}</div>
                         <div class="jkAttributEdit">{{ translate('Data') }}</div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Total area') }}</div>
                         <div class="jkAttributEdit2">{{ $areas->total }} {{ translate('m2') }}</div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Status') }}</div>
                         <div class="custom-select klientNameInformatsiaButtonKontact"
                             style="width:200px;background-color: transparent;margin-top: -3px;margin-right: -14px;">
@@ -322,14 +327,14 @@
                         </div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Date') }}</div>
                         <div class="jkAttributEdit2"><small>{{ date('d.m.Y H:i', strtotime($model->created_at)) }}</small>
                         </div>
                     </div>
 
                     @if (is_int($model->rool_count))
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Registry number') }}</div>
                             <div class="jkAttributEdit2">{{ $model->doc_number ?? $model->number_of_flat }}</div>
                         </div>
@@ -338,72 +343,100 @@
                     @php
                         $ares_price = json_decode($model->ares_price);
                     @endphp
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Price for 1m2') }}</div>
                         <div class="jkAttributEdit2">{{ $ares_price->hundred->total ?? 0.0 }}</div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Price for 1m2 (30%)') }}</div>
                         <div class="jkAttributEdit2">{{ $ares_price->thirty->total ?? 0.0 }}</div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Price for 1m2 (50%)') }}</div>
                         <div class="jkAttributEdit2">{{ $ares_price->fifty->total ?? 0.0 }}</div>
                     </div>
 
-                    <div class="jkEditText1">
+                    <div class="jkEditText1" style="width: 100%;">
                         <div class="jkAttributEdit2">{{ translate('Price for 1m2 (70%)') }}</div>
                         <div class="jkAttributEdit2">{{ $ares_price->seventy->total ?? 0.0 }}</div>
                     </div>
 
+                    @if(isset($ares_price->hundred->total_with_initial) && !empty($ares_price->hundred->total_with_initial))
+                        <div class="jkEditText1" style="width: 100%;">
+                            <div class="jkAttributEdit2">{{ translate('Price m2 with initial payment') }}</div>
+                            <div class="jkAttributEdit2">{{ $ares_price->hundred->total_with_initial ?? 0.0 }}</div>
+                        </div>
+                    @endif
+
+                    @if(isset($ares_price->seventy->total_with_initial) && !empty($ares_price->seventy->total_with_initial))
+                        <div class="jkEditText1" style="width: 100%;">
+                            <div class="jkAttributEdit2">{{ translate('Price m2 with initial payment (70%)') }}</div>
+                            <div class="jkAttributEdit2">{{ $ares_price->seventy->total_with_initial ?? 0.0 }}</div>
+                        </div>
+                    @endif
+
+                    @if(isset($ares_price->fifty->total_with_initial) && !empty($ares_price->fifty->total_with_initial))
+                        <div class="jkEditText1" style="width: 100%;">
+                            <div class="jkAttributEdit2">{{ translate('Price m2 with initial payment (50%)') }}</div>
+                            <div class="jkAttributEdit2">{{ $ares_price->fifty->total_with_initial ?? 0.0 }}</div>
+                        </div>
+                    @endif
+
+                    @if(isset($ares_price->thirty->total_with_initial) && !empty($ares_price->thirty->total_with_initial))
+                        <div class="jkEditText1" style="width: 100%;">
+                            <div class="jkAttributEdit2">{{ translate('Price m2 with initial payment (30%)') }}</div>
+                            <div class="jkAttributEdit2">{{ $ares_price->thirty->total_with_initial ?? 0.0 }}</div>
+                        </div>
+                    @endif
+
                     @if ($areas->basement > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Price for 1m2 (Ground)') }}</div>
                             <div class="jkAttributEdit2">{{ $ares_price->hundred->basement ?? 0.0 }}</div>
                         </div>
 
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Price for 1m2 (Ground 30%)') }}</div>
                             <div class="jkAttributEdit2">{{ $ares_price->thirty->basement ?? 0.0 }}</div>
                         </div>
 
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Price for 1m2 (Ground 50%)') }}</div>
                             <div class="jkAttributEdit2">{{ $ares_price->fifty->basement ?? 0.0 }}</div>
                         </div>
                     @endif
 
                     @if ($areas->attic > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Price for 1m2 (Attic)') }}</div>
                             <div class="jkAttributEdit2">{{ $ares_price->hundred->attic ?? 0.0 }}</div>
                         </div>
 
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Price for 1m2 (Attic 30%)') }}</div>
                             <div class="jkAttributEdit2">{{ $ares_price->thirty->attic ?? 0.0 }}</div>
                         </div>
 
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Price for 1m2 (Attic 50%)') }}</div>
                             <div class="jkAttributEdit2">{{ $ares_price->fifty->attic ?? 0.0 }}</div>
                         </div>
                     @endif
 
                     @if ($areas->terraca > 0)
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Price for 1m2 (Terrace)') }}</div>
                             <div class="jkAttributEdit2">{{ $ares_price->hundred->terraca ?? 0.0 }}</div>
                         </div>
 
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Price for 1m2 (Terrace 30%)') }}</div>
                             <div class="jkAttributEdit2">{{ $ares_price->thirty->terraca ?? 0.0 }}</div>
                         </div>
 
-                        <div class="jkEditText1">
+                        <div class="jkEditText1" style="width: 100%;">
                             <div class="jkAttributEdit2">{{ translate('Price for 1m2 (Terrace 50%)') }}</div>
                             <div class="jkAttributEdit2">{{ $ares_price->fifty->terraca ?? 0.0 }}</div>
                         </div>
@@ -414,7 +447,7 @@
 
             @if ($model->status != Constants::STATUS_SOLD)
                 <div style="max-width: 1144px;" class="trashFlex">
-                    <div style="margin-right: 170px;" class="d-flex">
+                    <div class="d-flex">
                         <a href="{{ route('forthebuilder.house-flat.edit', $model->id) }}" class="trashBigButton"
                             style="cursor: pointer;">
                             <img class="deleteEditButton"

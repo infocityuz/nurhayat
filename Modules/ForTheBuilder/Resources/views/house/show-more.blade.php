@@ -14,7 +14,7 @@
                 <div class="d-flex">
                     <a href="{{ route('forthebuilder.house.index') }}" class="plus2 profileMaxNazadInformatsiyaKlient"><img
                             src="{{ asset('backend-assets/forthebuilders/images/icons/arrow-left.png') }}" alt=""></a>
-                    <h2 class="panelUprText">{{ $model->name }}</h2>
+                    <h2 class="panelUprText">{{ $model->name }} {{ ((!empty($model->house_number)) ? ' - № '.$model->house_number : '') }}</h2>
                     {{-- <button class="plus2">+</button> --}}
                 </div>
             </div>

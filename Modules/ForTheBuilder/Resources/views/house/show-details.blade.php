@@ -39,7 +39,7 @@
                         class="plus2 profileMaxNazadInformatsiyaKlient">
                         <img src="{{ asset('backend-assets/forthebuilders/images/icons/arrow-left.png') }}" alt="">
                     </a>
-                    <h2 class="panelUprText">{{ $model->name }}</h2>
+                    <h2 class="panelUprText">{{ $model->name }} {{ ((!empty($model->house_number)) ? ' - № '.$model->house_number : '') }}</h2>
                 </div>
             </div>
 

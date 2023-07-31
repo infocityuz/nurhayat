@@ -58,12 +58,28 @@
                         <option aria-placeholder="{{ translate('Choose an object') }}" selected hidden disabled>
                             {{ translate('Choose an object') }}
                         </option>
-                        {{-- @php
-                            $selected = old('house_id') == $value->id ? 'selected' : '';
-                        @endphp --}}
+
+                        {{-- @empty(!$price_types)
+                            @foreach ($price_types as $keyt => $valuet)
+                                <option value="{{ $valuet->id }}">
+                                    @if($language == 'uz')
+                                        {{ $valuet->name }}
+                                    @elseif($language == 'ru')
+                                        {{ $valuet->name_ru }}
+                                    @else
+                                        {{ $valuet->name_en }}
+                                    @endif
+                                </option>
+                            @endforeach
+                        @endempty --}}
+                        
                         <option value="{{ Constants::PRICE_M2 }}"
                             {{ old('price_type') == Constants::PRICE_M2 ? 'selected' : '' }}>
                             {{ translate('Price per m2') }}
+                        </option>
+                        <option value="{{ Constants::PRICE_M2_WITH_INSTALLMENT }}"
+                            {{ old('price_type') == Constants::PRICE_M2_WITH_INITIAL_PAYMENT ? 'selected' : '' }}>
+                            {{ translate('Price m2 with initial payment') }}
                         </option>
                         <option value="{{ Constants::PRICE_TERRACE }}"
                             {{ old('price_type') == Constants::PRICE_TERRACE ? 'selected' : '' }}>

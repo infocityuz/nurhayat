@@ -52,6 +52,7 @@ class BookingController extends Controller
 
     public function index()
     {
+
         // $data=DB::table('forthebiulder.booking')->get();
         // dd($data);
         $user=Auth::user();
@@ -112,6 +113,7 @@ class BookingController extends Controller
     {
         $model = Booking::find($id);
         $user = Auth::user();
+        
         $notifications = Notifications_::where(['relation_id'=> $id, 'relation_type' =>NULL, 'user_id'=>$user->id])->first();
         if(isset($notifications->id)){
             $notification = new Notification_();
@@ -181,7 +183,7 @@ class BookingController extends Controller
             DB::beginTransaction();
             try {
 
-                // dd('22222');
+                
                 $client_id = $request->client_id;
                 if (isset($request->client_id) && $request->client_id != null && $request->client_id != 'null') {
                     $existPersonalInfo = PersonalInformations::where(['client_id' => $request->client_id, 'series_number' => $request->series_number])->first();
@@ -243,7 +245,8 @@ class BookingController extends Controller
                     $model->expire_dates = json_encode([['comment' => '', 'date' => date('Y-m-d', strtotime($_POST['booking_period']))]]);
                 }
 
-                $model->notification_date = date('Y-m-d H:i:s', strtotime('+4 days'));
+                $not_date = date('Y-m-d H:i:s', strtotime(json_decode($model->expire_dates)[0]->date));
+                $model->notification_date = date($not_date, strtotime('-1 day'));
                 $model->prepayment = ($request->prepayment) ? $request->prepayment_summa : 0;
                 $model->save();
 
@@ -553,4 +556,46 @@ class BookingController extends Controller
         $itemstoshow = array_slice($items, $offset, $perPage);
         return new LengthAwarePaginator($itemstoshow, $total, $perPage);
     }
+
+
+    // public function CronDayBeforeNotification()
+    // {
+    //     $start = date('Y-m-d 00:00:00');
+    //     $end = date('Y-m-d 23:59:59');
+
+    //     $results = DB::select( DB::raw("SELECT * FROM booking 
+    //     WHERE (notification_date <= '".$end."' AND notification_date >= '".$start."'")
+    //     AND 
+
+
+    //     ));
+
+        
+    //     pre($results);
+        
+        
+    //     $notifications = Notifications_::where(['relation_id'=> $id, 'relation_type' =>NULL, 'user_id'=>$user->id])->first();
+    //     if(isset($notifications->id)){
+    //         $notification = new Notification_();
+    //         $expire_date = json_decode($model->expire_dates);
+    //         $notifications->is_notify_before = 1;
+    //         $notifications->save();
+    //         $booking_array = [
+    //             'id' => $model->id,
+    //             'first_name' => $model->clients->first_name,
+    //             'last_name' => $model->clients->last_name,
+    //             'middle_name' => $model->clients->middle_name,
+    //             'expire_dates' => strtotime(end($expire_date)->date),
+    //             'updated_at' => $model->updated_at
+    //         ];
+    //         $notification->data = json_encode($booking_array);
+    //         $notification->notifiable_id = $model->id;
+    //         $notification->type = 'BookingPrepayment';
+    //         $notification->save();
+            
+    //         return response()->json($notification);
+    //     }else{
+    //         return response()->json('no');
+    //     }
+    // }
 }

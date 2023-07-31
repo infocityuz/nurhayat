@@ -37,6 +37,7 @@
                     <a href="{{ route('forthebuilder.coupon.index') }}" class="nastroykiCont">{{ translate('Coupons') }}</a>
                     <a href="{{ route('forthebuilder.house.price-formation') }}"
                         class="nastroykiCont">{{ translate('Price formation') }}</a>
+                    <a href="{{ route('forthebuilder.house.price-types') }}" class="nastroykiCont">{{ translate('Price types') }}</a>
                     <a class="nastroykiCont" data-toggle="modal" data-target="#logout" href="#">{{ translate('Logout') }}</a>
                 @endif
             </div>

@@ -1,40 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="d18c9178-b9f4-4154-ac39-e576918b834d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/ikcrm_release.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ikcrm_release.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/ForTheBuilder/Entities/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/ForTheBuilder/Entities/Task.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/ForTheBuilder/Http/Controllers/ClientsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/ForTheBuilder/Http/Controllers/ClientsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/ForTheBuilder/Resources/views/clients/calendar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/ForTheBuilder/Resources/views/clients/calendar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/ForTheBuilder/Resources/views/layouts/content/navigation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/ForTheBuilder/Resources/views/layouts/content/navigation.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/012e10bfb83f9cdd63d64228bcfc709a8fdb154f.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/09ef1d133ebe87b7d1c27326adc3f06ae5e74aeb.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/1c50f037ed8af2c289c8da26315efdabd91599ab.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/1c50f037ed8af2c289c8da26315efdabd91599ab.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/3325bf15b9adde652cb1ec1d8a1dc5a6664bf894.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/3325bf15b9adde652cb1ec1d8a1dc5a6664bf894.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/3549ea011fb60eb440ca6d117c23dfcd407df65b.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/39820752991a83b838fdcb2da9d382a0259a143f.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/4e20133465345d4698b9b54ca2ac58210468b9d9.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/4e20133465345d4698b9b54ca2ac58210468b9d9.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/5f1d589c081d7099054e3f1abe4c5351b5134a30.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/5f1d589c081d7099054e3f1abe4c5351b5134a30.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/60824f0fe2e9b494ac3095677e031cbdc4281f80.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/66f37d84b9fc3994a3da1a64f20355d5bc72b899.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/7ee9ead5f659ea9b362ceb5e1c4db89b06ef644f.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/80dc720fc493e55ec861b395c623d95c209b0381.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/88bdabdc736e353a5a17963d3496bce9336981e5.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/88bdabdc736e353a5a17963d3496bce9336981e5.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/8a64f04dc43e3ab7cc73f4750fa2e90c9e8fca95.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/af96b5cbcc9470ced809bdfba71274054dee0274.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/af9f44371754fc7132130c769f764a79904c47bd.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/c35a31ed336c328f23db65b856a3bb2d465ca077.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/c36be1cf7c7925d3baedf7a9d059c83c58807fb6.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/df0ba5eb1d55273894e90041a64958220691ca46.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/ea64017d0825ad4d964a7dcee05edc2877dcdc72.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/efbb5e7ae55a4b444b2d5ca444c3fe66e3d000b5.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/f07c5d375b19a59820012ea03c2469a2b587d863.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/f97b5b6aa1cc8ad40232ff60b2a65768d0f9be7e.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/ForTheBuilder/Entities/Constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/ForTheBuilder/Entities/Constants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/ForTheBuilder/Entities/House.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/ForTheBuilder/Entities/House.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/ForTheBuilder/Http/Requests/HouseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/ForTheBuilder/Http/Requests/HouseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/ForTheBuilder/Resources/views/house/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/ForTheBuilder/Resources/views/house/create.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerConfigs">
+    <option name="configs">
+      <option value="$PROJECT_DIR$/Modules/ForTheBuilder/composer.json" />
+      <option value="$PROJECT_DIR$/public/backend-assets/plugins/kartik-v-bootstrap-fileinput/composer.json" />
+    </option>
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
@@ -54,7 +43,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/usr/bin/php">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-translatable" />
@@ -214,6 +203,8 @@
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-package-tools" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpword" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-escaper" />
     </include_path>
   </component>
   <component name="ProjectId" id="2K4rej7U1fNUg7r1BNqcNbfVflJ" />
@@ -221,19 +212,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
-    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ikcrm" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/user/Desktop/laravel/nurhayat",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\OSPanel\domains\ikcrm_release\resources\views\layouts" />
@@ -353,6 +344,7 @@
       <workItem from="1678079968204" duration="3359000" />
       <workItem from="1678084655281" duration="3128000" />
       <workItem from="1678087850323" duration="9172000" />
+      <workItem from="1690709941626" duration="2262000" />
     </task>
     <servers />
   </component>

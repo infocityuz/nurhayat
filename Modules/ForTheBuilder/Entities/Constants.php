@@ -47,6 +47,7 @@ class Constants extends Model
     const PRICE_TERRACE = 2;
     const PRICE_ATTIC = 3;
     const PRICE_BASEMENT = 4;
+    const PRICE_M2_WITH_INITIAL_PAYMENT = 5;
 
     // Price formation module, Payment % (payment_type)
     const PAYMENT_30 = 30;
@@ -55,11 +56,11 @@ class Constants extends Model
     const PAYMENT_100 = 100;
 
     // connection DB
-    const NEW_1='icstroyc_newhouse_test';
-    const FOR_1='icstroyc_forthebuilder_test';
-    const NEW_2='icstroyc_newhouse_test';
-    const FOR_2='icstroyc_forthebuilder_test';
-    
+    const NEW_1='icstroyc_admin_newhouse_db';
+    const FOR_1='icstroyc_admin_forthebuilder_db';
+    const NEW_2='icstroyc_admin_newhouse_db';
+    const FOR_2='icstroyc_admin_forthebuilder_db';
+
     // user role
     const ADMIN=1;
     const SUPERADMIN=2;

@@ -25,5 +25,6 @@ class BasketHouse extends Model
         'entrance_one_floor_count',
         'has_basement',
         'has_attic',
+        'house_number',
     ];
 }

@@ -42,6 +42,9 @@
                     <div class="checkboxDivTextInput">
                         {{ translate('info') }}
                     </div>
+                    <div class="checkboxDivTextInput">
+                        {{ translate('Number house') }}
+                    </div>
                     <div class="checkboxDivTextInput4 deystvieJkHome">
                         {{ translate('actions') }}
                     </div>
@@ -78,6 +81,9 @@
                                 </a>
                                 <a href="{{ $house_url }}" class="checkboxDivTextInput48">
                                     {{ $model->description }}
+                                </a>
+                                <a href="{{ $house_url }}" class="checkboxDivTextInput48">
+                                    {{ $model->house_number }}
                                 </a>
                                 <div class="checkboxDivTextInput4 deystvieJkHome">
                                     <a href="{{ route('forthebuilder.house.show-more', $model->id) }}"

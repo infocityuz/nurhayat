@@ -779,7 +779,7 @@ class ClientsController extends Controller
         $host = gethostbyname(gethostname());
         $db_name = 'nurh_icstroyc_newhouse_test';
         if (isset($host) && $host == 'MacBook-Pro-User.local') {
-            $db_name = 'icstroyc_newhouse_test';
+            $db_name = 'icstroyc_admin_newhouse_db';
         }
         $user = Auth::user();
         $connect_for=Constants::FOR_1;

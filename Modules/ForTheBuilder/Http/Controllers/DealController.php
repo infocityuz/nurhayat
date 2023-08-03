@@ -56,6 +56,9 @@ class DealController extends Controller
     public function index()
     {
 
+        // $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('demo.docx'));
+        // pre($templateProcessor);
+
         $user=Auth::user();
         // $user->role_id==Constants::MANAGER
         
@@ -394,7 +397,7 @@ class DealController extends Controller
             $model->client_id = $client_id;
             $model->price_sell = $data['price_sell'];
             $model->price_sell_m2 = $data['price_sell_m2'];
-            $model->agreement_number = $data['house_flat_number'];
+            $model->agreement_number = ((!empty($data['agreement_number'])) ? $data['agreement_number'] : $data['house_flat_number']);
             $model->date_deal = date('Y-m-d H:i:00',strtotime($data['date_deal']));
             $model->description = $data['description'];
             $model->type = Constants::MAKE_DEAL;
@@ -442,7 +445,9 @@ class DealController extends Controller
             $data["number_of_flat"] = $houseFlatItem->number_of_flat;
             $data["pay_to_month"] = $pay_to_month;
             $data["deal_id"] = $model->id;
-
+            $data["contract_number"] = $model->agreement_number;
+            $data["initial_fee"] = $model->initial_fee;
+            $must_pay_price = $model->initial_fee;
             // --------
 
 
@@ -477,6 +482,7 @@ class DealController extends Controller
                     $has_pay_status[] = $pay_status;
                 }
             }
+            $data["must_pay_price"] = $must_pay_price;
             #2 ========== finish code refactoring new version
 
             //=================== file yuklanyapti ===================
@@ -512,7 +518,46 @@ class DealController extends Controller
                 File::delete(public_path('uploads/deal/'.$model->id.'/'.$imageName));
             }
 
-
+            $month_name = '';
+            switch (date('m')) {
+                case '01':
+                   $month_name = 'Январь'; 
+                break;
+                case '02':
+                   $month_name = 'Февраль'; 
+                break;
+                case '03':
+                   $month_name = 'Март'; 
+                break;
+                case '04':
+                   $month_name = 'Апрель'; 
+                break;
+                case '05':
+                   $month_name = 'Май'; 
+                break;
+                case '06':
+                   $month_name = 'Июнь'; 
+                break;
+                case '07':
+                   $month_name = 'Июль'; 
+                break;
+                case '08':
+                   $month_name = 'Aвгуст'; 
+                break;
+                case '09':
+                   $month_name = 'Сентябрь'; 
+                break;
+                case '10':
+                   $month_name = 'Октябрь'; 
+                break;
+                case '11':
+                   $month_name = 'Ноябрь'; 
+                break;
+                case '12':
+                   $month_name = 'Декабрь'; 
+                break;
+                
+            }
         
 
             
@@ -535,6 +580,7 @@ class DealController extends Controller
             return view($view, [
                 'model' => $model,
                 'data' => $data,
+                'month_name' => $month_name,
                 'houseFlatItem' => $houseFlatItem,
                 'url' => $url,
                 'has_pay_status' => $has_pay_status,
@@ -618,6 +664,7 @@ class DealController extends Controller
     {
         DB::beginTransaction();
         try {
+
             $data = $request->validated();
             $auth_user_id = Auth::user()->id;
             $data['user_id'] = $auth_user_id;
@@ -735,7 +782,6 @@ class DealController extends Controller
                 $model->history = json_encode($old_history);
             }
             $model->save();
-
             if (isset($data['is_installment']) && $data['is_installment'] != NULL) {
                 #2 ========== code refactoring new version
                 $insPlan = InstallmentPlan::find($data['period']);

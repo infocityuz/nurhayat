@@ -1,409 +1,197 @@
 @extends('forthebuilder::layouts.forthebuilder')
 <div>
   <div style="margin: 50px 100px; padding: 0 100px;" id="DivIdToPrint">
-  <div style="margin: 50px;">
-  <center>
-    <h2 style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-      SHARTNOMA
-    </h2>
-    <br>
-    <h2 style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-      Ulush kiritish asosida turar-joy binosi qurilishida ishtirok etish to‘g‘risida
-    </h2>
-  </center>
-  <br>
-  <br>
-  <table width="100%">
-    <tr>
-      <td style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">Sana: {{ $data['date_deal'] }}</td>
-      <td style="text-align: right;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">Toshkent shahri</td>
-    </tr>
-  </table>
-  <br>
-  <br>
-  <p style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">“CITY CONSTRUCTION MASTER” MChJ</b> va uning nomidan harakat qiluvchi direktor <b style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">TOSHPULOTOV HUSAN ALIYOROVICH</b> keyingi o‘rinlarda — “Quruvchi” deb yuritiladi bir tomondan, fuqaro <b>{{ $data['last_name'] }} {{ $data['first_name'] }} {{ $data['middle_name'] }}</b>, <b style="font-size: 12px;">{{ ($data['passport_or_id'] == 1) ? 'passport' : 'ID' }}</b> <b>{{ ($data['passport_or_id'] == 1) ? 'seriyasi' : 'karta №' }} {{$data['series_number']}}</b>, <b>{{ date('d.m.Y', strtotime($data['given_date'])) }} yilda {{ $data['issued_by'] }}</b> berilgan, bundan buyon matnda — “Ulushdor” deb yuritiladi, ushbu Shartnomani quyidagilar haqida tuzdik:
-  </p>
-  
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    1. ASOSIY TUSHUNChALAR
-  </h2>
-  <br>
-  
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">1.1. Shartnomada quyidagi asosiy atamalar va tushunchalar qo‘llaniladi:</div>
-  <div style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b>ulushdor</b> — qurilish majmuasida bir yoki bir nechta qurilish ob’ektini mulk huquqi bilan olish maqsadida ulush kiritish asosida qurilishda ishtirok etish to‘g‘risida shartnoma tuzgan jismoniy yoki yuridik shaxs;
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">ШAРТНОМA</span></strong><span style="font-family:'Times New Roman';">&nbsp;</span><strong><span style="font-family:'Times New Roman';">№ {{ $data['contract_number'] }}</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">Улуш киритиш асосида турар-жой биноси қурилишида иштирок этиш тўғрисида</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">{{ date('d') }} {{ $month_name }} {{ date('Y') }} йил</span><span style="width:1.86pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">Тошкент шаҳри</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&ldquo;CITY CONSTRUCTION MASTER&rdquo; директори Тошпулотов Х.Х. (кейинги ўринларда &ndash; &ldquo;Қурувчи&rdquo; деб юритилади бир томонда, фуқаро {{ $data['last_name'] }} {{ $data['first_name'] }} {{ $data['middle_name'] }}</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">бундан буён, - &ldquo;Улушдор&rdquo; деб юритилади, ушбу Шартномани қуйидагилар ҳақида туздик:</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<ol type="1" style="margin:0pt; padding-left:0pt;">
+    <li style="text-align:center; line-height:normal; font-family:'Times New Roman'; font-size:13pt; font-weight:bold; list-style-position:inside;"><span style="width:20.65pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>АСОСИЙ ТУШУНЧАЛАР:<ol type="1" class="awlist1" style="margin-right:0pt; margin-left:0pt; padding-left:0pt;">
+            <li style="text-align:justify; font-weight:normal;"><span style="width:15.9pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Шартномада қуйидаги асосий атамалар ва тушунчалар қўлланилади:</li>
+        </ol>
+    </li>
+</ol>
+<ul type="disc" style="margin:0pt; padding-left:0pt;">
+    <li style="text-align:justify; line-height:normal; font-family:serif; font-size:14pt; list-style-position:inside;"><span style="width:25.74pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><strong><span style="font-family:'Times New Roman'; font-size:13pt;">улушдор</span></strong><span style="font-family:'Times New Roman'; font-size:13pt;">&nbsp;&ndash; қурилиш мажмуасида бир ёки бир нечта қурилиш объектини мулк ҳуқуқи билан олиш мақсадида улуш киритиш асосида қурилишда иштирок этиш тўқрисида шартнома тузган жисмоний ёки юридик шахс;</span></li>
+    <li style="text-align:justify; line-height:normal; font-family:serif; font-size:14pt; list-style-position:inside;"><span style="width:25.74pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><strong><span style="font-family:'Times New Roman'; font-size:13pt;">улуш киритиш асосида қурилиш</span></strong><span style="font-family:'Times New Roman'; font-size:13pt;">&nbsp;&ndash; кўп квартирали уйларни қурувчилар ва улушдорларнинг маблағлари ҳисобидан қуриш, реконструкция қилиш ва қайта ихтисослаштириш;&nbsp;</span></li>
+    <li style="text-align:justify; line-height:normal; font-family:serif; font-size:14pt; list-style-position:inside;"><span style="width:25.74pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><strong><span style="font-family:'Times New Roman'; font-size:13pt;">улуш киритиш асосида қурилишда иштирок этиш тўғрисидаги шартнома</span></strong><span style="font-family:'Times New Roman'; font-size:13pt;">&nbsp;&ndash; кўп квартирали уйларни улуш киритиш асосида қуриш бўйича қурувчи ва улушдор ўртасидаги муносабатларни тартибга солувчи ёзма шаклдаги битим;</span></li>
+    <li style="text-align:justify; line-height:normal; font-family:serif; font-size:14pt; list-style-position:inside;"><span style="width:25.74pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><strong><span style="font-family:'Times New Roman'; font-size:13pt;">қурувчи (девелопер)</span></strong><span style="font-family:'Times New Roman'; font-size:13pt;">&nbsp;&ndash; улуш киритиш асосида қуриш учун маблағларни жалб этувчи қурувчиларнинг электрон рўйхатига киритилган, кўп квартирали уйларни қуришга мўлжалланган ер участкасига ва қурилиш ишларини амалга оширишга бирламчи рухсат берувчи ҳужжатларга эга бўлган юридик шахс;</span></li>
+    <li style="text-align:justify; line-height:normal; font-family:serif; font-size:14pt; list-style-position:inside;"><span style="width:25.74pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><strong><span style="font-family:'Times New Roman'; font-size:13pt;">қурилиш мажмуаси</span></strong><span style="font-family:'Times New Roman'; font-size:13pt;">&nbsp;&ndash; қурувчи томонидан бир лойиҳа доирасида қурилишга ажратилган ер участкасида, бир манзилда қурилаётган бир ёки бир нечта қурилиш объектлари йиғиндиси;</span></li>
+    <li style="text-align:justify; line-height:normal; font-family:serif; font-size:14pt; list-style-position:inside;"><span style="width:25.74pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><strong><span style="font-family:'Times New Roman'; font-size:13pt;">қурилиш мажмуасининг қиймати</span></strong><span style="font-family:'Times New Roman'; font-size:13pt;">&nbsp;&ndash; қурувчининг қурилишолди харажатлари, жумладан кўп квартирали уйларни қуриш учун ер участкасини олиш (аукцион савдолари еки хусусий мулкдорларга компенсация тўловини амалга оширган холда ва конунчилик хужжатларида белгиланган бошқа асосларда) рухсат берувчи хужжатларни расмийлаштириш босқичларини якунлаш учун лойиха смета хужжатларида кўзда тутилган харажатлар йигиндиси;</span></li>
+    <li style="text-align:justify; line-height:normal; font-family:serif; font-size:14pt; list-style-position:inside;"><span style="width:25.74pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><strong><span style="font-family:'Times New Roman'; font-size:13pt;">қурилиш объекти</span></strong><span style="font-family:'Times New Roman'; font-size:13pt;">&nbsp;&mdash; шартномага асосан улушдорга топшириладиган хонадон (квартира) еки бошқа объект;</span></li>
+    <li style="text-align:justify; line-height:normal; font-family:serif; font-size:14pt; list-style-position:inside;"><span style="width:25.74pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><strong><span style="font-family:'Times New Roman'; font-size:13pt;">қурилиш объектининг қиймати</span></strong><span style="font-family:'Times New Roman'; font-size:13pt;">&nbsp;&mdash; шартномада кўрсатилган қурилиш объектининг нархи;</span></li>
+    <li style="text-align:justify; line-height:normal; font-family:serif; font-size:14pt; list-style-position:inside;"><span style="width:25.74pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><strong><span style="font-family:'Times New Roman'; font-size:13pt;">улуш депозити</span></strong><span style="font-family:'Times New Roman'; font-size:13pt;">&nbsp;&mdash; улушдор томонидан қурувчининг банкдаги хисоб рақамига қўйилган маблағлар.</span></li>
+</ul>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><em><span style="font-family:'Times New Roman';">&nbsp;</span></em></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">2. ШАРТНОМА ПРЕДМЕТИ</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">2.1. Улушдор қурувчи томонидан Қурилиш мажмуаси жойлашган манзил: Тошкент шахар Янги хает тумани Кипчок кўчаси 18 А манзилида &ldquo;</span><strong><span style="font-family:'Times New Roman';">NUR HAYAT&rdquo;</span></strong><span style="font-family:'Times New Roman';">&nbsp;турар жой мажмуасисининг қурилиши учун Улушдор сотиб оладиган хонадоннинг хар бир квадрат метри учун белгиланган нархи {{ number_format($data['price_sell_m2'], 2) }} сўмдан, жами улушдор сотиб оладиган хонадон учун киритиладиган улушнинг умумий миқдори {{ number_format($data['price_sell'], 2) }} сўмни улуш сифатида киритиш, Қурувчи эса, юқоридаги манзилда жойлашган шартноманинг 2.2.-бандида назарда тутилган хонадонни Улушдорга мулк қилиб бериш мажбуриятини олади.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">2.2. Мулк хусусиятлари: хонадон (квартира) рақами, яшаш ва ёрдамчи хоналари сони, умумий майдони ва умумий миқдори қуйида келтирилган:</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">2.2.1. Хонадон (квартира)нинг умумий майдони: {{ $data['total_m2'] }} метр</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">квадратни</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ташкил</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">этади;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">2.2.2. Яшаш</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">хоналарининг</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">умумий</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">сони {{ $data['room_count'] }} тани ташкил этади;&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman'; background-color:#ffffff;">2.2.3.</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Яшаш</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">хоналарининг</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">умумий</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">майдони:{{ $data['live_m2'] }} кв.м ни ташкил этади;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">2.2.4.</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Ошхонанинг</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">умумий</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">майдони:{{ $data['kitchen_m2'] }} кв.м ни ташкил</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">этади:</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">2.2.5. Ёрдамчи</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">хона</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">(дахлиз)</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">ларнинг&nbsp;</span><span style="font-family:'Times New Roman';">умумий</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">майдони {{ $data['attic_m2'] }} кв.м ни ташкил</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">этади.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">2.3. Қурувчи улушдор билан тузилган мазкур шартномани сармоя маблағлари билан улушли қурилишда қатнашиш доирасида тузилган шартномалар реестрига киритиб рўйхатга олингандан сўнг, киритиладиган улушларни мазкур шартномага асосан тузилган 1-сонли иловага кўра тўлов жадвалида кўрсатилган миқдорда қурувчининг ҳисоб рақамига ўтказиш орқали тақдим этади. Улушларни тақдим этиш тарафларнинг келишувига мувофиқ, тўлиқ миқдорда киритиш ёки бўлиб-бўлиб тўлаш тартибида амалга оширилади.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">2.4. Ушбу шартноманинг 2.3.-бандига кўра, бўлиб-бўлиб тўлаш шарти бўйича улушни тақдим этиш, улуш сифатида тўланиши лозим бўлган дастлабки тўлов тарзидаги {{ $data["must_pay_price"] }} сўм миқдордаги сармояни 5(беш)кун ичида киритади. Қолган бўлиб-бўлиб тўланиши лозим суммани эса, тўлов жадвалидаги муддатда Қурувчининг хисоб рақамига пул кўчириш орқали тўлаб беради.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">Мазкур сана байрам ёки дам олиш кунига тўғри келган ҳолларда кейинги иш куни тўловларни амалга оширишнинг охирги куни хисобланади.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">2.5.</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Улушдорга</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">мулк</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ҳуқуқи</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">билан</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">топшириладиган</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">объектдаги</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлар</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">таркиби</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ва</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ҳажми</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">қуйидаги</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">шартларни</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ҳисобга</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">олган</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ҳолда</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">архитектура-дизайн</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">фирмаси</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">томонидан</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлаб</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">чиқилган</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">лойиҳага</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">мос</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">келиши</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">керак:</span><br><span style="font-family:'Times New Roman';">1)</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Хонадон</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ичидаги</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">қурилиш</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлари: тўлиқ битган</span><br><span style="font-family:'Times New Roman';">2)</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Электр</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">таъминотига</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">оид</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлар: электрлашган&nbsp;</span><br><span style="font-family:'Times New Roman';">3)</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Табиий</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">газ</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">таъминотига</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">оид</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлар: газлашган</span><br><span style="font-family:'Times New Roman';">4)</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Сантехника</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлари: тўлиқ бажарилган</span><br><span style="font-family:'Times New Roman';">5)</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Телефон,</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">интернетга</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">оид</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлар: интернетлашган</span><br><span style="font-family:'Times New Roman';">6)</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Уйни</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">пардозлаш</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлари: тўлиқ бажарилган</span><br><span style="font-family:'Times New Roman';">7)</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Бошқа</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлар: келишилмаган</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<ol start="3" type="1" style="margin:0pt; padding-left:0pt;">
+    <li style="margin-left:32.75pt; text-align:center; line-height:normal; padding-left:3.25pt; font-family:'Times New Roman'; font-size:13pt; font-weight:bold;">КИРИТИЛАЁТГАН<span style="background-color:#ffffff;">&nbsp;</span>УЛУШНИНГ<span style="background-color:#ffffff;">&nbsp;</span>ҲАЖМИ,<span style="background-color:#ffffff;">&nbsp;</span></li>
+</ol>
+<p style="margin-top:0pt; margin-left:36pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">ШАКЛИ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ВА</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ШАРТЛАРИ</span></strong></p>
+<p style="margin-top:0pt; margin-left:36pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">3.1. Улушдор томонидан киритиладиган улушнинг умумий суммаси {{ number_format($data['price_sell'], 2) }} сўмни ташкил этади. Улуш депозитининг белгиланган хажми ўзгартирилиши мумкин эмас.&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:35.4pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">Улуш суммасига Объектга нисбатан Улушдорнинг эгалик ҳуқуқини белгилаш, давлат рўйхатидан ўтказиш билан боғлиқ ҳаражатлар кирмайди.&nbsp;</span></p>
+<ol start="2" type="1" class="awlist2" style="margin:0pt; padding-left:0pt;">
+    <li style="text-align:justify; line-height:normal; font-family:'Times New Roman'; font-size:13pt; list-style-position:inside;"><span style="width:15.9pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Қурувчининг розилиги билан улуш ҳиссаси тўлиқ ёки қисман 2.3.-бандларда белгиланган суммага тенг миқдордаги қурилиш материаллари кўринишида ҳам киритилиши ҳам мумкин. Қурилиш материалларининг тури ва миқдори тарафлар томонидан тузиладиган алоҳида келишувга асосан белгиланади.</li>
+    <li style="text-align:justify; line-height:normal; font-family:'Times New Roman'; font-size:13pt; list-style-position:inside;"><span style="width:15.9pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Улушдор сармоя сифатида қўшилган қурилиш материалларининг сифати ушбу материалларининг сифати ушбу материаллар учун барча сифат ва хавфсизлик талабларига жавоб беришига кафолат беради.</li>
+    <li style="text-align:justify; line-height:normal; font-family:'Times New Roman'; font-size:13pt; list-style-position:inside;"><span style="width:15.9pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Қурилиш объекти фойдаланишга топширилгандан сўнг, Қурувчи томонидан Улушдорга 2.2.-бандда кўрсатилган майдон ва унинг таркибий қисмларини топшириш-қабул қилиш далолатномасига кўра, ҳақиқатда топширганидан фарқ қилган ҳолларда тарафлар ўртасида қайта ҳисоб-китоб амалга оширилади. Бунда ортиқча ёки кам чиққан ҳар бир квадрат метр майдон учун ҳисоб-китоблар 2.1.-бандда кўрсатилган нархга асосан ҳисобланади.</li>
+</ol>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">4.</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ТОМОНЛАРНИНГ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ҲУҚУҚЛАРИ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ВА</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">МАЖБУРИЯТЛАРИ</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.1. Қурувчининг мажбуриятлари:</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.1.1 Қурувчи улушдор билан тузилган мазкур шартномани сармоя маблағлари билан &laquo;улушли қурилишда қатнашиш доирасида тузилган шартномалар реестри&raquo;га киритиб рўйхатга олинишини ва киритиладиган сармоя маблағларини мақсадли фойдаланишини кафолатлайди.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.1.2.</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">Қурувчи ушбу шартномани тузиш вақтида объект ёки улушдорга мулк ҳуқуқи билан ўтказиладиган қисмларнинг бошқа шартномалар предмети эмаслигига, шу жумаладан ўзгаларнинг улушли қурилишга сармоя киритиш шартномалари эмаслигини, ишончли бошқарувга топширилмаганлигини, гаровда ёки тақиқда қўйилмаганлигини, учинчи шахсларга ижарага берилмаганлигини, низо предмети ёки учинчи шахсларнинг даъволари билан бошқа мажбуриятларга тааллуқли эмаслигини кафолатлайди.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman'; background-color:#ffffff;">4.1.3. Мажмуа қурилишини ташкил этиш ва амалга ошириш учун барча керакли лойиҳа-смета ва бошқа ҳужжатларни тайёрлаш ва қонунда белгиланган тартибда расмийлаштириш;&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman'; background-color:#ffffff;">4.1.4. Қонун талабларидан келиб чиққан ҳолда қурилиш ишлари юзасидан барча зарурий рухсатномаларни ва лицензияларни олиш, учинчи шахслар билан шартномаларни имзолаш, ишларни бажариш;&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">4.1.5.Қурилиш объектида онлайн режимида кузатиш ҳамда</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">қурилиш</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ишлари</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ҳолати</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">билан</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">танишиш имконияти учун шароит яратиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.1.6. Улушдорнинг ёзма сўровига кўра, зарурат бўлганда шартнома шартларининг ижроси ва улушларнинг киритилиши бўйича ҳисоб-маълумотномаларини ёзма шаклда тақдим этиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.1.7. Қурилиш мажмуасининг қирилишини қурилиш материаллари ва техникалари билан таъминлаш, ишчи-хизматчиларни жалб этиш, қурилишни бошқаришни ташкил этиб, уни олиб бориш;&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.1.8. Қурилиш мажмуасини қурилш-монтаж ишлари режасига асосан якунлаш муддатига риоя этиш ва объектни кечиктирмаган ҳолда фойдаланишга</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">топшириш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.1.9. Қурилиш объекти фойдаланишга топширилганидан сўнг, Қурувчи ёки унинг ваколатли вакили томонидан 30 (ўттиз) кун ичида Улушдорга мулк ҳуқуқи билан ўтказилишида зарур бўлган ҳужжатларни тайёрлаши ва нотариал тартибда расмийлаштириб бериш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.1.10. Фойдаланишга қабул қилиниб, Улушдорга мулк ҳуқуқи билан давлат рўйхатидан ўтган объектда, кафолатланиши кўзда тузда тутилган иш (хизмат) ва материаллар бўйича кафолат муддати 12 ойни ташкил этади. Мазкур муддатда аниқланган қурувчи томонидан бажарилган ишлардаги хато-камчиликларни Қурувчининг ўз томонидан бартараф этиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.2.</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Қурувчининг</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ҳуқуқлари:</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.2.1. Улушдор билан тузилган шартнома тегишли тартибда тузилганидан сўнг, қурилиш объектидаги ишлар учун улушдорнинг маблағларини жалб қилиш;&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.2.2. Улушдордан улушларни тақдим этиш (пул маблағларини киритиш) муддатларига риоя қилинишини талаб қилиш ва ушбу ҳақида алоқа воситалари фойдаланиб, ёзма шаклдаги огоҳлантириш хатларини юбориш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span><span style="font-family:'Times New Roman';">4.2.3. Улушни киритиш қурилиш материаллари кўринишида қўшилганда, Улушдордан ушбу материалларнинг сифат ва хавфсизлик талабларига жавоб беришини билдирувчи тегишли ҳужжатларни талаб қилиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.2.4. Қурилиш объектига оид ҳужжатларни расмийлаштириш заруратидан келиб чиққан ҳолда Улушдордан тегишли давлат идораларига келишини талаб қилиш;&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.2.5.Қурувчи умумий киритиладиган улуш қийматидан келиб чиқиб, улушдорнинг улуш киритган суммасини инобатга олиб, мустақил</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">тарзда базавий чегирмалар, бир марталик бонусли кэшбек (чегирмалар) таклиф этиш ва тақдим этиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.2.6. Улушдорга ўзи киритган улуши доирасида тақдим этилган базавий чегирма ёки бир марталик бонусли кэшбек (чегирма) суммасини шартнома шартларини қўпол равишда бузган тақдирда, улушдорни хабардор қилган ҳолда унинг розилигисиз ҳисобдан чиқариш;&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.3.</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Улушдорнинг</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">мажбуриятлари:</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:21.3pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.3.1. Қурувчи билан тузилган шартномага мувофиқ улушларни тақдим этиш (пул маблағларини ўтказиш) муддатларига риоя қилган ҳолда белгиланган муддатларда улушларни Қурувчининг ҳисоб рақамига ўтказиб бориш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:21.3pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.3.2. Улуш қурилиш материаллари кўринишида қўшилганда сифат ва хавфсизлик талабларига жавоб берадиган материалларни унинг тегишли зарурий тавсифловчи ҳужжатлари билан бирга тақдим этиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:21.3pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.3.3. Қурилиш объектига эгалик қилиш учун зарур бўлган ҳужжатлар Қурувчи томонидан тайёрланганда, ҳужжатларни нотариал тартибда расмийлаштиришда иштирок этиш ва расмийлаштиришга оид харажатларни ўз ҳисобидан тўлаш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:21.3pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.3.4. Қурилиш объектига нисбатан эгалик ҳуқуқи рўйхатдан ўтказилгунга қадар унда қайта қуриш, реконструкция (ўзгартиришлар) қилиш ва қурилиш билан боғлиқ бошқа ишларни амалга оширмаслик;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:21.3pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.3.5. Улушдор мазкур шартномада белгиланган ҳуқуқ ва мажбуриятларини учинчи шахсларга ўтказиш, тақдим этиш ёки бошқа тарзда бериш учун Қурувчининг ёзма шаклдаги розилигини олиши шарт. Ушбу ҳолатда Улушдорга тақдим этилган чегирмалар (бонуслар еки кешбеклар) суммасини қайта ҳисоб-китоб қилиш Қурувчи томонидан кўриб чиқиш тартибига қатъий риоя этиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:21.3pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.3.6. Улушдор Қурувчининг Объектга бўлган эгалик хуқуқини ўтказишни расмийлаштиришга оид билдиришномасида белгиланган муддатда нотариал тасдиқланган олди-сотди шартномасини тузиши шарт. Бунда белгиланган муддатларга амал қилмаслик ёки мазкур муддат кечиктирилган тақдирда, турар жой мажмуасидаги коммунал хизматлар ва умумий мулкни сақлаш учун тўловларни қоплаш мажбуриятини бажариш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:21.3pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.3.7. Мулк ҳуқуқи билан улушдор эгалигига давлат рўйхатидан ўтганлиги тўғрисидаги маълумотни Қурувчига 5 (беш) кун ичида хабар бериши ва кадастр хужжатлари олинганидан кейин 3 (уч) иш куни ичида кадастр ҳужжатлари бир нусхасини Қурувчига ёки унинг ваколатли вакилига такдим этиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.4.</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Улушдорнинг</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">ҳуқуқлари:</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.4.1. Қурувчидан қурилиш объектида онлайн режимда кузатиш имконияти яратилишини, қурилиш ишлари ҳолати билан танишиши учун шароит яратилишини, шартнома шартлари бажарилиши бўйича ёзма шаклда маълумотлар олиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.4.2. Қурувчидан қурилиш мажмуаси Қурилиш мажмуасини фойдаланишга топшириш муддатидан кечиктирилмаган ҳолда фойдаланишга топширилишини кўзлаб биргаликда харакат қилиш ва ташаббус кўрсатиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.4.3. Қурилиш объекти фойдаланишга топширилганидан кейин Қурувчидан эгалик қилиш учун зарур бўлган ҳужжатлар тайёрланишида ва нотариал тартибда расмийлаштирилишида қатнашиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.4.4. Қурувчидан кафолат муддати давомида аниқланган, қурувчи томонидан бажарилган ишлардаги хато ва камчиликларни бартараф этишни кўзлаб, ушбу ишларни далолатнома тузилишида хозир бўлиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.4.5. Қурувчи томонидан таклиф этиладиган киритиладиган улуш суммасига мутаносиб бўлган тарздаги базавий чегирмалар, бир марталик бонусли кэшбек (чегирмалар) имтиёзлардан фойдаланиш;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-indent:28.35pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">4.4.5. Сармоячи қонун хужжатларида белгиланган тартибда ушбу шартномадан келиб чикадиган хуқуқ ва мажбуриятларни шартноманинг 4.3.5.-бандига шартига кўра, Қурувчининг ёзма розилиги билан учинчи шахсга ўтказиш.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">5.</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ТОМОНЛАРНИНГ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ЖАВОБГАРЛИГИ</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">5.1. Қурувчи мазкур шартномага асосан зиммасига олаётган мажбуриятларни бажармаса ёки лозим даражада бажармаса (қурилиш ишларини белгиланган муддатларда якунламаслик, ишларни сифациз бажариш ва ҳоказо.) Ўзбекистон Республикасининг 1998 йил 29 августдаги &ldquo;Хўжалик юритувчи субъектлар фаолиятининг шартномавий-ҳуқуқий базаси тўғрисида&rdquo;ги Қонунидан келиб чиққан ҳолда ҳар бир кун учун мажбурият бажарилмаган қисмининг 0,05 фоизи миқдорида пеня тўлайди. Бироқ пенянинг умумий миқдори мажбуриятнинг бажарилмаган қисми қийматининг Қурувчи мажбуриятларини бажармаганлиги ёки лозим даражада бажармаганлиги учун унга белгиланадиган пенянинг умумий миқдори шартнома суммасининг 5 (беш) фоизидан ошмаслиги лозим.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">5.2. Улушдор мазкур шартномага асосан зиммасига олаётган мажбуриятларни бажармаса ёки лозим даражада бажармаса (улуш маблағларини белгиланган муддатларда ёки миқдорда киритмаслик ва ҳоказо), юқоридаги Қонундан келиб чиққан ҳолда ҳар бир кун учун мажбурият бажарилмаган қисмининг 0,05 фоизи миқдорида пеня тўлайди. Бироқ пенянинг умумий миқдори мажбуриятнинг бажарилмаган қисми қийматининг Улушдор мажбуриятларини бажармаганлиги ёки лозим даражада бажармаганлиги учун унга белгиланадиган пенянинг умумий миқдори шартнома суммасининг 5 (беш) фоизидан ошмаслиги лозим.&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">5.3. Улушдор улуш ҳиссасини қурилиш материаллари кўринишида киритган ҳолларда материаллар сифат ва хавфсизлик талабларига жавоб бермаслиги аниқланса, тарафлар нуқсонли материаллар юзасидан далолатнома тузадилар. Улушдор далолатнома тузилганидан эътиборан 5 (беш) банк кунидан кечиктирмай материалларни сифатлисига алмаштириб топшириши ёки улушни пул кўринишида киритиши лозим.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">5.4. Қурувчи томонидан асоссиз равишда қурилиш объектини топшириш муддати 100 (юз) кунга бузилганда Улушдор шартномани бир томонлама бекор қилишни, ўзи киритган улуш маблағларини қайтарилишини талаб қилишга ҳақли.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">5.5. Улуш маблағларини бўлиб-бўлиб тўлаш тартиби асоссиз равишда Улушдор томонидан 3 (уч) маротаба ва 3 (уч) ойдан ортиқ тўлов жадвалига риоя қилинган ёхуд тўлиқ тўланмай кечиктирилган ҳолларда, Қурувчи шартнома шартлари қўпол равишда бузилганлиги асос қилиб, бир томонлама бекор қилишни талаб қилиши мумкин. Бунда Қурувчи киритлган пул маблағларини Улушдорга қайтариш санасини маълум қилган холда қурилиш объектини бошқа шахсларга сотиши ёки бошқача тарзда ўтказишга ҳақли.&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">5.6. Улушдор ўз маблағларини бўлиб-бўлиб тўлаш жадвалига кўра 2 (икки) маротаба 2 (икки) ойдан ортиқ муддатга асоссиз кечиктирга тақдирда, ўзи киритган улуши доирасида унга тақдим этилган базавий чегирма ёки бир марталик бонусли кэшбек (чегирма) суммаси шартнома шартларини қўпол равишда бузганлиги учун унинг розилигисиз чегирмани бекор қилиш йўли билан ҳисоб-китобдан чиқарилишига асос бўлади.&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">5.7. Томонларнинг шартномада белгиланмаган жавобгарлик масалалари Ўзбекистон Республикасининг Фуқаролик Кодекси ҳамда амалдаги қонунчиликка асосан ҳал қилинади.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><br><strong><span style="font-family:'Times New Roman';">6.</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ФОРС-МАЖОР</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ҲОЛАТЛАРИ</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">6.1. Томонлар ушбу Шартнома бўйича мажбуриятларни бажармаганлиги ёки тегишлича бажармаганлиги учун, агар бундай вазият ушбу Шартнома тузилгандан кейин Томонлар олдиндан билиши, оқилона чоралар билан олдини олиши мумкин бўлмаган фавқулодда хусусиятга эга воқеалар натижасида вужудга келган енгиб бўлмайдиган куч (форс-мажор ҳолатлари) туфайли юзага келганлигини ва Томонлар ўз мажбуриятларини тегишлича бажариш юзасидан барча мумкин бўлган ва ўзларига боғлиқ бўлган чораларни кўрганлигини исботласа, жавоб бермайди.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">6.2. Форс-мажор ҳолатларига ҳарбий ҳаракатлар, табиат кучлари таъсири (зилзила, сув тошқини ва ҳоказолар), давлат органлари қарорлари ва бошқа ҳолатлар киради.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">6.3. Форс-мажор ҳолатлар юзага келиши тўғрисида Томонлар бундай ҳолатлар юзага келган вақтдан бошлаб 5 (беш) иш куни давомида бир-бирларини хабардор қилишлари керак.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">6.4. Форс-мажор ҳолатлар юзага келган тақдирда, мазкур шартнома бўйича мажбуриятларни бажариш муддати мутаносиб равишда ушбу ҳодисалар рўй берган муддатга сурилади.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">7.</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">НИЗОЛАРНИ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ҲАЛ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ҚИЛИШ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ТАРТИБИ</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">7.1. Ушбу шартномада назарда тутилган мажбуриятларни бажариш муносабати билан юзаган келадиган ёки мазкур мажбуриятларни бажариш чоғида юзага келадиган ёки мазкур мажбуриятларни бажариш чоғида юзага келадиган барча низолар Томонлар ўртасида музокаралар ўтказиш йўли билан ҳал этилади.&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">7.2. Низолар музокараларни ўтказиш натижасида ҳал этилмаса, Ўзбекистон Республикаси қонун ҳужжатларига мувофиқ, Тошкент туманлараро Иқтисодий судида ёки бошқа судловга тааллуқлилигига қараб фуқаролик ишлари бўйича судларда кўриб чиқилади.&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">8.</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">БОШҚА</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ШАРТЛАР</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><br><span style="font-family:'Times New Roman';">8.1. Шартнома икки нусхада тузилган бўлиб, улар бир хил юридик кучга эга. Томонлар уни имзолаб, Қурувчи томонидан &laquo;Улушли қурилишда қатнашиш доирасида тузилган шартномаларнинг ягона реестри&raquo;га киритганидан ва тегишли тартибда рўйхатга олганидан сўнг, шартнома ҳақиқий ҳисобланади.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">8.2. Ушбу шартномага киритилган барча ўзгартиришлар ва қўшимчалар, ушбу шартноманинг ажралмас қисми ҳисобланиб, битимнинг ёзма шаклига риоя қилинган ҳолда расмийлаштирилиб, томонларнинг ваколатли вакиллари томонидан имзоланиб, сўнгра тегишли тартибда тасдиқланиши шарт. Шартнома ва унинг қўшимча келишувлари тузилиб, &laquo;Улушли қурилишда қатнашиш доирасида тузилган шартномаларнинг ягона реестри&raquo;га киритилмаслиги ва унга кўра рўйхатга олинмаслиги битимларнинг хақиқий эмаслиги оқибатларини келтириб чиқариши мумкин.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">8.3. Қурилиш объекти Улушдорга топширилиб, кафолат муддати тугагандан сўнг, аниқланган қурилишдаги яширин нуқсонлар билан боғлиқ низолар амалдаги қонунчилик талабларидан келиб чиққан ҳолда ҳал қилинади.&nbsp;</span><br><span style="font-family:'Times New Roman';">8.4. Томонлар ушбу шартнома шартлари бўйича ўзларига маьлум бўлган шахсий ва тижорат сирларини ташкил этувчи (махфий) маьлумотларни сир сақланишини ва учинчи шахслар олдида ошкор этилмаслигини кафолатлайдилар. Қонунчиликда назарда тутилган ҳолатлар бундан мустасно.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">8.5. Томонлар ўзаро алоқа қилишларини инобатга олиб, юридик ва жисмоний манзиллардан ташқари, инновацион технологиялардан фойдаланиб, ушбу шартнома доирасида мобиль алоқанинг телефон рақамларини ёки электрон почта манзилларини, шунингдек ижтимоий тармоқдаги аккаунт (телеграм, инстаграм ва хоказолар) манзилларини</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">тақдим этадилар.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">Алоқа мақсадида, томонлар бир-бирларига тегишли хабарномаларни СМС орқали мобиль телефон рақамга ёки электрон почта манзилига юборишлари мумкин. Алоқа воситасининг тури ва шаклидан қатъий назар, юборилган барча</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">хабарномалар хақиқатда жўнатилган ва бошқа томон уни қабул қилган хисобланади.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">Улушдор ўзининг почта ва бошқа манзилли реквизитларига оид барча ўзгаришларини ташкил этувчи маълумотларни Қурувчига бундай ўзгаришлар содир бўлган кундан бошлаб 5 (беш) кундан кечиктирмай хабар беришга мажбурдир. Ушбу тарздаги ўзгаришлар тўғрисида билдиришнома бўлмаган тақдирда, хар қандай ёзишмалар (хабарнома) Қурувчига маълум бўлган сўнгги реквизитларга мувофиқ юборилади ва хатто адресант ўз маълумотларини, шу жумладан телефон рақамини, электрон почта манзилини ўзгартирган бўлса хам тўғри етказилган хисобланади.</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">9.</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ШАРТНОМАНИНГ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">АМАЛ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ҚИЛИШ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">МУДДАТИ</span></strong><br><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">9.1.</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Ушбу</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">Шартнома</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman';">8.1.-бандга риоя этиб имзоланганидан бошлаб кучга киради ва Шартноманинг амал қилиш муддати томонлар ўз мажбуриятларини тўлиқ бажаргунларига қадар амал қилади.</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">9.2. Шартноманинг 2.3.-бандига кўра, бўлиб-бўлиб тўлаш шарти бўйича улушни тақдим этишнинг улуш сифатида тўланиши лозим бўлган дастлабки тўлов Улушдор томонидан 5 (беш) кун ичида киритиш муддати ва шартларини бузилган тақдирда мазкур шартнома Қурувчи томонидан бекор қилиш тўғрисида хабардор этиш мажбуриятисиз, бекор қилинган ҳисобланади ва шартноманинг ўз куни йўқотишига, томонлар учун ҳеч қандай мажбуриятлар келтириб чиқармаслигига сабаб бўлади.&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">9.3.Томонлар мазкур шартноманинг барча шартларини тўлиқ бажарган тақдирда,&nbsp;</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span><span style="font-family:'Times New Roman'; background-color:#ffffff;">шартноманинг 9.1.-банди белгиланган муддатдан илгари тугатилиши мумкин.&nbsp;</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:13pt;"><br><strong><span style="font-family:'Times New Roman';">10.</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ТОМОНЛАРНИНГ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">МАНЗИЛЛАРИ</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">ВА</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">БАНК</span></strong><strong><span style="font-family:'Times New Roman'; background-color:#ffffff;">&nbsp;</span></strong><strong><span style="font-family:'Times New Roman';">РEКВИЗИТЛАРИ</span></strong></p>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
+<table width="95%" cellspacing="0" cellpadding="0" style="margin-left:9.85pt; border:0.75pt solid #000000; border-collapse:collapse;">
+    <tbody>
+        <tr>
+            <td style="width:222.85pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-left:12.7pt; margin-bottom:0pt; text-indent:5.65pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&laquo;ҚУРУВЧИ&raquo;</span></strong></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">&nbsp;</span></strong></p>
+            </td>
+            <td style="width:222.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">&nbsp;</span></strong></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">&laquo;УЛУШДОР&raquo;</span></strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:222.85pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&laquo;City Construction Master&raquo; масъулияти чекланган жамияти</span></strong></p>
+            </td>
+            <td style="width:222.75pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">ФИШ</span></strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:222.85pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Ташкент шахри. Сирғали тумани&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Мехригиё МФЙ, Сирғали 6,&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Сирғали дехқон бозори мавзеси&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">х/р 20208000800910947003&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">АТБ &laquo;Капитал Банк&raquo; Мирзо Улуғбек филиали МФО 01018</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">ИНН 30570910&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;</span><span style="font-family:'Times New Roman';">ОКЭД 41201&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Телефон: +998 78 1475050</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">&nbsp;</span></strong></p>
+            </td>
+            <td style="width:222.75pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Паспорт {{ ($data['passport_or_id'] == 1) ? 'passport' : 'ID' }} {{ ($data['passport_or_id'] == 1) ? '' : '' }} {{$data['series_number']}}</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">берилган санаси {{ date('d.m.Y', strtotime($data['given_date'])) }}&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">ким томонидан: {{ $data['issued_by'] }}</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">ЖШИИР________________</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Телефон: _____________</span></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:222.85pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Директор ________________Тошпулотов Х.А.</span></p>
+            </td>
+            <td style="width:222.75pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">&nbsp;</span></strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:222.85pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">М.П.</span></p>
+            </td>
+            <td style="width:222.75pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">&nbsp;</span></strong></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+<p style="bottom: 10px; right: 10px; position: absolute;"><a href="https://wordtohtml.net" target="_blank" style="font-size:11px; color: #d0d0d0;">Converted to HTML with WordToHTML.net</a></p>
   </div>
-  <div style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b>ulush kiritish asosida qurilish</b> — ko‘p kvartirali uylarni quruvchilar va ulushdorlarning mablag‘lari hisobidan qurish, rekonstruksiya qilish va qayta ixtisoslashtirish;    
-  </div>
-  <div style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b>ulush kiritish asosida qurilishda ishtirok etish to‘g‘risidagi shartnoma</b> — ko‘p kvartirali uylarni ulush kiritish asosida qurish bo‘yicha quruvchi va ulushdor o‘rtasidagi munosabatlarni tartibga soluvchi yozma shakldagi bitim;  
-  </div>
-  <div style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b>quruvchi (developer)</b> — Ulush kiritish asosida qurish uchun mablag‘larni jalb etuvchi quruvchilarning elektron ro‘yxatiga kiritilgan, ko‘p kvartirali uylarni qurishga mo‘ljallangan yer uchastkasiga va qurilish ishlarini amalga oshirishga birlamchi ruxsat beruvchi hujjatlarga ega bo‘lgan yuridik shaxs;    
-  </div>
-  <div style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b>qurilish majmuasi</b> — quruvchi tomonidan bir loyiha doirasida qurilishga ajratilgan yer uchastkasida, bir manzilda qurilayotgan bir yoki bir nechta qurilish ob’ektlari yig‘indisi;    
-  </div>
-  <div style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b>qurilish majmuasining qiymati</b> — quruvchining qurilisholdi xarajatlari, jumladan ko‘p kvartirali uylarni qurish uchun yer uchastkasini olish (auksion savdolari yoki xususiy mulkdorlarga kompensatsiya to‘lovini amalga oshirgan holda va qonunchilik hujjatlarida belgilangan boshqa asoslarda), ruxsat beruvchi hujjatlarni rasmiylashtirish hamda qurish va foydalanishga topshirish bosqichlarini yakunlash uchun loyiha-smeta hujjatlarida ko‘zda tutilgan xarajatlar yig‘indisi;    
-  </div>
-  <div style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b>qurilish ob’ekti</b> — shartnomaga asosan ulushdorga topshiriladigan xonadon (kvartira) yoki boshqa ob’ekt; 
-  </div>
-  <div style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b>qurilish ob’ektining qiymati</b> — shartnomada ko‘rsatilgan qurilish ob’ektining narxi;    
-  </div>
-  <div style="font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    <b>ulush depoziti</b> — ulushdor tomonidan quruvchining bankdagi hisob raqamiga qo‘yilgan mablag‘lar;    
-  </div>
-  
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    2. SHARTNOMA PREDMETI 
-  </h2>
-  <br>
-  
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.1. Ulushdor quruvchi tomonidan Qurilish majmuasi joylashgan manzil: Toshkent shahar Yangi Hayot tumani Qipchoq ko`chasi 18A manzilida qurilayotgan qurilish majmuasining qurilishi uchun har bir kvadrat metr uchun Ulushdor sotib olayotgan xonadonning 1 (bir) kvadrat metr uchun belgilangan narxi <b>{{ number_format($data['price_sell_m2'], 2) }}</b> so‘mdan, jami Ulushdor sotib olayotgan xonadon uchun kiritiladigan ulushning umumiy miqdori <b>{{ number_format($data['price_sell'], 2) }}</b> so‘m miqdorida ulush kiritish, Quruvchi esa yuqoridagi manzilda joylashgan uyning: korpus: <b>{{ $data['corpus'] }}</b>, qavat raqami: <b>{{ $data['floor'] }}</b>, xonalar soni: <b>{{ $data['room_count'] }}</b>, ulushdorga mulk qilib berish majburiyatini oladi.
-  </div>
-  <div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.2. Mulk xususiyatlari: kvartira raqami, yashash xonalari soni, umumiy maydoni va umumiy miqdori quyida keltirilgan:
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.2.1. <b>{{ $data['total_m2'] }}</b> metr kvadratni tashkil etadi;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.2.2. Yashash xonalarining umumiy soni <b>{{ $data['room_count'] }} ta</b>;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.2.3. Yashash xonalarining umumiy maydoni <b>{{ $data['live_m2'] }} kv/m</b>;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.2.4. Yashash xonalarining umumiy maydoni <b>{{ $data['total_m2'] }} </b> kv/m tashkil etadi ;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.2.5. Oshxonaning umumiy maydoni <b>{{ $data['kitchen_m2'] }} </b> kv/m tashkil etadi ;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.2.6. Yordamchi xona (dahliz) umumiy maydoni <b>{{ $data['attic_m2'] }} </b> kv/m tashkil etadi ;
-  </div>
-
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.3. Quruvchi ulushdor bilan tuzilgan mazkur shartnoma Qurilish vazirligi va uning hududiy tuzilmalarida hisobga qo‘yilganidan so‘ng, Ulushdor ulushlarni shartnomaga asosan to`lov jadvalida ko‘rsatilgan miqdorda Quruvchining hisob raqamiga o‘tkazish orqali taqdim etadi. Ulushlarni taqdim etish taraflarning kelishuviga ko‘ra bo‘lib-bo‘lib to‘lash tartibida amalga oshiriladi.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    Ulushni taqdim etish Ulush sifatida to‘lanishi lozim bo‘lgan dastlabki to‘lov miqdori <b>{{ number_format($data['initial_fee'], 2) }}</b> so‘m miqdoridagi dastlabki to‘lovni shartnoma tuzilgandan so‘ng Ulush sifatida to‘lanishi lozim bo‘lgan dastlabki to‘lovni to‘lash muddati 5 (besh) kun ichida, qolgan Ulush sifatida to‘lanishi lozim bo‘lgan summa 24 (yigirma to`rt) oy davomida har oyda Ulush sifatida to‘lanadigan summaning 1 (bir) oylik miqdori <b>{{ number_format($data['pay_to_month'], 2) }}</b> so‘mdan to‘lash orqali amalga oshiriladi. Ulushlarni kiritish uchun ulush sifatida to‘lanadigan summani Quruvchining hisob raqamiga mazkur shartnomaning 1-sonli ilovasiga muvofiq o‘tkazish orqali amalga oshiriladi. Mazkur sana bayram yoki dam olish kuniga to‘g‘ri kelgan hollarda keyingi ish kuni to‘lovlarni amalga oshirishning oxirgi kuni hisoblanadi.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.4.  Ulushdorga mulk huquqi bilan topshiriladigan ob’ektdagi ishlar tarkibi va hajmi quyidagi shartlarni hisobga olgan holda arxitektura-dizayn firmasi tomonidan ishlab chiqilgan loyihaga mos kelishi kerak:
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    1) Xonadon ichidagi qurilish ishlari: to`liq bitgan
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2) Elektr ta’minotiga oid ishlar: elektrlashgan
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    3) Tabiiy gaz ta’minotiga oid ishlar: gazlashgan
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4) Santexnika ishlari: to'liq bajarilgan
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    5) Telefon, internetga oid ishlar: internetlashgan
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    6) Uyni pardozlash ishlari: to'liq bajarilgan
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    7) Boshqa ishlar: kelishilmagan;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    2.5. Quruvchi O‘zbekiston Respublikasi Prezidentining 2020 yil 27 maydagi “Ko‘p kvartirali uylarni ulush kiritish asosida qurish jarayonini tartibga solish chora-tadbirlari haqida”gi PQ-4732-son qarori talablaridan kelib chiqqan holda mazkur qurilish majmuasi shartnoma tuzilgunga qadar O‘zbekiston Respublikasi Qurilish vazirligi va uning hududiy tuzilmalarida quruvchilarning elektron ro‘yxatiga kiritilganligini kafolatlaydi.
-  </div>
-  
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    3. KIRITILAYOTGAN ULUSHNING HAJMI, SHAKLI VA SHARTLARI
-  </h2>
-  <br>
-
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    3.1.  Ulushdor tomonidan kiritiladigan ulushning umumiy summasi <b>{{ number_format($data['price_sell'], 2) }}</b> so‘mni tashkil etadi. Ulush depozitining belgilangan hajmi o‘zgartirilishi mumkin emas.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    Ulush summasiga Ob’ektga nisbatan Ulushdorning egalik huquqini belgilash, davlat ro‘yxatidan o‘tkazish bilan bog‘liq xarajatlar kirmaydi.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    3.2. Quruvchining roziligi bilan ulush hissasi to‘liq yoki qisman 2.3-bandlarda belgilangan summaga teng miqdordagi qurilish materiallari ko‘rinishida ham kiritilishi mumkin. Qurilish materiallarning turi va miqdori taraflar tomonidan tuziladigan alohida kelishuvga asosan belgilanadi.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    3.3. Ulushdor sarmoya sifatida qo‘shilgan qurilish materiallarining sifati ushbu materiallar uchun barcha sifat va xavfsizlik talablariga javob berishiga kafolat beradi.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    3.4. Qurilish ob’ekti foydalanishga topshirilgandan va Ob’ektga huquqni tasdiqlovchi hujjatlar ro‘yxatdan o‘tkazilgandan so‘ng, kadastr hujjatlarida ko‘rsatilgan maydon 2.1-bandda ko‘rsatilgan maydondan farq qilgan hollarda taraflar o‘rtasida qayta hisob-kitob amalga oshiriladi. Bunda ortiqcha yoki kam chiqqan har bir kv.m maydon uchun hisob-kitoblar 2.1-bandda ko‘rsatilgan narxga asosan hisoblanadi.
-  </div>
-
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    4. TOMONLARNING HUQUQLARI VA MAJBURIYATLARI
-  </h2>
-  <br>
-
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1. Quruvchining majburiyatlari:
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.1. O‘zbekiston Respublikasi Prezidentining 2020 yil 27 maydagi PQ-4732-son qarori talablaridan kelib chiqqan holda mazkur shartnomani Qurilish vazirligi va uning hududiy tuzilmalarida hisobga qo‘yish; 
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.2. Ulushdorning ulush depozitidan maqsadli foydalanishni ta’minlash;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.3. Majmua qurilishini tashkil etish va amalga oshirish uchun barcha kerakli loyiha-smeta va boshqa hujjatlarni tayyorlash va qonunda belgilangan tartibda rasmiylashtirish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.4. Qonun talablaridan kelib chiqqan holda qurilish ishlari yuzasidan barcha zaruriy ruxsatnomalarni va litsenziyalarni olish, uchinchi shaxslar bilan shartnomalarni imzolash va ishlarni bajarish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.5. Qurilish ob’ektida onlayn rejimida kuzatish imkoniyatini ta’minlash;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.6. Ulushdorga qurilish ob’ektidagi qurilish ishlari holati bilan tanishishi uchun sharoit yaratish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.7. Ulushdorning talabiga asosan shartnoma shartlari bajarilishi bo‘yicha unga yozma shaklda ma’lumot berib borishi;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.8. Qurilish majmuasining qurilishini qurilish materiallari, texnika bilan ta’minlash, ishchilar va xizmatchilarni jalb qilish, qurilishni boshqarishni tashkil etish va qurilishni olib borish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.9. Qurilish majmuasini Qurilish majmuasini foydalanishga topshirish muddatidan kechiktirmagan holda foydalanishga topshirish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.10. Qurilish ob’ekti foydalanishga topshirilgandan keyin Obyekt foydalanishga topshirilgandan keyin Quruvchi 30 (o`ttiz) kalendar kun ichida Qurilish ob’ektiga egalik qilish uchun zarur bo‘lgan hujjatlarni tayyorlash va notarial tartibda rasmiylashtirib berish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.1.11. Ob’ektga nisbatan ulushdorning mulk huquqi davlat ro‘yxatidan o‘tkazilganidan so‘ng Qurilish obyekti bo‘yicha kafolat muddati 24 (yigirma to`rt) oyni tashkil etadi, kafolat muddatida aniqlangan quruvchi tomonidan bajarilgan ishlardagi xato va kamchiliklarni o‘z hisobidan bartaraf etish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-     4.2. Quruvchining huquqlari:
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.2.1. Ulushdor bilan tuzilgan shartnoma hisobga qo‘yilganidan so‘ng qurilish ob’ektini qurish uchun ulushdorning mablag‘larini jalb qilish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.2.2. Ulushdordan ulushlarni taqdim etish (pul mablag‘larini o‘tkazish) muddatlariga rioya qilinishini talab qilish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.2.3. Ulush qurilish materiallari ko‘rinishida qo‘shilganda, Ulushdordan ushbu materiallar sifat va xavfsizlik talablariga javob berishini talab qilish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.2.4 Qurilish ob’ektiga oid hujjatlarni rasmiylashtirish zaruratidan kelib chiqqan holda Ulushdordan tegishli davlat idoralariga kelishini talab qilish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.3. Ulushdorning majburiyatlari:
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.3.1. Quruvchi bilan tuzilgan shartnomaga muvofiq ulushlarni taqdim etish (pul mablag‘larini o‘tkazish) muddatlariga rioya qilgan holda belgilangan muddatlarda ulushlarni Quruvchining hisob raqamiga o‘tkazib borish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.3.2. Ulush qurilish materiallari ko‘rinishida qo‘shilganda sifat va xavfsizlik talablariga javob beradigan materiallarni taqdim etish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.3.3. Qurilish ob’ektiga egalik qilish uchun zarur bo‘lgan hujjatlar Quruvchi tomonidan tayyorlanganda, hujjatlarni notarial tartibda rasmiylashtirishda ishtirok etish va rasmiylashtirishga oid xarajatlarni o‘z hisobidan to‘lash; 
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.3.4. Qurilish ob’ektiga nisbatan egalik huquqi ro‘yxatdan o‘tkazilgunga qadar unda qayta qurish, rekonstruksiya qilish va qurilish bilan bog‘liq boshqa ishlarni amalga oshirmaslik;
-  Ulushdorning shartnomada belgilangandan boshqa majburiyatlari
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.4. Ulushdorning huquqlari: 
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.4.1. Quruvchidan O‘zbekiston Respublikasi Prezidentining 2020 yil 27 maydagi PQ-4732-son qarori talablaridan kelib chiqqan holda mazkur shartnoma Qurilish vazirligi va uning hududiy tuzilmalarida hisobga qo‘yilishini talab qilish; 
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.4.2. O‘zi kiritgan ulush pullaridan maqsadli foydalanilishini nazorat qilish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.4.3. Quruvchidan qurilish ob’ektida onlayn rejimda kuzatish imkoniyati yaratilishini, qurilish ishlari holati bilan tanishishi uchun sharoit yaratilishini, shartnoma shartlari bajarilishi bo‘yicha yozma shaklda ma’lumot berib borilishini talab qilish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.4.4. Quruvchidan qurilish majmuasi Qurilish majmuasini foydalanishga topshirish muddatidan kechiktirilmagan holda foydalanishga topshirilishini talab qilish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.4.5. Qurilish ob’ekti foydalanishga topshirilganidan keyin Quruvchidan egalik qilish uchun zarur bo‘lgan hujjatlar tayyorlanishini va notarial tartibda rasmiylashtirilishini talab qilish;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    4.4.6. Quruvchidan kafolat muddati davomida aniqlangan, quruvchi tomonidan bajarilgan ishlardagi xato va kamchiliklarni bartaraf etishni talab qilish.
-  </div>
-
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    5. TOMONLARNING JAVOBGARLIGI
-  </h2>
-  <br>
-
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    5.1. Quruvchi mazkur shartnomaga asosan zimmasiga olayotgan majburiyatlarni bajarmasa yoki lozim darajada bajarmasa (qurish ishlarini belgilangan muddatlarda yakunlamaslik, ishlarni sifatsiz bajarish va hokazo.) O‘zbekiston Respublikasining 1998 yil 29 avgustdagi “Xo‘jalik yurituvchi sub’ektlar faoliyatining shartnomaviy-huquqiy bazasi to‘g‘risida”gi Qonunidan kelib chiqqan holda har bir kun uchun majburiyat bajarilmagan qismining 0,05 foizi miqdorida penya to‘laydi. Biroq penyaning umumiy miqdori majburiyatning bajarilmagan qismi qiymatining Quruvchi majburiyatlarini bajarmaganligi yoki lozim darajada bajarmaganligi uchun unga belgilanadigan penyaning umumiy miqdori shartnoma summasining 5 (besh) foizidan oshmasligi lozim. 
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    5.2. Ulushdor mazkur shartnomaga asosan zimmasiga olayotgan majburiyatlarni bajarmasa yoki lozim darajada bajarmasa (ulush mablag‘larini belgilangan muddatlarda yoki miqdorda kiritmaslik va hokazo), yuqoridagi Qonundan kelib chiqqan holda har bir kun uchun majburiyat bajarilmagan qismining 0,05 foizi miqdorida penya to‘laydi. Biroq penyaning umumiy miqdori majburiyatning bajarilmagan qismi qiymatining Ulushdor majburiyatlarini bajarmaganligi yoki lozim darajada bajarmaganligi uchun unga belgilanadigan penyaning umumiy miqdori shartnoma summasining 5 (besh) foizidan oshmasligi lozim. Penya to‘lanishi shartnoma majburiyatlarini buzgan tarafni majburiyatni asl holida bajarishdan ozod etmaydi.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    5.3. Quruvchi ulushdor tomonidan kiritilgan mablag‘lardan maqsadsiz foydalanganda, Ulushdorga maqsadsiz foydalanilgan pul mablag‘lari bilan birga O‘zbekiston Respublikasi Markaziy banki tomonidan belgilangan qayta moliyalash stavkasidan kelib chiqqan holda 14 (o`n to`rt) foiz to‘laydi;
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    5.4. Quruvchi asossiz ravishda qurilish ob’ektini topshirish muddatini Qurilish obyektini topshirish muddati 100 (yuz) kunga buzilganda Ulushdor shartnomani bir tomonlama bekor qilishni, o‘zi kiritgan ulush mablag‘lari qaytarilishini hamda 5.3. bandda belgilangan foizlar to‘lanishini talab qilishga haqli.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    5.5. Ulush mablag‘larini bo‘lib-bo‘lib to‘lash tartibi asossiz ravishda 3 (uch) marotaba kechiktirgan hollarda Quruvchi shartnomani bir tomonlama bekor qilishni talab qilishi mumkin. Bunda Quruvchi shartnomaning 5.2 bandida belgilangan penya to‘lovlarini ushlab qolgan holda Ulushdorning pul mablag‘larini qaytarib berganidan so‘ng, qurilish ob’ektini uchinchi shaxslarga sotishga haqli. 
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    5.6. Ulushdor ulush hissasini qurilish materiallari ko‘rinishida kiritgan hollarda materiallar sifat va xavfsizlik talablariga javob bermasligi aniqlansa, taraflar nuqsonli materiallar yuzasidan dalolatnoma tuzadilar. Ulushdor dalolatnoma tuzilganidan e’tiboran 5 (besh) bank kunidan kechiktirmay materiallarni sifatlisiga almashtirib topshirishi yoki ulushni pul ko‘rinishida kiritishi lozim. 
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    5.7. Tomonlarning shartnomada belgilanmagan javobgarlik masalalari O‘zbekiston Respublikasining Fuqarolik Kodeksi hamda amaldagi qonunchilikka asosan hal qilinadi. 
-  </div>
- 
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    6. FORS-MAJOR HOLATLARI
-  </h2>
-  <br>
-
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    6.1. Tomonlar ushbu Shartnoma bo‘yicha majburiyatlarni bajarmaganligi yoki tegishlicha bajarmaganligi uchun, agar bunday vaziyat ushbu Shartnoma tuzilgandan keyin Tomonlar oldindan bilishi, oqilona choralar bilan oldini olishi mumkin bo‘lmagan favqulodda xususiyatga ega voqealar natijasida vujudga kelgan yengib bo‘lmaydigan kuch (fors-major holatlari) tufayli yuzaga kelganligini va Tomonlar o‘z majburiyatlarini tegishlicha bajarish yuzasidan barcha mumkin bo‘lgan va o‘zlariga bog‘liq bo‘lgan choralarni ko‘rganligini isbotlasa, javob bermaydi.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    6.2. Fors-major holatlariga harbiy harakatlar, tabiat kuchlari ta’siri (zilzila, suv toshqini va hokazolar), davlat organlari qarorlari va boshqa holatlar kiradi.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    6.3. Fors-major holatlar yuzaga kelishi to‘g‘risida Tomonlar bunday holatlar yuzaga kelgan vaqtdan boshlab besh ish kuni davomida bir-birlarini xabardor qilishlari kerak.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    6.4. Fors-major holatlar yuzaga kelgan taqdirda, mazkur shartnoma bo‘yicha majburiyatlarni bajarish muddati mutanosib ravishda ushbu hodisalar ro‘y bergan muddatga suriladi.
-  </div>
-
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    7. NIZOLARNI HAL QILISh TARTIBI
-  </h2>
-  <br>
- 
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    7.1. Ushbu Shartnomada nazarda tutilgan majburiyatlarni bajarish munosabati bilan yuzaga keladigan yoki mazkur majburiyatlarni bajarish chog‘ida yuzaga keladigan barcha nizolar Tomonlar o‘rtasida muzokaralar o‘tkazish yo‘li bilan hal etiladi.
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    7.2. Nizolar muzokaralarni o‘tkazish natijasida hal etilmasa, O‘zbekiston Respublikasi qonun hujjatlariga muvofiq Nizolar muzokaralar o‘tkazish yo‘li bilan hal etilmasa, taraflar murojaat qiladigan sud nomi sudida hal etiladi.
-  </div>
- 
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    8. BOShQA ShARTLAR
-  </h2>
-  <br>
- 
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    8.1 Shartnoma ikki nusxada tuzilgan bo‘lib, ular bir xil yuridik kuchga ega. Ushbu shartnomaga har qanday o‘zgartirish va qo‘shimchalar faqat ular yozma shaklda rasmiylashtirilib, Tomonlar imzolagandan so‘ng haqiqiy hisoblanadi.
-  </div> 
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    8.2. Qurilish ob’ekti Ulushdorga topshirilib, kafolat muddati tugagandan so‘ng, aniqlangan qurilishdagi yashirin nuqsonlar bilan bog‘liq nizolar amaldagi qonunchilik talablaridan kelib chiqqan holda hal qilinadi.
-  </div> 
- 
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    9. ShARTNOMANING AMAL QILISh MUDDATI
-  </h2>
-  <br>
-
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    9.1. Ushbu Shartnoma imzolangan paytdan kuchga kiradi va Shartnomaning amal qilish muddati tomonlar o`z majburiyatlarini to`liq bajargunlariga qadar amal qiladi. 
-  </div>
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;">
-    9.2. Tomonlar mazkur shartnomaning barcha shartlarini to‘liq bajargan taqdirda shartnomaning amal qilishi 9.1-bandda belgilangan muddatdan ilgari tugatilishi mumkin.
-  </div>
-
-  <br>
-  <h2 style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px; margin: 0;font-weight: bold;">
-    10. TOMONLARNING MANZILLARI VA BANK REKVIZITLARI:
-  </h2>
-  <br>
-  <div style="width: 100%; margin: auto;">
-    <table border="1" style="width: 100%; border: 1px solid #000; border-collapse: collapse;">
-      <tr>
-        <td style="text-align: center;padding: 5px;"><b style="font-family: Times New 'Times New Roman', Times, serif; font-size: 14px;font-weight: bold;">“QURUVCHI”</b></td>
-        <td style="text-align: center;padding: 5px;"><b style="font-family: Times New 'Times New Roman', Times, serif; font-size: 14px;font-weight: bold;">“ULUSHDOR”</b></td>
-      </tr>
-      <tr>
-        <td style="padding: 12px;"></td>
-        <td style="padding: 12px;"></td>
-      </tr>
-      <tr>
-        <td style="padding: 12px;"></td>
-        <td style="padding: 12px;"></td>
-      </tr>
-      <tr>
-        <td style="padding: 12px;"></td>
-        <td style="padding: 12px;"></td>
-      </tr>
-      <tr>
-        <td style="padding: 12px;"></td>
-        <td style="padding: 12px;"></td>
-      </tr>
-      <tr>
-        <td style="padding: 12px;"></td>
-        <td style="padding: 12px;"></td>
-      </tr>
-      <tr>
-        <td style="padding: 12px;"></td>
-        <td style="padding: 12px;"></td>
-      </tr>
-      <tr>
-        <td style="padding: 12px;"></td>
-        <td style="padding: 12px;"></td>
-      </tr>
-    </table>  
-
-    <br>
-    <br>
-    <table style="width: 100%;">
-      <tr>
-        <td><b style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;font-weight: bold;">Quruvchi ______________________</b></td>
-        <td><b style="text-align: center; font-family: Times New 'Times New Roman', Times, serif; font-size: 12px;font-weight: bold;">Ulushdor ______________________</b></td>
-      </tr>
-    </table>  
-  </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
-  <div style="text-indent: 30px;font-family: Times New 'Times New Roman', Times, serif; font-size: 10px;">
-    Mazkur shartnoma reestr kitobiga kiritilib, ____________________________________ raqam bilan ro`xatga olinganligini va shartnoma shartlari ifodalovchi barcha ma`lumotlar to`liq tushuntirilganligini tasdiqlayman.
-  </div>
-  <br>
-  <div style="width: 100%; margin: auto;">
-    <table style="width: 100%;">
-      <tr>
-        <td style="height: 150px; padding: 10px 10px 10px 0;">
-          <div style="width: 100%;height: 100%;border: 1px solid #000;"></div>
-        </td>
-        <td style="height: 150px; padding: 10px 0 10px 10px;">
-          <div style="width: 100%;height: 100%;border: 1px solid #000;"></div>
-        </td>
-      </tr>
-    </table>
-  </div>
- 
-</div>    
-</div>
 </div>
 <div class="url_div" data-url="{{ $url }}"></div>
 <!-- </html> -->

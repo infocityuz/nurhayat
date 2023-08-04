@@ -34,6 +34,16 @@ class House extends Model
         'has_basement',
         'has_attic',
         'house_number',
+        
+        'company',
+        'address',
+        'settlement',
+        'bank',
+        'mfo',
+        'inn',
+        'oked',
+        'phone',
+        'director',
     ];
 
     public function house_flat(): HasMany

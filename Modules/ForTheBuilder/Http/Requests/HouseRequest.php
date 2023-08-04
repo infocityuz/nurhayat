@@ -25,6 +25,16 @@ class HouseRequest extends BaseFormRequest
             'has_basement' => 'nullable|string',
             'has_attic' => 'nullable|string',
             'house_number' => 'nullable|integer|max:10000',
+
+            'company' => 'nullable|string',
+            'address' => 'nullable|string',
+            'settlement' => 'nullable|string',
+            'bank' => 'nullable|string',
+            'mfo' => 'nullable|string',
+            'inn' => 'nullable|string',
+            'oked' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'director' => 'nullable|string',
         ];
     }
 
@@ -42,6 +52,16 @@ class HouseRequest extends BaseFormRequest
             // 'has_basement' => 'nullable|string',
             // 'has_attic' => 'nullable|string',
             'house_number' => 'nullable|integer|max:10000',
+
+            'company' => 'nullable|string',
+            'address' => 'nullable|string',
+            'settlement' => 'nullable|string',
+            'bank' => 'nullable|string',
+            'mfo' => 'nullable|string',
+            'inn' => 'nullable|string',
+            'oked' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'director' => 'nullable|string',
         ];
     }
 }

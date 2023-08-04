@@ -447,6 +447,20 @@ class DealController extends Controller
             $data["deal_id"] = $model->id;
             $data["contract_number"] = $model->agreement_number;
             $data["initial_fee"] = $model->initial_fee;
+            
+            $data["company"] = $house->company;
+            $data["address"] = $house->address;
+            $data["settlement"] = $house->settlement;
+            $data["bank"] = $house->bank;
+            $data["mfo"] = $house->mfo;
+            $data["inn"] = $house->inn;
+            $data["oked"] = $house->oked;
+            $data["phone"] = $house->phone;
+            $data["director"] = $house->director;
+
+
+
+
             $must_pay_price = $model->initial_fee;
             // --------
 

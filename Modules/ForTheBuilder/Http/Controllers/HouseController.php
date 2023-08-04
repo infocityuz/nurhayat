@@ -859,6 +859,17 @@ class HouseController extends Controller
         $model->project_stage = $data['project_stage'];
       	$model->corpus = $data['corpus'];
         $model->house_number = $data['house_number'];
+        
+        $model->company = $data['company'];
+        $model->address = $data['address'];
+        $model->settlement = $data['settlement'];
+        $model->bank = $data['bank'];
+        $model->mfo = $data['mfo'];
+        $model->inn = $data['inn'];
+        $model->oked = $data['oked'];
+        $model->phone = $data['phone'];
+        $model->director = $data['director'];
+
         $model->save();
 
         Log::channel('action_logs2')->info("пользователь обновил house", ['info-data' => $model]);

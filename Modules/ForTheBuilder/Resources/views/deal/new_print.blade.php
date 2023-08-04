@@ -7,7 +7,7 @@
 <p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">{{ date('d') }} {{ $month_name }} {{ date('Y') }} йил</span><span style="width:1.86pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="width:35.4pt; font-family:'Times New Roman'; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:'Times New Roman';">Тошкент шаҳри</span></p>
 <p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
 <p style="margin-top:0pt; margin-bottom:0pt; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
-<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&ldquo;CITY CONSTRUCTION MASTER&rdquo; директори Тошпулотов Х.Х. (кейинги ўринларда &ndash; &ldquo;Қурувчи&rdquo; деб юритилади бир томонда, фуқаро {{ $data['last_name'] }} {{ $data['first_name'] }} {{ $data['middle_name'] }}</span></p>
+<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&ldquo;{{ $data['company'] }}&rdquo; директори {{ $data['director'] }} (кейинги ўринларда &ndash; &ldquo;Қурувчи&rdquo; деб юритилади бир томонда, фуқаро {{ $data['last_name'] }} {{ $data['first_name'] }} {{ $data['middle_name'] }}</span></p>
 <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">бундан буён, - &ldquo;Улушдор&rdquo; деб юритилади, ушбу Шартномани қуйидагилар ҳақида туздик:</span></p>
 <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:normal; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
 <ol type="1" style="margin:0pt; padding-left:0pt;">
@@ -142,7 +142,7 @@
         </tr>
         <tr>
             <td style="width:222.85pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&laquo;City Construction Master&raquo; масъулияти чекланган жамияти</span></strong></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:13pt;"><strong><span style="font-family:'Times New Roman';">&laquo;{{ $data['company'] }}&raquo; масъулияти чекланган жамияти</span></strong></p>
             </td>
             <td style="width:222.75pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
                 <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">ФИШ</span></strong></p>
@@ -150,14 +150,14 @@
         </tr>
         <tr>
             <td style="width:222.85pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Ташкент шахри. Сирғали тумани&nbsp;</span></p>
-                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Мехригиё МФЙ, Сирғали 6,&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;</span></p>
-                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Сирғали дехқон бозори мавзеси&nbsp;</span></p>
-                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">х/р 20208000800910947003&nbsp;</span></p>
-                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">АТБ &laquo;Капитал Банк&raquo; Мирзо Улуғбек филиали МФО 01018</span></p>
-                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">ИНН 30570910&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;</span><span style="font-family:'Times New Roman';">ОКЭД 41201&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">{{ $data['address'] }}&nbsp;</span></p>
+                {{-- <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Мехригиё МФЙ, Сирғали 6,&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Сирғали дехқон бозори мавзеси&nbsp;</span></p> --}}
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">х/р {{ $data['settlement'] }}&nbsp;</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">АТБ &laquo;{{ $data['bank'] }} <!-- &raquo; Мирзо Улуғбек филиали --> МФО {{ $data['mfo'] }}</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">ИНН {{ $data['inn'] }}&nbsp;</span><span style="font-family:'Times New Roman';">&nbsp;</span><span style="font-family:'Times New Roman';">ОКЭД {{ $data['oked'] }}&nbsp;</span></p>
                 <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
-                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Телефон: +998 78 1475050</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Телефон: {{ $data['phone'] }}</span></p>
                 <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">&nbsp;</span></strong></p>
             </td>
             <td style="width:222.75pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
@@ -173,7 +173,7 @@
         </tr>
         <tr>
             <td style="width:222.85pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Директор ________________Тошпулотов Х.А.</span></p>
+                <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><span style="font-family:'Times New Roman';">Директор {{ $data['director'] }}</span></p>
             </td>
             <td style="width:222.75pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
                 <p style="margin-top:0pt; margin-bottom:0pt; font-size:13pt;"><strong><span style="font-family:'Times New Roman'; text-transform:uppercase;">&nbsp;</span></strong></p>

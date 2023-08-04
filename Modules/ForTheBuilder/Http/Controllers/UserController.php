@@ -15,6 +15,7 @@ use App\components\ImageResize;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Modules\ForTheBuilder\Entities\Deal;
+use Modules\ForTheBuilder\Entities\House;
 use Modules\ForTheBuilder\Entities\Notification_;
 use Modules\ForTheBuilder\Entities\Task;
 use Modules\ForTheBuilder\Http\Requests\ForTheBuilderUserRequest;
@@ -725,6 +726,466 @@ class UserController extends Controller
             'my_tasks' => $my_tasks,
             'task_count' => $task_count,
             'months' => json_encode($months),
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+
+    public function report()
+    {
+        return view('forthebuilder::user.report',[
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    // reportClients
+    public function reportClients()
+    {
+        $models = House::orderBy('id', 'desc')->paginate(15);
+
+        return view('forthebuilder::user.report-clients',[
+            'status' => 'report-clients',
+            'models' => $models,
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    public function reportClientsIndex($id)
+    {
+        $connect_for=Constants::FOR_1;
+        $connect_new=Constants::NEW_1;
+
+        $new_users=DB::table($connect_for.'.deals as dt1')
+            ->join($connect_for.'.clients as dt2', 'dt2.id', '=', 'dt1.client_id')
+            ->where('dt1.type',Constants::FIRST_CONTACT)
+            ->where('dt1.house_id',$id)
+            ->count();
+            
+        $all_clients_count=DB::table($connect_for.'.clients')
+        ->where('status',1)->count();
+        
+        $all_deals_count = DB::table($connect_for.'.deals')
+        ->where('deleted_at',NULL)
+        ->where('house_id',$id)
+        ->count();
+        
+        $in_negotiations=DB::table($connect_for.'.deals as dt1')
+        ->where('dt1.type',Constants::NEGOTIATION)
+        ->where('dt1.house_id',$id)
+        ->count();
+
+        $make_deal=DB::table($connect_for.'.deals as dt1')
+        ->where('dt1.type',Constants::MAKE_DEAL)
+        ->where('dt1.house_id',$id)
+        ->count();
+
+        $source = DB::table($connect_for.'.clients')
+        ->select('source', DB::raw('count(*) as total'))
+        ->groupBy('source')
+        ->where('source','!=',null)
+        ->get();
+        
+        $source_name = [];
+        $source_data = [];
+        $source_color = [];
+        if(!empty($source)){
+             foreach ($source as $key => $value) {
+                array_push($source_name, $value->source);
+                array_push($source_data, $value->total);
+                array_push($source_color, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+            }
+        }
+
+        $month_prices = DB::table($connect_for.'.deals as dt1')
+            ->join($connect_for.'.house_flat as dt2', 'dt2.id', '=', 'dt1.house_flat_id')
+            ->join($connect_new.'.users as dt3', 'dt3.id', '=', 'dt1.user_id')
+            ->where('dt2.status',Constants::STATUS_SOLD)
+            ->orderBy('dt3.id', 'desc')
+            // ->where('dt3.role_id',2)
+            ->select('dt3.id','dt1.price_sell','dt1.date_deal','dt3.first_name','dt3.last_name')
+            ->get();
+
+
+        $names = [];
+        $counts = [];
+        $colors = [];
+
+        $price=0;
+        $priceArr=[];
+        for ($j=0; $j <= 11; $j++) { 
+            $priceArr[$j] = 0;
+        }
+        
+        $year=Carbon::now()->format('y');
+        $month=Carbon::now()->format('m');
+        $last_date = cal_days_in_month(CAL_GREGORIAN, $month,$year);
+
+        $price_day_array = [];
+        $month_day = [];
+        for ($i=0; $i <= $last_date; $i++) { 
+            $price_day_array[$i] = 0;
+            $month_day[$i] = $i;
+        }
+        $core_chart="";
+        $in = [];
+
+
+        foreach ($month_prices as  $value) {
+            
+            $myDate = date('Y-m-d', strtotime($value->date_deal));
+            $date_table = Carbon::createFromFormat('Y-m-d', $myDate);
+            $month_code = $date_table->format('n');
+            $date_day=Carbon::now()->format('m');
+            $month_code_day = $date_table->format('j');
+            if ($month_code==$date_day) {
+                $in[$value->id]['first_name'] = $value->first_name;
+                $in[$value->id]['price_sell'] = ($in[$value->id]['price_sell'] ?? 0) + $value->price_sell;
+                // $core_chart.="['".$value->first_name."',     ".$value->price_sell."],";
+            }
+            // dd($month_code);
+            
+            if ($month_code==$date_day) {
+                $price_day_array[$month_code_day-1] +=$value->price_sell;
+            }
+            
+            // $mont_code = $date_table->format('m');
+            $priceArr[$month_code-1] += $value->price_sell;
+            $price +=$value->price_sell;
+        }
+        // dd($in);
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+        }
+
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+            array_push($names, $value['first_name']);
+            array_push($counts, $value['price_sell']);
+            array_push($colors, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+        }
+
+        $data=[
+           'new_clients'=>$new_users, // Новые клиенты
+           'in_negotiations'=>$in_negotiations, // На переговорах
+           'make_deal'=>$make_deal, // Заключение сделки
+           'all_clients_count' => $all_clients_count,
+           'all_deals_count' => $all_deals_count,
+           'names' => json_encode($names),
+           'counts' => json_encode($counts),
+           'colors' => json_encode($colors),
+           'source_name' => json_encode($source_name),
+           'source_data' => json_encode($source_data),
+           'source_color' => json_encode($source_color),
+
+        ];
+
+        return view('forthebuilder::user.report-clients-index',[
+            'status' => 'report-clients',
+            'data'=>$data,
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    public function reportDeals()
+    {
+        $models = House::orderBy('id', 'desc')->paginate(15);
+
+        return view('forthebuilder::user.report-clients',[
+            'status' => 'report-deals',
+            'models' => $models,
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    public function reportHouses()
+    {
+        $models = House::orderBy('id', 'desc')->paginate(15);
+
+        return view('forthebuilder::user.report-clients',[
+            'status' => 'report-houses',
+            'models' => $models,
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    public function reportDealsIndex($id)
+    {
+        $connect_for=Constants::FOR_1;
+        $connect_new=Constants::NEW_1;
+
+        $new_users=DB::table($connect_for.'.deals as dt1')
+            ->join($connect_for.'.clients as dt2', 'dt2.id', '=', 'dt1.client_id')
+            ->where('dt1.type',Constants::FIRST_CONTACT)
+            ->where('dt1.house_id',$id)
+            ->count();
+            
+        $all_clients_count=DB::table($connect_for.'.clients')
+        ->where('status',1)->count();
+        
+        $all_deals_count = DB::table($connect_for.'.deals')
+        ->where('deleted_at',NULL)
+        ->where('house_id',$id)
+        ->count();
+        
+        $in_negotiations=DB::table($connect_for.'.deals as dt1')
+        ->where('dt1.type',Constants::NEGOTIATION)
+        ->where('dt1.house_id',$id)
+        ->count();
+
+        $make_deal=DB::table($connect_for.'.deals as dt1')
+        ->where('dt1.type',Constants::MAKE_DEAL)
+        ->where('dt1.house_id',$id)
+        ->count();
+
+        $source = DB::table($connect_for.'.clients')
+        ->select('source', DB::raw('count(*) as total'))
+        ->groupBy('source')
+        ->where('source','!=',null)
+        ->get();
+        
+        $source_name = [];
+        $source_data = [];
+        $source_color = [];
+        if(!empty($source)){
+             foreach ($source as $key => $value) {
+                array_push($source_name, $value->source);
+                array_push($source_data, $value->total);
+                array_push($source_color, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+            }
+        }
+
+        $month_prices = DB::table($connect_for.'.deals as dt1')
+            ->join($connect_for.'.house_flat as dt2', 'dt2.id', '=', 'dt1.house_flat_id')
+            ->join($connect_new.'.users as dt3', 'dt3.id', '=', 'dt1.user_id')
+            ->where('dt2.status',Constants::STATUS_SOLD)
+            ->orderBy('dt3.id', 'desc')
+            // ->where('dt3.role_id',2)
+            ->select('dt3.id','dt1.price_sell','dt1.date_deal','dt3.first_name','dt3.last_name')
+            ->get();
+
+
+        $names = [];
+        $counts = [];
+        $colors = [];
+
+        $price=0;
+        $priceArr=[];
+        for ($j=0; $j <= 11; $j++) { 
+            $priceArr[$j] = 0;
+        }
+        
+        $year=Carbon::now()->format('y');
+        $month=Carbon::now()->format('m');
+        $last_date = cal_days_in_month(CAL_GREGORIAN, $month,$year);
+
+        $price_day_array = [];
+        $month_day = [];
+        for ($i=0; $i <= $last_date; $i++) { 
+            $price_day_array[$i] = 0;
+            $month_day[$i] = $i;
+        }
+        $core_chart="";
+        $in = [];
+
+
+        foreach ($month_prices as  $value) {
+            
+            $myDate = date('Y-m-d', strtotime($value->date_deal));
+            $date_table = Carbon::createFromFormat('Y-m-d', $myDate);
+            $month_code = $date_table->format('n');
+            $date_day=Carbon::now()->format('m');
+            $month_code_day = $date_table->format('j');
+            if ($month_code==$date_day) {
+                $in[$value->id]['first_name'] = $value->first_name;
+                $in[$value->id]['price_sell'] = ($in[$value->id]['price_sell'] ?? 0) + $value->price_sell;
+                // $core_chart.="['".$value->first_name."',     ".$value->price_sell."],";
+            }
+            // dd($month_code);
+            
+            if ($month_code==$date_day) {
+                $price_day_array[$month_code_day-1] +=$value->price_sell;
+            }
+            
+            // $mont_code = $date_table->format('m');
+            $priceArr[$month_code-1] += $value->price_sell;
+            $price +=$value->price_sell;
+        }
+        // dd($in);
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+        }
+
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+            array_push($names, $value['first_name']);
+            array_push($counts, $value['price_sell']);
+            array_push($colors, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+        }
+
+        $data=[
+           'new_clients'=>$new_users, // Новые клиенты
+           'in_negotiations'=>$in_negotiations, // На переговорах
+           'make_deal'=>$make_deal, // Заключение сделки
+           'all_clients_count' => $all_clients_count,
+           'all_deals_count' => $all_deals_count,
+           'names' => json_encode($names),
+           'counts' => json_encode($counts),
+           'colors' => json_encode($colors),
+           'source_name' => json_encode($source_name),
+           'source_data' => json_encode($source_data),
+           'source_color' => json_encode($source_color),
+
+        ];
+
+        return view('forthebuilder::user.report-deals-index',[
+            'data'=>$data,
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+    public function reportHousesIndex($id)
+    {
+        $connect_for=Constants::FOR_1;
+        $connect_new=Constants::NEW_1;
+
+        $house_count=DB::table($connect_for.'.house_flat as hf')
+        ->where('hf.status',2)
+        ->where('hf.house_id', $id)
+        ->count();
+        
+        $house_flat_status_free=DB::table($connect_for.'.house_flat as house_flat')
+        ->where('house_flat.deleted_at',null)
+        ->where('house_flat.status',Constants::STATUS_FREE)
+        ->where('house_flat.house_id', $id)
+        ->count();
+        
+        $house_flat_status_booking=DB::table($connect_for.'.house_flat as house_flat')
+        ->where('house_flat.deleted_at',null)
+        ->where('house_flat.status',Constants::STATUS_BOOKING)
+        ->where('house_flat.house_id', $id)
+        ->count();
+
+        $house_flat_status_sold=DB::table($connect_for.'.house_flat as dt1')
+        ->join($connect_for.'.deals as dt2', 'dt2.house_flat_id', '=', 'dt1.id')
+        ->where('dt1.deleted_at',null)
+        ->where('dt1.status',Constants::STATUS_SOLD)
+        ->where('dt1.house_id', $id)
+        ->count();
+
+        $installment_count = Deal::where('installment_plan_id', '!=', NULL)                
+        ->where('house_id',$id)
+        ->count();
+
+        $source = DB::table($connect_for.'.clients')
+        ->select('source', DB::raw('count(*) as total'))
+        ->groupBy('source')
+        ->where('source','!=',null)
+        ->get();
+        
+        $source_name = [];
+        $source_data = [];
+        $source_color = [];
+        if(!empty($source)){
+             foreach ($source as $key => $value) {
+                array_push($source_name, $value->source);
+                array_push($source_data, $value->total);
+                array_push($source_color, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+            }
+        }
+
+        $month_prices = DB::table($connect_for.'.deals as dt1')
+            ->join($connect_for.'.house_flat as dt2', 'dt2.id', '=', 'dt1.house_flat_id')
+            ->join($connect_new.'.users as dt3', 'dt3.id', '=', 'dt1.user_id')
+            ->where('dt2.status',Constants::STATUS_SOLD)
+            ->orderBy('dt3.id', 'desc')
+            // ->where('dt3.role_id',2)
+            ->select('dt3.id','dt1.price_sell','dt1.date_deal','dt3.first_name','dt3.last_name')
+            ->get();
+
+
+        $names = [];
+        $counts = [];
+        $colors = [];
+
+        $price=0;
+        $priceArr=[];
+        for ($j=0; $j <= 11; $j++) { 
+            $priceArr[$j] = 0;
+        }
+        
+        $year=Carbon::now()->format('y');
+        $month=Carbon::now()->format('m');
+        $last_date = cal_days_in_month(CAL_GREGORIAN, $month,$year);
+
+        $price_day_array = [];
+        $month_day = [];
+        for ($i=0; $i <= $last_date; $i++) { 
+            $price_day_array[$i] = 0;
+            $month_day[$i] = $i;
+        }
+        $core_chart="";
+        $in = [];
+
+
+        foreach ($month_prices as  $value) {
+            
+            $myDate = date('Y-m-d', strtotime($value->date_deal));
+            $date_table = Carbon::createFromFormat('Y-m-d', $myDate);
+            $month_code = $date_table->format('n');
+            $date_day=Carbon::now()->format('m');
+            $month_code_day = $date_table->format('j');
+            if ($month_code==$date_day) {
+                $in[$value->id]['first_name'] = $value->first_name;
+                $in[$value->id]['price_sell'] = ($in[$value->id]['price_sell'] ?? 0) + $value->price_sell;
+                // $core_chart.="['".$value->first_name."',     ".$value->price_sell."],";
+            }
+            // dd($month_code);
+            
+            if ($month_code==$date_day) {
+                $price_day_array[$month_code_day-1] +=$value->price_sell;
+            }
+            
+            // $mont_code = $date_table->format('m');
+            $priceArr[$month_code-1] += $value->price_sell;
+            $price +=$value->price_sell;
+        }
+        // dd($in);
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+        }
+
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+            array_push($names, $value['first_name']);
+            array_push($counts, $value['price_sell']);
+            array_push($colors, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+        }
+
+        $data=[
+           
+           'names' => json_encode($names),
+           'counts' => json_encode($counts),
+           'colors' => json_encode($colors),
+           'source_name' => json_encode($source_name),
+           'source_data' => json_encode($source_data),
+           'source_color' => json_encode($source_color),
+           'house_count'=>$house_count,
+           'house_flat_status_free'=>$house_flat_status_free,
+           'house_flat_status_booking'=>$house_flat_status_booking,
+           'house_flat_status_sold'=>$house_flat_status_sold,
+           'installment_count'=>$installment_count,
+           'price' => $price
+
+        ];
+
+        return view('forthebuilder::user.report-houses-index',[
+            'data'=>$data,
             'all_notifications' => $this->getNotification()
         ]);
     }

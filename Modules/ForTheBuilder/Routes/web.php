@@ -90,6 +90,17 @@ Route::group(['prefix' => 'forthebuilder', 'middleware' => ['auth', 'forthebuild
         Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('forthebuilder.user.destroy');
         Route::get('/chat', [UserController::class, 'chat'])->name('forthebuilder.user.chat');
         Route::get('/filtr/{arr}', [UserController::class, 'filtr'])->name('forthebuilder.user.filtr');
+
+        Route::get('/report', [UserController::class, 'report'])->name('forthebuilder.user.report');
+        
+        Route::get('/report-clients', [UserController::class, 'reportClients'])->name('forthebuilder.user.report-clients');
+        Route::get('/report-clients-index/{id}', [UserController::class, 'reportClientsIndex'])->name('forthebuilder.user.report-clients-index');
+
+        Route::get('/report-deals', [UserController::class, 'reportDeals'])->name('forthebuilder.user.report-deals');
+        Route::get('/report-houses', [UserController::class, 'reportHouses'])->name('forthebuilder.user.report-houses');
+
+        Route::get('/report-deals-index/{id}', [UserController::class, 'reportDealsIndex'])->name('forthebuilder.user.report-deals-index');
+        Route::get('/report-houses-index/{id}', [UserController::class, 'reportHousesIndex'])->name('forthebuilder.user.report-houses-index');
     });
 
     Route::group(['prefix' => 'user-chat'], function () {

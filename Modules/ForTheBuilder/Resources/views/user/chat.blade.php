@@ -792,7 +792,6 @@
 
     </script>
     <script>
-        let page_name = 'user';
         const ctx = document.getElementById('circleCharts');
             let circleCharts = document.getElementById("circleCharts").getContext('2d');
             let graphicCharts = document.getElementById("graphicCharts").getContext('2d');

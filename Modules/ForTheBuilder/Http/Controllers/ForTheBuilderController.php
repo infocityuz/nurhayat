@@ -79,7 +79,7 @@ class ForTheBuilderController extends Controller
             $make_deal=DB::table($connect_for.'.deals as dt1')
             ->where('dt1.type',Constants::MAKE_DEAL)
             ->where('dt1.user_id',$user->id)
-            // ->distinct('dt1.client_id')
+            ->where('status', Constants::ACTIVE)
             ->count();
 
             // Task
@@ -230,7 +230,7 @@ class ForTheBuilderController extends Controller
             ->count();
             $make_deal=DB::table($connect_for.'.deals as dt1')
             ->where('dt1.type',Constants::MAKE_DEAL)
-            // ->distinct('dt1.client_id')
+            ->where('status', Constants::ACTIVE)
             ->count();
 
             // Task

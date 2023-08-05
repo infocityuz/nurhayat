@@ -71,7 +71,7 @@ class DealController extends Controller
             ->orderBy('type', 'asc')->get(); //->paginate(config('params.pagination'));
         }else {
             $models = Deal::with('house_flat', 'user')
-            // ->where('status', Constants::ACTIVE)
+            ->where('status', Constants::ACTIVE)
             ->orderBy('type', 'asc')->get(); //->paginate(config('params.pagination'));
             
            

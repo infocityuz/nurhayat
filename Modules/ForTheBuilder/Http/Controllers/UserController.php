@@ -788,11 +788,13 @@ class UserController extends Controller
         $source_name = [];
         $source_data = [];
         $source_color = [];
+        $sources = '';
         if(!empty($source)){
              foreach ($source as $key => $value) {
                 array_push($source_name, $value->source);
                 array_push($source_data, $value->total);
                 array_push($source_color, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+                $sources .="['".$value->source."',".$value->total."],";
             }
         }
 
@@ -801,7 +803,7 @@ class UserController extends Controller
             ->join($connect_new.'.users as dt3', 'dt3.id', '=', 'dt1.user_id')
             ->where('dt2.status',Constants::STATUS_SOLD)
             ->orderBy('dt3.id', 'desc')
-            // ->where('dt3.role_id',2)
+            ->where('dt1.house_id',$id)
             ->select('dt3.id','dt1.price_sell','dt1.date_deal','dt3.first_name','dt3.last_name')
             ->get();
 
@@ -853,10 +855,7 @@ class UserController extends Controller
             $price +=$value->price_sell;
         }
         // dd($in);
-        foreach ($in as $key => $value) {
-            // dd($value);
-            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
-        }
+        
 
         foreach ($in as $key => $value) {
             // dd($value);
@@ -865,6 +864,28 @@ class UserController extends Controller
             array_push($counts, $value['price_sell']);
             array_push($colors, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
         }
+
+        $months = [
+            translate('January'), 
+            translate('February'), 
+            translate('March'), 
+            translate('April'), 
+            translate('May'), 
+            translate('June'), 
+            translate('July'), 
+            translate('August'), 
+            translate('September'), 
+            translate('October'), 
+            translate('November'), 
+            translate('December')
+        ];
+
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
+        
 
         $data=[
            'new_clients'=>$new_users, // Новые клиенты
@@ -878,12 +899,17 @@ class UserController extends Controller
            'source_name' => json_encode($source_name),
            'source_data' => json_encode($source_data),
            'source_color' => json_encode($source_color),
+           'core_chart' => $core_chart,
+           'sources' => $sources
 
         ];
+
 
         return view('forthebuilder::user.report-clients-index',[
             'status' => 'report-clients',
             'data'=>$data,
+            'months' => $months,
+            'line_month' => $line_month,
             'all_notifications' => $this->getNotification()
         ]);
     }
@@ -948,11 +974,14 @@ class UserController extends Controller
         $source_name = [];
         $source_data = [];
         $source_color = [];
+        $sources = '';
+
         if(!empty($source)){
              foreach ($source as $key => $value) {
                 array_push($source_name, $value->source);
                 array_push($source_data, $value->total);
                 array_push($source_color, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+                $sources .="['".$value->source."',".$value->total."],";
             }
         }
 
@@ -961,7 +990,7 @@ class UserController extends Controller
             ->join($connect_new.'.users as dt3', 'dt3.id', '=', 'dt1.user_id')
             ->where('dt2.status',Constants::STATUS_SOLD)
             ->orderBy('dt3.id', 'desc')
-            // ->where('dt3.role_id',2)
+            ->where('dt1.house_id',$id)
             ->select('dt3.id','dt1.price_sell','dt1.date_deal','dt3.first_name','dt3.last_name')
             ->get();
 
@@ -969,7 +998,6 @@ class UserController extends Controller
         $names = [];
         $counts = [];
         $colors = [];
-
         $price=0;
         $priceArr=[];
         for ($j=0; $j <= 11; $j++) { 
@@ -1000,7 +1028,7 @@ class UserController extends Controller
             if ($month_code==$date_day) {
                 $in[$value->id]['first_name'] = $value->first_name;
                 $in[$value->id]['price_sell'] = ($in[$value->id]['price_sell'] ?? 0) + $value->price_sell;
-                // $core_chart.="['".$value->first_name."',     ".$value->price_sell."],";
+                
             }
             // dd($month_code);
             
@@ -1025,6 +1053,26 @@ class UserController extends Controller
             array_push($counts, $value['price_sell']);
             array_push($colors, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
         }
+        $months = [
+            translate('January'), 
+            translate('February'), 
+            translate('March'), 
+            translate('April'), 
+            translate('May'), 
+            translate('June'), 
+            translate('July'), 
+            translate('August'), 
+            translate('September'), 
+            translate('October'), 
+            translate('November'), 
+            translate('December')
+        ];
+
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
 
         $data=[
            'new_clients'=>$new_users, // Новые клиенты
@@ -1038,11 +1086,15 @@ class UserController extends Controller
            'source_name' => json_encode($source_name),
            'source_data' => json_encode($source_data),
            'source_color' => json_encode($source_color),
+           'core_chart' => $core_chart,
+           'sources' => $sources
 
         ];
 
         return view('forthebuilder::user.report-deals-index',[
             'data'=>$data,
+            'months' => $months,
+            'line_month' => $line_month,
             'all_notifications' => $this->getNotification()
         ]);
     }
@@ -1089,11 +1141,13 @@ class UserController extends Controller
         $source_name = [];
         $source_data = [];
         $source_color = [];
+        $sources = '';
         if(!empty($source)){
              foreach ($source as $key => $value) {
                 array_push($source_name, $value->source);
                 array_push($source_data, $value->total);
                 array_push($source_color, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+                $sources .="['".$value->source."',".$value->total."],";
             }
         }
 
@@ -1102,7 +1156,7 @@ class UserController extends Controller
             ->join($connect_new.'.users as dt3', 'dt3.id', '=', 'dt1.user_id')
             ->where('dt2.status',Constants::STATUS_SOLD)
             ->orderBy('dt3.id', 'desc')
-            // ->where('dt3.role_id',2)
+            ->where('dt1.house_id',$id)
             ->select('dt3.id','dt1.price_sell','dt1.date_deal','dt3.first_name','dt3.last_name')
             ->get();
 
@@ -1167,6 +1221,27 @@ class UserController extends Controller
             array_push($colors, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
         }
 
+        $months = [
+            translate('January'), 
+            translate('February'), 
+            translate('March'), 
+            translate('April'), 
+            translate('May'), 
+            translate('June'), 
+            translate('July'), 
+            translate('August'), 
+            translate('September'), 
+            translate('October'), 
+            translate('November'), 
+            translate('December')
+        ];
+
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
+
         $data=[
            
            'names' => json_encode($names),
@@ -1180,12 +1255,16 @@ class UserController extends Controller
            'house_flat_status_booking'=>$house_flat_status_booking,
            'house_flat_status_sold'=>$house_flat_status_sold,
            'installment_count'=>$installment_count,
-           'price' => $price
+           'price' => $price,
+           'core_chart' => $core_chart,
+           'sources' => $sources,
 
         ];
 
         return view('forthebuilder::user.report-houses-index',[
             'data'=>$data,
+            'months'=>$months,
+            'line_month'=>$line_month,
             'all_notifications' => $this->getNotification()
         ]);
     }

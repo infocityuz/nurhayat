@@ -102,10 +102,10 @@ class DealController extends Controller
                         $keyArr = translate('Making a deal');
                         $class = 'lidiGreen';
                         break;
-                    default:
-                        $keyArr = translate('First contact');
-                        $class = 'lidiRed';
-                        break;
+                    // default:
+                    //     $keyArr = translate('First contact');
+                    //     $class = 'lidiRed';
+                    //     break;
                 }
 
                 if ($value->client) {

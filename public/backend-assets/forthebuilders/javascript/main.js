@@ -84,6 +84,10 @@ if(page_name){
       document.getElementById('page-sales').classList.add('active');
       $('#page-sales').find('path').attr('fill', 'black')
       break;
+    case 'report':
+      document.getElementById('page-report').classList.add('active');
+      $('#page-report').find('path').attr('fill', 'black')
+      break;
     
 
   }

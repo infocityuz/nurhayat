@@ -73,8 +73,8 @@
                 </div>
             </div>
         </div>
+        <br>
     </div>
-    
     <script>
         let page_name = 'report';
     </script>
@@ -93,7 +93,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
-       
+       var line_months = $('#line_months').attr('lang');
         //  chart3
         const core_chart = $('#core_chart').attr('data-arr')
         if (core_chart != '') {
@@ -195,7 +195,7 @@
 
         $(document).on('click','.applyBtn',function(){
             var date = $('.daterange').val()
-            location.href = `/forthebuilder/filtr/${date}`;
+            location.href = `/forthebuilder/user/filtr-report-deals/${date}`;
         })
 
 </script>

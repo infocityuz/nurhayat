@@ -21,12 +21,12 @@
                         <img
                     src="{{ asset('/backend-assets/forthebuilders/images/icons/arrow-left.png') }}"alt=""></a>
                     <h2 class="panelUprText" style="margin: 0; margin-left: 10px;">
-                       {{ translate('Report on clients') }}
+                       {{ translate('Report on deals') }}
                     </h2>
                 </div>
                 <div class="miniSearchDiv5" style="width: 330px; padding-right: 10px;">
                     <h4 class="m-0 mr-2">{{translate('Period')}}: </h4>
-                    <input type="text" class="ms-2 form-control daterange" value="{{ date('01.m.Y').' - '.date('t.m.Y') }}">
+                    <input type="text" class="ms-2 form-control daterange" value="{{ date('d.m.Y', strtotime($data['start'])).' - '.date('d.m.Y', strtotime($data['end'])) }}">
                 </div>
                 <div class="miniSearchDiv5">
                     <span class="btn btn-outline-success btn-sm">
@@ -35,25 +35,47 @@
                 </div>
             </div>
             <div class="container px-5">
-                <div class="row mb-3">
+                <div class="row mt-3">
                     <div class="col">
                         <div class="novieLidi col lidiMarginRight2">
-                            <h3>{{translate('New Clients')}}</h3>
-                            <h2 class="lidi25">{{$data['new_clients']}}</h2>
+                            <h3>{{translate('Count of flats')}}</h3>
+                            <h2 class="lidi25">{{$data['house_count']}}</h2>
                         </div>
                     </div>
                     <div class="col">
                         <div class="novieLidi col lidiMarginRight2">
-                            <h3>{{translate('For a negotiation')}}</h3>
-                            <h2>{{$data['in_negotiations']}}</h2>
+                            <h3>{{translate('Free house')}}</h3>
+                            <h2>{{$data['house_flat_status_free']}}</h2>
                         </div>
                     </div>
                     <div class="col">
                         <div class="novieLidi col lidiMarginRight2">
-                            <h3>{{translate('Making a deal')}}</h3>
-                            <h2>{{$data['make_deal']}}</h2>
+                            <h3>{{translate('On armor')}}</h3>
+                            <h2>{{$data['house_flat_status_booking']}}</h2>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="novieLidi col lidiMarginRight2">
+                            <h3>{{translate('On installments')}}</h3>
+                            <h2>{{$data['installment_count']}}</h2>
+                        </div>
+                    </div>
+                    <div class="col">
+                         <div class="zadachiLidi col mb-3">
+                            <h3>{{translate('Successful transactions')}}</h3>
+                            <h2>{{$data['house_flat_status_sold']}}</h2>
+                            <hr>
+                            <p>
+                                {{ number_format($data['price'],0,'.',' ')}}
+                                @php 
+                                    if (isset($currency)) {
+                                        echo (($currency->SUM) ? translate(' sum') : translate(' usd'));
+                                    }
+                                @endphp 
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
 
 
@@ -85,7 +107,7 @@
     <div id="line_months" lang="{{ $line_month }}"></div>
     <div id="no_data" data-text="{{ translate('No data') }}"></div>
     <div id="core_chart" data-arr="{{ $data['core_chart'] }}"></div>
-
+    <div id="model_id" data-id="{{ $id }}"></div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -196,7 +218,8 @@
 
         $(document).on('click','.applyBtn',function(){
             var date = $('.daterange').val()
-            location.href = `/forthebuilder/user/filtr-report-clients/${date}`;
+            date = date+' - '+$('#model_id').attr('data-id')
+            location.href = `/forthebuilder/user/filtr-report-houses/${date}`;
         })
 
 </script>

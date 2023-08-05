@@ -90,7 +90,7 @@
             <div class="row mt-3">
                 <div class="col">
                     <div class="novieLidi col lidiMarginRight2">
-                        <h3>{{translate('Count of house')}}</h3>
+                        <h3>{{translate('Count of flats')}}</h3>
                         <h2 class="lidi25">{{$data['house_count']}}</h2>
                     </div>
                 </div>

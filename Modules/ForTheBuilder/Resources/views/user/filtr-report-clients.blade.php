@@ -26,7 +26,8 @@
                 </div>
                 <div class="miniSearchDiv5" style="width: 330px; padding-right: 10px;">
                     <h4 class="m-0 mr-2">{{translate('Period')}}: </h4>
-                    <input type="text" class="ms-2 form-control daterange" value="{{ date('01.m.Y').' - '.date('t.m.Y') }}">
+                    <input type="text" class="ms-2 form-control daterange" value="
+                    {{ date('d.m.Y', strtotime($data['start'])).' - '.date('d.m.Y', strtotime($data['end'])) }}">
                 </div>
                 <div class="miniSearchDiv5">
                     <span class="btn btn-outline-success btn-sm">
@@ -73,7 +74,6 @@
                 </div>
             </div>
         </div>
-        <br>
     </div>
     
     <script>

@@ -101,6 +101,10 @@ Route::group(['prefix' => 'forthebuilder', 'middleware' => ['auth', 'forthebuild
 
         Route::get('/report-deals-index/{id}', [UserController::class, 'reportDealsIndex'])->name('forthebuilder.user.report-deals-index');
         Route::get('/report-houses-index/{id}', [UserController::class, 'reportHousesIndex'])->name('forthebuilder.user.report-houses-index');
+
+        Route::get('/filtr-report-clients/{date}', [UserController::class, 'filtrReportClients'])->name('forthebuilder.user.filtr-report-clients');
+        Route::get('/filtr-report-deals/{date}', [UserController::class, 'filtrReportDeals'])->name('forthebuilder.user.filtr-deals-clients');
+        Route::get('/filtr-report-houses/{date}', [UserController::class, 'filtrReportHouses'])->name('forthebuilder.user.filtr-report-houses');
     });
 
     Route::group(['prefix' => 'user-chat'], function () {

@@ -38,7 +38,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="novieLidi col lidiMarginRight2">
-                            <h3>{{translate('Count of house')}}</h3>
+                            <h3>{{translate('Count of flats')}}</h3>
                             <h2 class="lidi25">{{$data['house_count']}}</h2>
                         </div>
                     </div>
@@ -95,6 +95,7 @@
                 </div>
             </div>
         </div>
+        <br>
     </div>
     
     <script>
@@ -106,6 +107,7 @@
     <div id="line_months" lang="{{ $line_month }}"></div>
     <div id="no_data" data-text="{{ translate('No data') }}"></div>
     <div id="core_chart" data-arr="{{ $data['core_chart'] }}"></div>
+    <div id="model_id" data-id="{{ $id }}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -115,7 +117,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
-       
+       var line_months = $('#line_months').attr('lang');
         //  chart3
         const core_chart = $('#core_chart').attr('data-arr')
         if (core_chart != '') {
@@ -217,7 +219,8 @@
 
         $(document).on('click','.applyBtn',function(){
             var date = $('.daterange').val()
-            location.href = `/forthebuilder/filtr/${date}`;
+            date = date+' - '+$('#model_id').attr('data-id')
+            location.href = `/forthebuilder/user/filtr-report-houses/${date}`;
         })
 
 </script>

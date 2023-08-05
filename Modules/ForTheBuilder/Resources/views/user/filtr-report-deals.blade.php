@@ -21,12 +21,12 @@
                         <img
                     src="{{ asset('/backend-assets/forthebuilders/images/icons/arrow-left.png') }}"alt=""></a>
                     <h2 class="panelUprText" style="margin: 0; margin-left: 10px;">
-                       {{ translate('Report on clients') }}
+                       {{ translate('Report on deals') }}
                     </h2>
                 </div>
                 <div class="miniSearchDiv5" style="width: 330px; padding-right: 10px;">
                     <h4 class="m-0 mr-2">{{translate('Period')}}: </h4>
-                    <input type="text" class="ms-2 form-control daterange" value="{{ date('01.m.Y').' - '.date('t.m.Y') }}">
+                    <input type="text" class="ms-2 form-control daterange" value="{{ date('d.m.Y',strtotime($data['start'])).' - '.date('d.m.Y',strtotime($data['end'])) }}">
                 </div>
                 <div class="miniSearchDiv5">
                     <span class="btn btn-outline-success btn-sm">
@@ -75,7 +75,6 @@
         </div>
         <br>
     </div>
-    
     <script>
         let page_name = 'report';
     </script>
@@ -196,7 +195,7 @@
 
         $(document).on('click','.applyBtn',function(){
             var date = $('.daterange').val()
-            location.href = `/forthebuilder/user/filtr-report-clients/${date}`;
+            location.href = `/forthebuilder/user/filtr-report-deals/${date}`;
         })
 
 </script>

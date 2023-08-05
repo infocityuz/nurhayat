@@ -18,6 +18,7 @@ use Modules\ForTheBuilder\Entities\Deal;
 use Modules\ForTheBuilder\Entities\House;
 use Modules\ForTheBuilder\Entities\Notification_;
 use Modules\ForTheBuilder\Entities\Task;
+use Modules\ForTheBuilder\Entities\Currency;
 use Modules\ForTheBuilder\Http\Requests\ForTheBuilderUserRequest;
 use Modules\ForTheBuilder\Entities\Constants;
 use Illuminate\Support\Facades\DB;
@@ -1265,8 +1266,581 @@ class UserController extends Controller
             'data'=>$data,
             'months'=>$months,
             'line_month'=>$line_month,
+            'id'=>$id,
             'all_notifications' => $this->getNotification()
         ]);
     }
+
+    // filtrReportClients
+    public function filtrReportClients($date)
+    {
+        $connect_for=Constants::FOR_1;
+        $connect_new=Constants::NEW_1;
+
+        $arr = explode(' - ', $date);
+        $start = date('Y-m-d 00:00:00', strtotime($arr[0]));
+        $end = date('Y-m-d 23:59:59', strtotime($arr[1]));
+
+        $new_users = DB::table($connect_for.'.deals as dt1')->select('history')
+        ->whereNotNull('dt1.history',)
+        ->get();
+
+        $new_users_count = 0;
+        $negotiation_users_count = 0;
+        $making_a_deal_users_count = 0;
+        
+        $new_users_arr = [];
+        if (!empty($new_users)) {
+            foreach ($new_users as $key => $value) {
+                $new_arr = json_decode($value->history);
+                foreach ($new_arr as $keyn => $valuen) {
+                    // new users
+                    if (($valuen->date >= $start && $valuen->date <= $end) && isset($valuen->new_type) && $valuen->new_type == 'First contact') {
+                        $new_users_count++;
+                    }
+
+                    // negotiation_users
+                    if (($valuen->date >= $start && $valuen->date <= $end) && isset($valuen->new_type) && $valuen->new_type == 'Negotiation') {
+                        $negotiation_users_count++;
+                    }
+
+                    // Making a deal
+                    if (($valuen->date >= $start && $valuen->date <= $end) && isset($valuen->new_type) && $valuen->new_type == 'Making a deal') {
+                        $making_a_deal_users_count++;
+                    }
+                }
+            }    
+        }
+
+        // graph, price
+        $month_prices = DB::table($connect_for.'.deals as dt1')
+        ->join($connect_for.'.house_flat as dt2', 'dt2.id', '=', 'dt1.house_flat_id')
+        ->join($connect_new.'.users as dt3', 'dt3.id', '=', 'dt1.user_id')
+        ->where('dt2.status',Constants::STATUS_SOLD)
+        ->where('dt2.sold_date','>=',$start)
+        ->where('dt2.sold_date','<=',$end)
+        ->orderBy('dt3.id', 'desc')
+        ->select('dt3.id','dt1.price_sell','dt1.date_deal','dt3.first_name','dt3.last_name')
+        ->get();
+
+        
+
+        $price=0;
+        $priceArr=[];
+        for ($j=0; $j <= 11; $j++) { 
+            $priceArr[$j] = 0;
+        }
+        
+        $dates = getBetweenDates(date('Y-m-d', strtotime($start)), date('Y-m-d', strtotime($end)));
+        
+
+        $price_day_array = [];
+        $month_day = $dates;
+        for ($i=0; $i <= count($dates); $i++) { 
+            $price_day_array[$i] = 0;
+            // $month_day[$i] = $i;
+        }
+        $core_chart="";
+        $in = [];
+
+        
+        
+        foreach ($month_prices as  $value) {
+            // dd($value);
+            $myDate = date('Y-m-d',strtotime($value->date_deal));
+            $date_table = Carbon::createFromFormat('Y-m-d', $myDate);
+            $month_code = $date_table->format('n');
+            $date_day=Carbon::now()->format('m');
+
+            $month_code_day = $date_table->format('j');
+            
+            if ($month_code == $date_day) {
+                $in[$value->id]['first_name'] = $value->first_name;
+                $in[$value->id]['price_sell'] = ($in[$value->id]['price_sell'] ?? 0) + $value->price_sell;
+                // $core_chart.="['".$value->first_name."',     ".$value->price_sell."],";
+            }
+            // dd($month_code);
+            
+            if ($month_code==$date_day) {
+                $price_day_array[$month_code_day-1] +=$value->price_sell;
+            }
+            
+            // $mont_code = $date_table->format('m');
+            $priceArr[$month_code-1] += $value->price_sell;
+            $price +=$value->price_sell;
+        }
+        // dd($in);
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+        }
+
+        $source = DB::table($connect_for.'.clients')
+        ->select('source', DB::raw('count(*) as total'))
+        ->groupBy('source')
+        ->where('source','!=',null)
+        ->where('created_at','>=',$start)
+        ->where('created_at','<=',$end)
+        ->get();
+        
+        $source_name = [];
+        $source_data = [];
+        $source_color = [];
+        $sources = '';
+        if(!empty($source)){
+             foreach ($source as $key => $value) {
+                array_push($source_name, $value->source);
+                array_push($source_data, $value->total);
+                array_push($source_color, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+                $sources .="['".$value->source."',".$value->total."],";
+            }
+        }
+
+        $months = [
+            translate('January'), 
+            translate('February'), 
+            translate('March'), 
+            translate('April'), 
+            translate('May'), 
+            translate('June'), 
+            translate('July'), 
+            translate('August'), 
+            translate('September'), 
+            translate('October'), 
+            translate('November'), 
+            translate('December')
+        ];
+
+        $data = [
+            'start' => $start,
+            'end' => $end,
+            'new_clients'=>$new_users_count, // Новые клиенты
+            'in_negotiations'=>$negotiation_users_count, // На переговорах
+            'make_deal'=>$making_a_deal_users_count, // Заключение сделки
+            'price'=>$price,
+            'month_sales_price'=>$priceArr,
+            'month_day'=>$month_day,
+            'price_day_array'=>$price_day_array,
+            'core_chart'=>$core_chart,
+            'sources' => $sources,
+        ];
+
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
+        $currency = Currency::first();
+
+
+
+         return view('forthebuilder::user.filtr-report-clients',[
+            'data' => $data,
+            'currency' => $currency,
+            'line_month' => $line_month,
+            'months' => json_encode($months),
+            'all_notifications' => $this->getNotification()
+        ]);
+
+    }
+
+    public function filtrReportDeals($date)
+    {
+        $connect_for=Constants::FOR_1;
+        $connect_new=Constants::NEW_1;
+
+        $arr = explode(' - ', $date);
+        $start = date('Y-m-d 00:00:00', strtotime($arr[0]));
+        $end = date('Y-m-d 23:59:59', strtotime($arr[1]));
+
+        $new_users_count = 0;
+        $negotiation_users_count = 0;
+        $making_a_deal_users_count = 0;
+        $new_users_arr = [];
+        if (!empty($new_users)) {
+            foreach ($new_users as $key => $value) {
+                $new_arr = json_decode($value->history);
+                foreach ($new_arr as $keyn => $valuen) {
+                    // new users
+                    if (($valuen->date >= $start && $valuen->date <= $end) && isset($valuen->new_type) && $valuen->new_type == 'First contact') {
+                        $new_users_count++;
+                    }
+                    
+                    // negotiation_users
+                    if (($valuen->date >= $start && $valuen->date <= $end) && isset($valuen->new_type) && $valuen->new_type == 'Negotiation') {
+                        $negotiation_users_count++;
+                    }
+
+                     // Making a deal
+                    if (($valuen->date >= $start && $valuen->date <= $end) && isset($valuen->new_type) && $valuen->new_type == 'Making a deal') {
+                        $making_a_deal_users_count++;
+                    }
+                }
+            }    
+        }
+            
+        $house_count=DB::table($connect_for.'.house_flat as hf')
+        ->where('hf.deleted_at',null)
+        ->where('hf.created_at','>=',$start)
+        ->where('hf.created_at','<=',$end)
+        ->where('hf.status',2)
+        ->count();
+
+        // ----- house flat free -----
+        $house_flat_status_free = DB::table($connect_for.'.house_flat as house_flat')
+        ->where('house_flat.deleted_at',null)
+        ->where('house_flat.free_end','>=',$start)
+        ->count();
+
+        // ---- house flat booking -----
+        $house_flat_status_booking = DB::table($connect_for.'.house_flat as house_flat')
+        ->where('house_flat.deleted_at',null)
+        ->where('house_flat.booking_end','>=',$start)
+        ->count();
+        
+        // ---- house flat sold -----
+        $house_flat_status_sold = DB::table($connect_for.'.house_flat as house_flat')
+        ->where('house_flat.deleted_at',null)
+        ->where('house_flat.sold_date','>=',$start)
+        ->where('house_flat.sold_date','<=',$end)
+        ->count();
+
+        // ----- installment_plan count ---- 
+        $installment_count = Deal::where('installment_plan_id', '!=', NULL)
+        ->where('date_deal','>=',$start)
+        ->where('date_deal','<=',$end)
+        ->count();
+
+
+        // graph, price
+        $month_prices = DB::table($connect_for.'.deals as dt1')
+        ->join($connect_for.'.house_flat as dt2', 'dt2.id', '=', 'dt1.house_flat_id')
+        ->join($connect_new.'.users as dt3', 'dt3.id', '=', 'dt1.user_id')
+        ->where('dt2.status',Constants::STATUS_SOLD)
+        ->where('dt2.sold_date','>=',$start)
+        ->where('dt2.sold_date','<=',$end)
+        ->orderBy('dt3.id', 'desc')
+        // ->where('dt3.role_id',2)
+        ->select('dt3.id','dt1.price_sell','dt1.date_deal','dt3.first_name','dt3.last_name')
+        ->get();
+
+
+        
+
+        $price=0;
+        $priceArr=[];
+        for ($j=0; $j <= 11; $j++) { 
+            $priceArr[$j] = 0;
+        }
+        
+        $dates = getBetweenDates(date('Y-m-d', strtotime($start)), date('Y-m-d', strtotime($end)));
+        
+
+        $price_day_array = [];
+        $month_day = $dates;
+        for ($i=0; $i <= count($dates); $i++) { 
+            $price_day_array[$i] = 0;
+            // $month_day[$i] = $i;
+        }
+        $core_chart="";
+        $in = [];
+
+        
+        
+        foreach ($month_prices as  $value) {
+            // dd($value);
+            $myDate = date('Y-m-d',strtotime($value->date_deal));
+            $date_table = Carbon::createFromFormat('Y-m-d', $myDate);
+            $month_code = $date_table->format('n');
+            $date_day=Carbon::now()->format('m');
+
+            $month_code_day = $date_table->format('j');
+            
+            if ($month_code == $date_day) {
+                $in[$value->id]['first_name'] = $value->first_name;
+                $in[$value->id]['price_sell'] = ($in[$value->id]['price_sell'] ?? 0) + $value->price_sell;
+                // $core_chart.="['".$value->first_name."',     ".$value->price_sell."],";
+            }
+            // dd($month_code);
+            
+            if ($month_code==$date_day) {
+                $price_day_array[$month_code_day-1] +=$value->price_sell;
+            }
+            
+            // $mont_code = $date_table->format('m');
+            $priceArr[$month_code-1] += $value->price_sell;
+            $price +=$value->price_sell;
+        }
+        // dd($in);
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+        }
+
+        $source = DB::table($connect_for.'.clients')
+        ->select('source', DB::raw('count(*) as total'))
+        ->groupBy('source')
+        ->where('source','!=',null)
+        ->where('created_at','>=',$start)
+        ->where('created_at','<=',$end)
+        ->get();
+        
+        $source_name = [];
+        $source_data = [];
+        $source_color = [];
+        $sources = '';
+        if(!empty($source)){
+             foreach ($source as $key => $value) {
+                array_push($source_name, $value->source);
+                array_push($source_data, $value->total);
+                array_push($source_color, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+                $sources .="['".$value->source."',".$value->total."],";
+            }
+        }
+
+        $months = [
+            translate('January'), 
+            translate('February'), 
+            translate('March'), 
+            translate('April'), 
+            translate('May'), 
+            translate('June'), 
+            translate('July'), 
+            translate('August'), 
+            translate('September'), 
+            translate('October'), 
+            translate('November'), 
+            translate('December')
+        ];
+
+
+        $data = [
+           'start' => $start,
+           'end' => $end,
+           'new_clients'=>$new_users_count, // Новые клиенты
+           'in_negotiations'=>$negotiation_users_count, // На переговорах
+           'make_deal'=>$making_a_deal_users_count, // Заключение сделки
+           'house_count'=>$house_count,
+           'house_flat_status_free'=>$house_flat_status_free,
+           'house_flat_status_booking'=>$house_flat_status_booking,
+           'house_flat_status_sold'=>$house_flat_status_sold,
+           'installment_count'=>$installment_count,
+           'price'=>$price,
+           'month_sales_price'=>$priceArr,
+           'month_day'=>$month_day,
+           'price_day_array'=>$price_day_array,
+           'core_chart'=>$core_chart,
+           'sources'=>$sources,
+        ];
+
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
+        $currency = Currency::first();
+
+        return view('forthebuilder::user.filtr-report-deals',[
+            'data'=>$data,
+            'months' => $months,
+            'line_month' => $line_month,
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
+
+    public function filtrReportHouses($date)
+    {
+        $connect_for=Constants::FOR_1;
+        $connect_new=Constants::NEW_1;
+
+        $arr = explode(' - ', $date);
+
+
+        $start = date('Y-m-d 00:00:00', strtotime($arr[0]));
+        $end = date('Y-m-d 23:59:59', strtotime($arr[1]));
+        $id = $arr['2'];
+
+        $house_count=DB::table($connect_for.'.house_flat as hf')
+        ->where('hf.status',2)
+        ->where('hf.created_at','>=',$start)
+        ->where('hf.created_at','<=',$end)
+        ->where('hf.house_id', $id)
+        ->count();
+        
+        $house_flat_status_free=DB::table($connect_for.'.house_flat as house_flat')
+        ->where('house_flat.deleted_at',null)
+        ->where('house_flat.status',Constants::STATUS_FREE)
+        ->where('house_flat.house_id', $id)
+        ->where('house_flat.created_at','>=',$start)
+        ->where('house_flat.created_at','<=',$end)
+        ->count();
+        
+        $house_flat_status_booking=DB::table($connect_for.'.house_flat as house_flat')
+        ->where('house_flat.deleted_at',null)
+        ->where('house_flat.status',Constants::STATUS_BOOKING)
+        ->where('house_flat.house_id', $id)
+        ->where('house_flat.created_at','>=',$start)
+        ->where('house_flat.created_at','<=',$end)
+        ->count();
+
+        $house_flat_status_sold=DB::table($connect_for.'.house_flat as dt1')
+        ->join($connect_for.'.deals as dt2', 'dt2.house_flat_id', '=', 'dt1.id')
+        ->where('dt1.deleted_at',null)
+        ->where('dt1.status',Constants::STATUS_SOLD)
+        ->where('dt1.house_id', $id)
+        ->where('dt1.created_at','>=',$start)
+        ->where('dt1.created_at','<=',$end)
+        ->count();
+
+        $installment_count = Deal::where('installment_plan_id', '!=', NULL)                
+        ->where('house_id',$id)
+        ->where('date_deal','>=',$start)
+        ->where('date_deal','<=',$end)
+        ->count();
+
+        $source = DB::table($connect_for.'.clients')
+        ->select('source', DB::raw('count(*) as total'))
+        ->groupBy('source')
+        ->where('source','!=',null)
+        ->where('created_at','>=',$start)
+        ->where('created_at','<=',$end)
+        ->get();
+        
+        $source_name = [];
+        $source_data = [];
+        $source_color = [];
+        $sources = '';
+        if(!empty($source)){
+             foreach ($source as $key => $value) {
+                array_push($source_name, $value->source);
+                array_push($source_data, $value->total);
+                array_push($source_color, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+                $sources .="['".$value->source."',".$value->total."],";
+            }
+        }
+
+        $month_prices = DB::table($connect_for.'.deals as dt1')
+            ->join($connect_for.'.house_flat as dt2', 'dt2.id', '=', 'dt1.house_flat_id')
+            ->join($connect_new.'.users as dt3', 'dt3.id', '=', 'dt1.user_id')
+            ->where('dt2.status',Constants::STATUS_SOLD)
+            ->orderBy('dt3.id', 'desc')
+            ->where('dt1.house_id',$id)
+            ->where('dt1.date_deal','>=',$start)
+            ->where('dt1.date_deal','<=',$end)
+            ->select('dt3.id','dt1.price_sell','dt1.date_deal','dt3.first_name','dt3.last_name')
+            ->get();
+
+
+        $names = [];
+        $counts = [];
+        $colors = [];
+
+        $price=0;
+        $priceArr=[];
+        for ($j=0; $j <= 11; $j++) { 
+            $priceArr[$j] = 0;
+        }
+        
+        $year=Carbon::now()->format('y');
+        $month=Carbon::now()->format('m');
+        $last_date = cal_days_in_month(CAL_GREGORIAN, $month,$year);
+
+        $price_day_array = [];
+        $month_day = [];
+        for ($i=0; $i <= $last_date; $i++) { 
+            $price_day_array[$i] = 0;
+            $month_day[$i] = $i;
+        }
+        $core_chart="";
+        $in = [];
+
+
+        foreach ($month_prices as  $value) {
+            
+            $myDate = date('Y-m-d', strtotime($value->date_deal));
+            $date_table = Carbon::createFromFormat('Y-m-d', $myDate);
+            $month_code = $date_table->format('n');
+            $date_day=Carbon::now()->format('m');
+            $month_code_day = $date_table->format('j');
+            if ($month_code==$date_day) {
+                $in[$value->id]['first_name'] = $value->first_name;
+                $in[$value->id]['price_sell'] = ($in[$value->id]['price_sell'] ?? 0) + $value->price_sell;
+                // $core_chart.="['".$value->first_name."',     ".$value->price_sell."],";
+            }
+            // dd($month_code);
+            
+            if ($month_code==$date_day) {
+                $price_day_array[$month_code_day-1] +=$value->price_sell;
+            }
+            
+            // $mont_code = $date_table->format('m');
+            $priceArr[$month_code-1] += $value->price_sell;
+            $price +=$value->price_sell;
+        }
+        // dd($in);
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+        }
+
+        foreach ($in as $key => $value) {
+            // dd($value);
+            $core_chart.="['".$value['first_name']."',".$value['price_sell']."],";
+            array_push($names, $value['first_name']);
+            array_push($counts, $value['price_sell']);
+            array_push($colors, 'rgb('.rand(0,255).', '.rand(0,255).', '.rand(0,255).')');
+        }
+
+        $months = [
+            translate('January'), 
+            translate('February'), 
+            translate('March'), 
+            translate('April'), 
+            translate('May'), 
+            translate('June'), 
+            translate('July'), 
+            translate('August'), 
+            translate('September'), 
+            translate('October'), 
+            translate('November'), 
+            translate('December')
+        ];
+
+        $line_month = '';
+        foreach ($months as $key => $value) {
+            $line_month .= $value.",";
+        }
+        $line_month = rtrim($line_month,",");
+
+        $data=[
+           'start' => $start,
+           'end' => $end,
+           'names' => json_encode($names),
+           'counts' => json_encode($counts),
+           'colors' => json_encode($colors),
+           'source_name' => json_encode($source_name),
+           'source_data' => json_encode($source_data),
+           'source_color' => json_encode($source_color),
+           'house_count'=>$house_count,
+           'house_flat_status_free'=>$house_flat_status_free,
+           'house_flat_status_booking'=>$house_flat_status_booking,
+           'house_flat_status_sold'=>$house_flat_status_sold,
+           'installment_count'=>$installment_count,
+           'price' => $price,
+           'core_chart' => $core_chart,
+           'sources' => $sources,
+
+        ];
+
+        return view('forthebuilder::user.filtr-report-houses',[
+            'data'=>$data,
+            'months'=>$months,
+            'line_month'=>$line_month,
+            'id'=>$id,
+            'all_notifications' => $this->getNotification()
+        ]);
+    }
+
 
 }

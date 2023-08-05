@@ -129,10 +129,9 @@ class ForTheBuilderController extends Controller
             ->count();
             // dd($overdue_tasks);
 
-            $house_count=DB::table($connect_for.'.house as house')
-            ->where('house.deleted_at',null)
+            $house_count=DB::table($connect_for.'.house_flat as hf')
+            ->where('hf.status',2)
             ->count();
-
 
             
             $house_flat_status_free=DB::table($connect_for.'.house_flat as house_flat')
@@ -277,9 +276,10 @@ class ForTheBuilderController extends Controller
             ->count();
             // dd($overdue_tasks);
 
-            $house_count=DB::table($connect_for.'.house as house')
-            ->where('house.deleted_at',null)
+            $house_count=DB::table($connect_for.'.house_flat as hf')
+            ->where('hf.status',2)
             ->count();
+
 
             // pre($house_count);
             
@@ -565,11 +565,19 @@ class ForTheBuilderController extends Controller
 
 
                 // ----- house count -----
-                $house_count = DB::table($connect_for.'.house as house')
-                ->where('house.deleted_at',null)
-                ->where('house.created_at','>=',$start)
-                ->where('house.created_at','<=',$end)
+                // $house_count = DB::table($connect_for.'.house as house')
+                // ->where('house.deleted_at',null)
+                // ->where('house.created_at','>=',$start)
+                // ->where('house.created_at','<=',$end)
+                // ->count();
+
+                $house_count=DB::table($connect_for.'.house_flat as hf')
+                ->where('hf.deleted_at',null)
+                ->where('hf.created_at','>=',$start)
+                ->where('hf.created_at','<=',$end)
+                ->where('hf.status',2)
                 ->count();
+
 
                 // ----- house flat free -----
                 $house_flat_status_free = DB::table($connect_for.'.house_flat as house_flat')
@@ -724,10 +732,11 @@ class ForTheBuilderController extends Controller
 
 
                 // ----- house count -----
-                $house_count = DB::table($connect_for.'.house as house')
-                ->where('house.deleted_at',null)
-                ->where('house.created_at','>=',$start)
-                ->where('house.created_at','<=',$end)
+                $house_count=DB::table($connect_for.'.house_flat as hf')
+                ->where('hf.deleted_at',null)
+                ->where('hf.created_at','>=',$start)
+                ->where('hf.created_at','<=',$end)
+                ->where('hf.status',2)
                 ->count();
 
                 // ----- house flat free -----
